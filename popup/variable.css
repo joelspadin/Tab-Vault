@@ -1,0 +1,42 @@
+.tab .title,
+.tabgroup .top .title {
+	width: <PopupWidth,-54>px;
+}
+
+.tab.trash .title {
+	width: <PopupWidth,-40>px;
+}
+
+ul.scroll .tab .title,
+ul.scroll .tabgroup .top .title,
+#tab-shim.scroll .title {
+	width: <PopupWidth,-66>px;
+}
+
+ul.scroll .tab.trash .title {
+	width: <PopupWidth,-50>px;
+}
+
+.tabgroup input.title {
+	width: <PopupWidth,-60>px;
+}
+
+ul.scroll .tabgroup input.title {
+	width: <PopupWidth,-70>px;
+}
+
+body.tabs #button-tabs:before {
+	margin-left: <TabsAdjust,9>px;
+}
+
+body.tabs #button-tabs:after {
+	margin-left: <TabsAdjust,11>px;
+}
+
+body.trash #button-trash:before {
+	margin-left: <TrashAdjust,9>px;
+}
+
+body.trash #button-trash:after {
+	margin-left: <TrashAdjust,11>px;
+}

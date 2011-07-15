@@ -1,0 +1,8 @@
+
+.expander:after {
+	content: '(verstecken)';
+}
+
+.expander.collapsed:after {
+	content: '(anzeigen)';
+}

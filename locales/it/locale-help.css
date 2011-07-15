@@ -1,0 +1,8 @@
+
+.expander:after {
+	content: '(clicca per nascondere)';
+}
+
+.expander.collapsed:after {
+	content: '(clicca per mostrare)';
+}

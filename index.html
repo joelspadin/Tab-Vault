@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+	<script src="js/debug.js"></script>
+	<script src="locale-misc.js"></script>
+	<script src="js/storage.js"></script>
+	<script src="js/session.js"></script>
+	<script src="js/background.js"></script>
+	<script>
+		var locale = settings.get('locale');
+		if (locale) {
+			var s = document.createElement('script');
+			s.src = 'locales/' + locale + '/locale-misc.js';
+			document.head.appendChild(s);
+		}
+	</script>
+</head>
+<body>
+</body>
+</html>

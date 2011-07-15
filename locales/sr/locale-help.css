@@ -1,0 +1,8 @@
+﻿
+.expander:after {
+	content: '(сакриј)';
+}
+
+.expander.collapsed:after {
+	content: '(прикажи)';
+}

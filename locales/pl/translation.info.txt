@@ -1,0 +1,4 @@
+Translated by Saskatchewan (http://my.opera.com/Saskatchewan/)
+Last updated for Tab Vault 2.3 (03.06.2011)
+17.06.2011:
+    - 'Otwórz na nowej karcie w tle i Usuñ' changed to 'Otwórz na karcie w tle i Usuñ' so that it doesn't wrap to two lines

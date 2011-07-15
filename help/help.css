@@ -1,0 +1,143 @@
+
+section h1, 
+section h2 {
+	margin-top: 1.5em;
+}
+
+h3 {
+	margin-top: 2em;
+	margin-bottom: 0em;
+}
+
+h3 .sub {
+	font-size: 90%;
+	opacity: 0.75;
+	margin-left: 1.5em;
+}
+
+
+p {
+	margin: 0.5em 0 0.5em;
+}
+
+.expander {
+	position: relative;
+	padding: 0 4px;
+	margin-bottom: 0;
+	margin-left: -4px;
+	cursor: pointer;
+	background: rgba(80,80,130, 0);
+	border: 0px solid rgba(30,56,83, 0);
+	border-top-width: 1px;
+	-o-transition: 0.15s;
+}
+
+.expander.collapsed {
+	border-bottom-width: 1px;
+}
+
+.expander:hover {
+	background-color: rgba(80,80,130, 0.05);
+	border-color: rgba(30,56,83, 0.1);
+}
+
+.expander:after {
+	margin-left: 1em;
+	font-weight: normal;
+	color: rgba(30,56,83, 0.25);
+	-o-transition: color 0.15s;
+	content: '(click to hide)';
+}
+
+.expander.collapsed:after {
+	color: rgba(30,56,83, 0.45);
+	content: '(click to show)';
+}
+
+.expander:hover:after {
+	color: rgba(30,56,83, 0.5);
+}
+
+
+.expander + .collapsible {
+	padding: 0.5em 4px;
+	background-color: rgba(80,80,130,0);
+	border-bottom: 1px solid rgba(30,56,83, 0);
+}
+
+.expander + .collapsible p:first-child,
+.expander + .collapsible h3:first-child {
+	margin-top: 0;
+}
+
+.expander:not(.collapsed):hover + .collapsible {
+	background-color: rgba(80,80,130,0.02);
+	border-color: rgba(30,56,83, 0.1);
+}
+
+.expander.collapsed + .collapsible {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+
+.error {
+	color: red;
+}
+
+
+/* figure styles mostly stolen from html5doctor */
+figure {
+	display: block;
+	margin: 1.5em 0 1em;
+	
+}
+
+figcaption {
+	display: block;
+	margin: .25em 0 0.75em;
+	text-align: center;
+	font-style: italic;
+	
+}
+
+figure img {
+	display: block;
+	margin: 0 auto 0.25em;
+	border: 1px solid #999;
+	padding: 6px;
+	background: #fff;
+	
+	box-sizing: border-box;
+	-o-object-fit: contain;
+	max-width: 100%;
+}
+
+figure blockquote {
+	margin-left: 0;
+	border: 1px dashed #999;
+	padding: 6px;
+	font-style: normal;
+}
+
+figure blockquote p {
+	margin: .75em 0;
+	padding: 0 1.5em;
+}
+
+figure blockquote p:first-child {
+	text-indent: 0;
+}
+
+figure blockquote p:first-child:before {
+	content: '';
+}
+
+figure blockquote p + p {
+	margin-top: 1.5em;
+}
+
+figure ol, figure ul {
+	margin: .75em 0;
+	padding: 0 1.5em;
+}

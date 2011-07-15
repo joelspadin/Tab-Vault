@@ -1,0 +1,362 @@
+<!doctype html>
+<html>
+<head>
+	<title>Tab Vault</title>
+	<link rel="stylesheet" href="popup.css">
+	<script src="../js/debug.js"></script>
+	<script src="../js/storage.js"></script>
+	<script src="../js/il8n.js"></script>
+	<script src="../js/classList.js"></script>
+	<script src="../locale-popup.js"></script>
+	<script src="../locale-misc.js"></script>
+	<script src="context.js"></script>
+	<script src="popup.js"></script>
+	<script src="dragdrop.js"></script>
+	<script>
+		il8n.loadLocaleScript('locale-popup.js');
+		il8n.loadLocaleScript('locale-misc.js');
+	</script>
+</head>
+<body class="tabs">
+	<header>
+		<a id="save-tab">Save Tab</a>
+		<nav>
+			<a id="button-options" href="../options.html" target="_blank">Options</a>
+			<a id="button-tabs">Tabs</a>
+			<a id="button-trash">Trash</a>
+		</nav>
+	</header>
+	
+	<section id="panel-tabs" class="page">
+		<ul id="tab-list" style="display:none"></ul>
+	</section>
+	
+	<section id="panel-trash" class="page">
+		<a id="clear-trash">Clear List of Closed Tabs</a>
+		<ul id="trash-list"></ul>
+	</section>
+	
+	<div id="message" class="hidden" style="display:none">
+	</div>
+	
+	<div id="drag-shim" style="display: none" class="hidden">
+		<div id="tab-shim" class="tab"></div>
+		<div id="trash-shim">Drop to Delete Item</div>
+	</div>
+	
+	<script>
+		window.saveToGroup = 0;
+		
+		contextmenus.init();
+		
+		// Locale stuff
+		il8n.translatePage([
+			['save-tab', 'SaveTab'],
+			['button-options', 'Options'],
+			['button-tabs', 'Tabs'],
+			['button-trash', 'Trash'],
+			['clear-trash', 'ClearTrash'],
+			['trash-shim', 'DropToTrash'],
+		], 'text');
+		
+		if (tabs.tooltips) {
+			il8n.translatePage([
+				['save-tab', 'SaveTabTip'],
+				['button-options', 'OptionsTip'],
+				['button-tabs', 'TabsTip'],
+				['button-trash', 'TrashTip'],
+				['clear-trash', 'ClearTrashTip'],
+			], 'title');
+		}
+		
+		localesettings.PopupWidth = Math.max(
+			localesettings.PopupWidth, settings.get('popup_width'));
+		varstyle.addStyle('variable.css', localesettings);
+		
+		if (settings.get('disable_animation')) {
+			var style = dom.make('style');
+			style.textContent = '*{-o-transition-property:none !important}';
+			document.head.appendChild(style);
+			tabs.animLength = 10;
+		}
+		
+		// Changes between 'tabs' and 'trash' lists
+		function changePage(page) {
+			document.body.className = page;
+			enableTrash();
+			requestResize(page);
+		}
+		
+		// Enables/disables the trash list
+		function enableTrash() {
+			if (storage.trash.count == 0) {
+				$('#button-trash').addClass('disabled');
+				if (document.body.className == 'trash') {
+					debug('trash disabled');
+					document.body.className = 'tabs';
+					requestResize('tabs');
+				}
+			}
+			else
+				$('#button-trash').removeClass('disabled');
+		}
+		
+		// Asks the background page to resize the current page
+		function requestResize(page, delay) {
+			//debug('resize ' + page);
+			var size = 0;
+			if (page == 'tabs') {
+				var size = tabs.tabs.length;
+				for (var i = 0; i < tabs.tabs.length; i++) {
+					if (tabs.tabs[i].tabsize) 
+						size += tabs.tabs[i].tabsize - 1;
+				}
+			}
+			
+			opera.extension.postMessage({ 
+				action: 'resize', 
+				page: page, 
+				size: size,
+				delay: delay || 0,
+			});
+		}
+		
+		// Updates list height and scrollbars on long lists
+		function resizeLists() {
+			var lists = document.querySelectorAll('section.page > ul');
+			
+			for (var i = 0; i < lists.length; i++) {
+				var pos = dom.position(lists[i]);
+				var height = window.innerHeight - pos.y - 8;
+				if (lists[i].scrollHeight > height) {
+					if (!lists[i].hasClass('scroll')) 
+						lists[i].addClass('scroll');
+				}
+				else if (lists[i].hasClass('scroll')) {
+					lists[i].removeClass('scroll');
+					//Close buttons jump when removing scroll bar, so disable opening
+					//tabs for a moment in case user is rapidly clicking close buttons
+					tabs.disableOpen();
+				}
+
+				lists[i].style.maxHeight = height + 'px';
+			}
+		}
+		
+
+		function showMessage(msg) {
+			var box = $('#message');
+			box.style.display = 'block';
+			box.textContent = msg;
+			box.addClass('show');
+			addEventListener('click', hideMessage, true);
+			addEventListener('mousedown', blockEvent, true);
+		}
+		
+		function hideMessage(e) {
+			$('#message').removeClass('show');
+			if (e && e.preventDefault)
+				e.preventDefault();
+			if (e && e.stopPropagation)
+				e.stopPropagation();
+			
+			removeEventListener('click', hideMessage, true);
+			removeEventListener('mousedown', blockEvent, true);
+		}
+		
+		function blockEvent(e) {
+			e.stopPropagation();
+			e.preventDefault();
+		}
+		
+		function afterSave(savedFocused) {
+			changePage('tabs');
+					
+			if (savedFocused && settings.get('close_tab_on_save'))
+				opera.extension.postMessage({ action: 'close_tab' });
+			if (settings.get('close_on_save')) 
+				window.close();
+		}
+		
+		
+		opera.extension.onmessage = function(e) {
+			switch(e.data.action) {
+				case 'get_tab':
+					var info = {
+						url: e.data.url,
+						title: e.data.title,
+						icon: e.data.icon
+					}
+					
+					if (window.saveToGroup > 0) {
+						var group = tabs.getGroup(window.saveToGroup);
+						if (group) {
+							group.add(new Tab(info));
+							group.updateHeight();
+							
+							if (tabs.groupToTop)
+								group.move(group.tabs.length - 1, 0);
+						}
+					}
+					else {
+						tabs.add(new Tab(info));
+					
+						if (window.saveToGroup == -1) 
+							tabs.makeGroup(tabs.tabs.length - 1, info.title);
+
+						if (tabs.saveToTop)
+							tabs.move(tabs.tabs.length - 1, 0);
+					}
+					
+					var allowClose = window.saveToGroup != -1;
+					window.saveToGroup = 0;
+					
+					afterSave(allowClose);					
+					break;
+					
+				case 'get_group':
+					tabs.add(new Tab(e.data.tabs[0]));
+					var group = tabs.makeGroup(tabs.tabs.length - 1, e.data.title);
+					
+					for (var i = 1; i < e.data.tabs.length; i++) {
+						group.add(new Tab(e.data.tabs[i]));
+					}
+					
+					if (tabs.saveToTop)
+						tabs.move(tabs.tabs.length - 1, 0);
+					
+					afterSave(false);
+					break;
+				
+				case 'reload_icon_done':
+					var reloadedTab = tabs.getTab(e.data.index, e.data.group);
+					reloadedTab.update({ icon: e.data.icon });
+					break;
+				
+				case 'get_error':
+					showMessage(il8n.get('CannotSave'));
+					window.saveToGroup = false;
+					break;
+				case 'open_error':
+					showMessage(il8n.get('CannotOpen'));
+					break;
+				case 'resize_done':
+					resizeLists();
+					break;
+				case 'need_reload':
+					$('header').className = 'reload';
+					break;
+				case 'close':
+					window.close();
+					break;
+			}
+		}
+		
+		addEventListener('DOMContentLoaded', function() {
+			var tablist = $('#tab-list');
+			
+			// Build and fill the tabs and trash lists
+			tabs.init(tablist);
+			trash.init($('#trash-list'));
+
+			// If the tab list takes longer than a second to load, show it
+			// anyways.
+			var showTimer = setTimeout(function() {
+				tablist.style.display = 'block';
+				requestResize('tabs');
+			}, 1000);
+
+			var count = storage.tabs.count;
+			for (var i = 0; i < count; i++) {
+				var info = storage.tabs.get(i);
+				if (info.group) {
+					// Build a new group item
+					var groupCount = storage.tabs.getCount(info.group);
+					var group = new TabGroup(info);
+					tabs.attachGroup(group);
+					// Attach all the group's tabs'
+					for (var j = 0; j < groupCount; j++)
+						group.attachTab(new Tab(storage.tabs.get(j, info.group)));
+				}
+				else
+					tabs.attachTab(new Tab(storage.tabs.get(i)));
+			}
+			
+			clearTimeout(showTimer);
+			tablist.style.display = 'block';
+			// delay slightly if keepExpanded is on so groups have time to
+			// expand before the resize takes place
+			requestResize('tabs', tabs.keepExpanded * 100);
+		
+			enableTrash();
+			count = storage.trash.count;
+			for (var i = 0; i < count; i++)
+				trash.attachTab(new Trash(storage.trash.get(i)));
+				
+		
+			// Update things when tabs are trashed or restored
+			tabs.ontrash = function(e) {
+				if (e.group)
+					requestResize('tabs', tabs.animLength);
+				else
+					requestResize('tabs');
+				enableTrash();
+			};
+			tabs.ongroupexpand = function(e) {
+				requestResize('tabs', !e.expanded * tabs.animLength);
+				if (e.expanded)
+					setTimeout(function() { requestResize('tabs') }, tabs.animLength);
+			};
+			trash.onrestore = function() {
+				requestResize('trash');
+				enableTrash();
+			};
+			
+			dragdrop.onresize = function() {
+				requestResize('tabs', tabs.resizeDelay);
+			}
+			
+		}, false);
+		
+		// Set up event handlers
+		//addEventListener('load', function(e) {
+		//	resizeLists('tabs');
+		//}, false);
+		
+		document.body.addEventListener('mousedown', function(e) {
+			e.preventDefault();
+		}, false);
+		
+		// Space and Enter like to press the extension's button which resizes the popup
+		addEventListener('keypress', function(e) {
+			if (e.target.nodeName == 'INPUT') 
+				return;
+			
+			if (e.keyCode == 13 || e.keyCode == 32) ;
+				e.preventDefault();
+		}, false);
+		
+		
+		$('#button-tabs').addEventListener('click', function(e) {
+			changePage('tabs');
+		}, false);
+		
+		$('#button-trash').addEventListener('click', function(e) {
+			if (storage.trash.count > 0)
+				changePage('trash');
+		}, false);
+		
+		$('#save-tab').addEventListener('click', function(e) {
+			opera.extension.postMessage({
+				action: 'get_tab'
+			});
+		},false);
+		
+		$('#clear-trash').addEventListener('click', function(e) {
+			trash.clear();
+			changePage('tabs');
+		}, false);
+		
+	</script>
+</body>
+</html>

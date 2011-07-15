@@ -1,0 +1,675 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="options.css">
+	<script src="js/debug.js"></script>
+	<script src="js/natcompare.js"></script>
+	<script src="js/storage.js"></script>
+	<script src="js/options.js"></script>
+	<script src="js/il8n.js"></script>
+	<script src="js/classList.js"></script>
+	<script src="locale-options.js"></script>
+	<script src="locale-misc.js"></script>
+	<script>
+		il8n.loadLocaleScript('locale-options.js');
+		il8n.loadLocaleScript('locale-misc.js');
+	</script>
+	<title id="title">Tab Vault Options</title>
+</head>
+<body>
+	<header>
+		<img src="img/icon.png">
+		<div class="right">
+			<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span></h1>
+			<h2><span data-loc="by">By</span> <span id="widget-author">Joel Spadin</span></h2>
+		</div>
+		<div class="clear"></div>
+	</header>
+
+	<section>
+		<h3 data-loc="prefs">Preferences</h3>
+		<fieldset>
+			<p style="display: none">
+				<input name="compact" id="compact" type="checkbox">
+				<label for="compact">Collapse tabs to one line</label>
+			</p>
+			<p>
+				<input name="tooltips" id="tooltips" type="checkbox">
+				<label for="tooltips">Show help tooltips in the popup</label>
+			</p>
+			<p>
+				<input name="verbose_tab_tips" id="verbose_tab_tips" type="checkbox">
+				<label for="verbose_tab_tips">Show both title and URL in tab tooltips</label>
+			</p>
+			<p>
+				<input name="disable_animation" id="disable_animation" type="checkbox">
+				<label for="disable_animation">Disable UI Animation</label>
+			</p>
+			<p>
+				<input name="trash_on_open" id="trash_on_open" type="checkbox">
+				<label for="trash_on_open">Send tabs to the trash after opening them</label>
+			</p>
+			<p>
+				<input name="save_to_top" id="save_to_top" type="checkbox">
+				<label for="save_to_top">Add saved tabs to the top of the list</label>
+			</p>
+			<p>
+				<input name="group_to_top" id="group_to_top" type="checkbox">
+				<label for="group_to_top">When grouping tabs, add tabs to the top of the group</label>
+			</p>
+			<p>
+				<input name="close_tab_on_save" id="close_tab_on_save" type="checkbox">
+				<label for="close_tab_on_save">Close the current tab after saving it</label>
+			</p>
+			<p>
+				<input name="close_on_save" id="close_on_save" type="checkbox">
+				<label for="close_on_save">Close the popup after saving the current tab</label>
+			</p>
+			<p>
+				<input name="close_on_pageopen" id="close_on_pageopen" type="checkbox">
+				<label for="close_on_pageopen">Close the popup after dropping a tab from the list onto the page</label>
+			</p>
+			<p>
+				<input name="keep_groups_open" id="keep_groups_open" type="checkbox">
+				<label for="keep_groups_open">Keep groups expanded when reopening the popup</label>
+			</p>
+			<p>
+				<input name="show_badge" id="show_badge" type="checkbox">
+				<label for="show_badge">Show the number of saved tabs on the toolbar button</label>
+			</p>
+			<div class="suboption colors" data-expandsetting="show_badge" data-expandvalue="true">  
+				<p>
+					<input name="bkg_color" id="bkg_color" type="color">
+					<button class="default">Default</button>
+					<label for="bkg_color">Button background color</label>
+				</p>
+				<p>
+					<input name="bkg_alpha" id="bkg_alpha" type="number" min="0" max="255">
+					<button class="default">Default</button>
+					<label for="bkg_alpha">Button background opacity</label>
+				</p>
+				<p>
+					<input name="text_color" id="text_color" type="color">
+					<button class="default">Default</button>
+					<label for="text_color">Button text color</label>
+				</p>
+				<p>
+					<input name="text_alpha" id="text_alpha" type="number" min="0" max="255">
+					<button class="default">Default</button>
+					<label for="text_alpha">Button text opacity</label>
+				</p>
+			</div>
+			
+			<p>
+				<input name="limit_height" id="limit_height" type="checkbox">
+				<label for="limit_height">Limit the height of the popup</label>
+			</p>
+			<div class="suboption" data-expandsetting="limit_height" data-expandvalue="true">
+				<p>
+					<input name="max_height" id="max_height" type="number" min="232" step="2">
+					<label for="max_height">Maximum popup height (px)</label>
+				</p>
+			</div>
+			<p>
+				<input name="popup_width" id="popup_width" type="number" min="250" step="2">
+				<label for="popup_width">Popup width (px)</label>
+			</p>
+			<p>
+				<select name="middle_click" id="middle_click">
+					<option value="open" data-loc="mc_open">Open tab in background</option>
+					<option value="close" data-loc="mc_close">Delete tab</option>
+					<option value="none" data-loc="mc_none">Do nothing</option>
+				</select>
+				<label for="middle_click">Middle click action</label>
+			</p>
+			<p>
+				<select name="cxmstyle" id="cxmstyle">
+					<option value="dfl">Dragonfly</option>
+					<option value="win">Windows 7</option>
+					<option value="win op">Windows (Opera)</option>
+					<option value="mac">Mac OSX</option>
+					<option value="uty">Ubuntu (Unity)</option>
+				</select>
+				<label for="cxmstyle">Context menu style</label>
+			</p>
+			<p>
+				<select name="locale" id="locale">
+					<option value="" data-loc="default_lang">Default</option>
+					<option value="de">Deutsch</option>
+					<option value="en">English</option>
+					<option value="es">Español</option>
+					<option value="it">Italiano</option>
+					<option value="pl">Polski</option>
+					<option value="pt">Portuguẽs</option>
+					<option value="ru">Pусский</option>
+					<option value="sr">Cрпски</option>
+					<option value="tr">Türkçe</option>
+				</select>
+				<label for="locale">Language (requires restart)</label>
+			</p>
+		</fieldset>
+
+		<h3 data-loc="importexport">Import/Export</h3>
+		<fieldset>
+			<p data-loc="importnote"><strong>Note:</strong> Importing a session will temporarily open each imported tab to collect favicons.</p>
+			<p>
+				<button id="export">Export Session</button>
+				<label for="export">Export your saved tabs as a session file</label>
+			</p>
+			<p>
+				<button id="import">Import Session</button>
+				<label for="import">Import a session file to your saved tabs</label>
+				<span class="status">
+					<span class="working" data-loc="importing">Importing...</span>
+					<span class="error">Failed!</span>
+					<span class="complete">Done!</span>
+				</span>
+				<span class="right">
+					<textarea id="import_textarea" 
+						placeholder="Open a session file (.win) in a text editor, then copy and paste the contents here before clicking Import."></textarea>
+					<input type="file" id="import_fileselect" style="display:none">
+				</span>
+			</p>
+		</fieldset>
+
+		<h3 data-loc="reset">Reset</h3>
+		<fieldset>
+			<p>
+				<button id="reset_settings">Reset Settings</button>
+				<label for="reset_settings">Reset all settings to their default values</label>
+			</p>
+			<p>
+				<button id="reset_tabs">Clear Vault</button>
+				<label for="reset_tabs">Remove all saved tabs from the vault</label>
+				<span class="status">
+					<span class="complete">Done.</span>
+				</span>
+			</p>
+			<p>
+				<button id="reset">Reset Everything</button>
+				<label for="reset">Reset Tab Vault to its original state</label>
+			</p>
+		</fieldset>
+		
+		<h3 data-loc="external">Buttons and Shortcuts</h3>
+		<fieldset class="access">
+			<p id="access_enabled">Set a password to allow shortcuts to access Tab Vault</p>
+			<p>
+				<label for="password">Password</label>
+				<input name="password" id="password" type="text">
+				<button id="new_pass">Generate</button>
+			</p>
+			<div id="access_expander">
+				<p>
+					<label for="ext_close_on_save"></label>
+					<input name="ext_close_on_save" id="ext_close_on_save" type="checkbox" data-nosave>
+				</p>
+				<p>
+					<label data-loc="saveaction">Save tab action - Use with keyboard shortcuts and mouse gestures</label>
+					<input id="opera_action" type="text" readonly>
+				</p>
+				<p>
+					<label data-loc="savebutton">Save tab button - Click to save, then drag to a toolbar from the Appearance window</label>
+					<span id="save_buttons"></span>
+				</p>
+			</div>
+		</fieldset>
+		
+		<h3 data-loc="help">Need Help?</h3>
+		<p>
+			<a href="help.html" data-loc="helplink">Click here to view the help 
+				page for more information about what Tab Vault is, how it works, and 
+				how to use it.</a>
+		</p>
+		
+	</section>
+
+	<section id="options_debug" style="display: none">
+		<h3>Debug (press Shift+~ to hide)</h3>
+		<p><a href="upgrade.html">Run upgrader</a></p>
+		<p><a href="help.html#first" id="first_help">First time help</a></p>
+		<p><a href="popup/index.html">Panel interface</a></p>
+		<h3>widget.preferences</h3>
+		<div id="storage_list"></div>
+	</section>
+	
+	
+	<section class="localizations">
+		<ul>
+			<li>German localization by <a href="http://my.opera.com/FreebirthOne/">FreebirthOne</a></li>
+			<li>Italian localization by <a href="http://my.opera.com/DarkRevenger/">Dark Revenger</a></li>
+			<li>Polish localization by <a href="http://my.opera.com/Saskatchewan/">Saskatchewan</a></li>
+			<li>Portuguese localization by <a href="http://my.opera.com/ilidiomartins/">Ilidio</a></li>
+			<li>Russian localization by <a href="http://my.opera.com/kochev/">Dmitry Kochev</a></li>
+			<li>Serbian localization by <a href="http://my.opera.com/shobra/">shobra</a></li>
+			<li>Spanish localization by <a href="http://my.opera.com/jrezola/">Juan</a></li>
+			<li>Turkish localization by <a href="http://my.opera.com/metude/">metude</a></li>
+		</ul>
+		<div class="clear"></div>
+	</section>
+
+	<footer>
+		<p data-loc="footer">
+			<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
+			is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, 
+			images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
+			and <a href="http://www.opera.com">Opera Software</a>
+		</p>
+	</footer>
+	
+<script>
+var $ = function(sel) {
+	return document.querySelector(sel);
+}
+
+il8n.translatePage([
+	['title', 'Title'],
+	['loc:by', 'By'],
+	
+	['loc:prefs', 'Preferences'],
+	['lbl:compact', 'CompactTabs'],
+	['lbl:tooltips', 'Tooltips'],
+	['lbl:verbose_tab_tips', 'VerboseTabTips'],
+	['lbl:trash_on_open', 'TrashOnOpen'],
+	['lbl:disable_animation', 'DisableAnimation'],
+	['lbl:save_to_top', 'SaveToTop'],
+	['lbl:group_to_top', 'GroupToTop'],
+	['lbl:close_tab_on_save', 'CloseTabOnSave'],
+	['lbl:close_on_save', 'CloseOnSave'],
+	['lbl:close_on_pageopen', 'CloseOnPageOpen'],
+	['lbl:keep_groups_open', 'KeepGroupsOpen'],
+	['lbl:show_badge', 'ShowBadge'],
+	['lbl:bkg_color', 'BackgroundColor'],
+	['lbl:bkg_alpha', 'BackgroundAlpha'],
+	['lbl:text_color', 'TextColor'],
+	['lbl:text_alpha', 'TextAlpha'],
+	['lbl:limit_height', 'LimitHeight'],
+	['lbl:max_height', 'MaxHeight'],
+	['lbl:popup_width', 'PopupWidth'],
+	['lbl:middle_click', 'MiddleClick'],
+	['loc:mc_open', 'MiddleClickOpen'],
+	['loc:mc_close', 'MiddleClickClose'],
+	['loc:mc_none', 'MiddleClickNone'],
+	['loc:default_lang', 'Default'],
+	['lbl:cxmstyle', 'CxMenuStyle'],
+	['lbl:locale', 'Language'],
+	
+	['loc:importexport', 'ImportExport'],
+	['loc:importnote', 'ImportNote', 'html'],
+	['export', 'ExportButton'],
+	['lbl:export', 'Export'],
+	['import', 'ImportButton'],
+	['lbl:import', 'Import'],
+	['import_textarea', 'ImportPlaceholder', 'placeholder'],
+	['loc:importing', 'ImportWorking'],
+	
+	['loc:reset', 'Reset'],
+	['reset_settings', 'ResetSettingsButton'],
+	['lbl:reset_settings', 'ResetSettings'],
+	['reset_tabs', 'ResetTabsButton'],
+	['lbl:reset_tabs', 'ResetTabs'],
+	['reset', 'ResetAllButton'],
+	['lbl:reset', 'ResetAll'],
+	
+	['loc:external', 'ExternalAccess'],
+	['access_enabled', 'EnableAccess'],
+	['lbl:password', 'Password'],
+	['new_pass', 'NewPassword'],
+	['lbl:ext_close_on_save', 'CloseTabOnSave'],
+	['loc:saveaction', 'SaveTabAction'],
+	['loc:savebutton', 'SaveTabButton'],
+	
+	['loc:help', 'Help'],
+	['loc:helplink', 'HelpLink'],
+	['loc:footer', 'Footer', 'html'],
+]);
+
+il8n.translateAll('.complete', 'ActionDone');
+il8n.translateAll('.error', 'ActionFailed');
+il8n.translateAll('.default', 'Default');
+
+if (localesettings.LocalizedHelp)
+	il8n.localizeLinks([
+		'loc:helplink',
+		'first_help',
+	]);
+
+var useFileApi = false;
+if (typeof FileReader != 'undefined') {
+	$('#import_textarea').style.display = 'none';
+	$('#import_fileselect').style.display = 'inherit';
+	useFileApi = true;
+}
+
+
+var updateAction;
+var importing = false;
+
+opera.extension.onmessage = function(e) {
+	switch (e.data.action) {
+		case 'update':
+			if (updateAction) {
+				updateAction(e.data);
+				updateAction = null;
+			}
+			break;
+		case 'import_error':
+			errorStatus('import');
+			var el = useFileApi ? $('#import_fileselect') : $('#import_textarea');
+			el.disabled = $('#import').disabled = importing = false;
+			break;
+		case 'import_done':
+			closeStatus('import');
+			var el = useFileApi ? $('#import_fileselect') : $('#import_textarea');
+			el.disabled = $('#import').disabled = importing = false;
+			break;
+	}
+}
+
+
+
+function updateExternalAccess() {
+	if (settings.get('password')) {
+		var close = $('#ext_close_on_save').checked;
+		
+		$('#access_enabled').style.display = 'none';
+		$('#access_expander').style.display = 'inherit';
+		$('#opera_action').value = access.makeAction(close);
+		access.makeButtons($('#save_buttons'), close);
+	}
+	else {
+		$('#access_enabled').style.display = 'inherit';
+		$('#access_expander').style.display = 'none';
+		$('#opera_action').value = '';
+		$('#save_buttons').innerHTML = '';
+	}
+}
+
+
+
+
+function openStatus(id) {
+		var status = $('#' + id + ' ~ .status');
+		status.className = 'status working open';
+	}
+	
+function closeStatus(id) {
+	var status = $('#' + id + ' ~ .status');
+	status.className = 'status complete open';
+	window.setTimeout(function() {
+		status.className = 'status complete';
+	}, 5000);
+}
+
+function errorStatus(id) {
+	var status = $('#' + id + ' ~ .status');
+	status.className = 'status error open';
+	window.setTimeout(function() {
+		status.className = 'status error';
+	}, 5000);
+}
+
+
+
+addEventListener('DOMContentLoaded', function() {
+	
+	// attach special stuff to HTML elements
+	dom.fixPlaceholders();
+	
+	var expanders = document.querySelectorAll('.expander');
+	for (var i = 0; i < expanders.length; i++) 
+		new Expander(expanders[i]);
+	
+	var expandOptions = document.querySelectorAll('[data-expandsetting]');
+	for (var i = 0; i < expandOptions.length; i++)
+		new Collapsible(expandOptions[i]);
+	
+	function updateExpandOptions() {
+		for (var i = 0; i < expandOptions.length; i++) {
+			var suboption = expandOptions[i];
+			var setting = suboption.getAttribute('data-expandsetting');
+			var settingValue = settings.get(setting);
+			var expandValue = suboption.getAttribute('data-expandvalue') || '';
+					
+			if (settingValue.toString() == expandValue 
+				|| (!expandValue && settingValue))
+				suboption.expand();
+			else
+				suboption.collapse();
+		}
+	}
+	updateExpandOptions();
+	
+	updateExternalAccess();
+	
+	
+	// list of FORM elements
+	var skip      = hash('hidden,submit,image,reset,button');
+	var checkable = hash('checkbox,radio');
+	var radio     = hash('radio');
+	
+	// get the FORM elements
+	var formElements = document.querySelectorAll('input,select');
+
+	// string to hash
+	function hash(str, glue) {
+		var obj = {};
+		var tmp = str.split(glue || ',');
+
+		while( tmp.length ) 
+			obj[ tmp.pop() ] = true;
+
+		return obj;
+	}
+
+	// walk the elements and apply a callback method to them
+	function walkElements(callback)
+	{
+		var obj = [];
+		for(var i = 0, element = null; element = formElements[i]; i++)
+		{
+			// skip the element if it has no name or is of a type with no useful value
+			var type = element.type.toLowerCase();
+			var name = element.name || '';
+			if(skip[type] === true || name == '' || element.hasAttribute('data-nosave')) 
+				continue;
+
+			var tmp = callback(element, name, type);
+			if(tmp != null)
+				obj.push(tmp);
+		}
+		return obj;
+	}
+
+	// sets the value of an element to its saved value
+	function updateElement(element, name, type) {
+		var name = name || element.name || '';
+		var type = type || element.type.toLowerCase();
+		var value = settings.get(name);
+		if(checkable[type] === true) {
+			if (radio[type] === true)
+				element.checked = element.value == value;
+			else
+				element.checked = value;
+		}
+		else 
+			element.value = value;
+	}
+	
+	// save the new value of an element
+	function elementChanged(e) {
+		var element = e.currentTarget || e;
+		var type = element.type.toLowerCase();
+		var name = element.name || '';
+		var value;
+		if (checkable[type] === true)
+			value = radio[type] ? dom.getRadioValue(element) : element.checked;
+		else
+			value = element.value;
+		
+		
+		if (element.min && parseInt(value) < parseInt(element.min)) 
+			value = element.value = element.min;
+		if (element.max && parseInt(value) > parseInt(element.max)) 
+			value = element.value = element.max;
+		
+		settings.set(name, value);	
+		updateExpandOptions();
+	}
+	
+	
+	// set the textContent of an element
+	function setText(id, txt) {
+		var e = document.getElementById(id);
+		if(e) 
+			e.textContent = txt;
+	}
+
+
+	// populate the title, name, author, ...
+	//setText('widget-title', widget.name);
+	setText('widget-name', widget.name);
+	setText('widget-author', widget.author);
+	setText('widget-version', widget.version);
+	
+	// set min/max values
+	$('#max_height').max = screen.height;
+	$('#popup_width').min = localesettings.PopupWidth;
+	$('#popup_width').max = screen.width;
+	
+	// walk and set the elements accordingly to the storage
+	walkElements(function(element, name, type) {
+		updateElement(element, name, type);
+
+		// If an element has a Default button, configure it
+		var defaultBtn = element.nextElementSibling;
+		if (defaultBtn && defaultBtn.tagName == 'BUTTON') {
+			defaultBtn.addEventListener('click', function(e) {
+				settings.reset(name);
+				updateElement(element, name, type);
+			}, false);
+		}
+
+		// listen to changes
+		element.addEventListener('change', elementChanged, true);
+	});
+
+
+	
+	$('#export').addEventListener('click', function(e) {
+		opera.extension.postMessage({ action: 'export', focused: true });
+	}, false);
+	
+	$('#import').addEventListener('click', function(e) {
+		if (importing)
+			return;
+		
+		var session;
+		var sel;
+		
+		if (useFileApi) {
+			sel = $('#import_fileselect');
+			var file = sel.files[0];
+			
+			if (!file)
+				return;
+			
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				opera.extension.postMessage({ action: 'import', session: e.target.result });
+			}
+			reader.onerror = function(e) {
+				errorStatus('import');
+				sel.disabled = $('#import').disabled = importing = false;
+			}
+			reader.readAsText(file);
+		}
+		else {
+			sel = $('#import_textarea');
+			session = sel.value != sel.getAttribute('placeholder') ? sel.value : '';
+			opera.extension.postMessage({ action: 'import', session: session });
+		}
+		
+		openStatus('import');
+		
+		sel.disabled = $('#import').disabled = true;
+		importing = true;
+	}, false);
+	
+	
+	$('#reset_settings').addEventListener('click', function(e) {
+		if (!confirm('Reset all settings?'))
+			return;
+		settings.resetAll();
+		window.location.reload();
+	}, false);
+	
+	$('#reset_tabs').addEventListener('click', function(e) {
+		if (!confirm('Delete all saved tabs?'))
+			return;
+		storage.tabs.clear();
+		storage.trash.clear();
+		closeStatus('reset_tabs');
+	}, false);
+
+
+	$('#reset').addEventListener('click', function(e) {
+		if (!confirm('Reset Tab Vault completely? You will lose your settings and all saved tabs.'))
+			return;
+		updateAction = function() { window.location.reload() };
+		opera.extension.postMessage({ action: 'reset_all' });
+	}, false);
+	
+	
+	
+	$('#password').addEventListener('change', function(e) {
+		updateExternalAccess();
+	}, false);
+	
+	$('#new_pass').addEventListener('click', function(e){
+		var pass = access.generatePassword();
+		$('#password').value = pass;
+		settings.set('password', pass);
+		updateExternalAccess();
+	}, false);
+	
+	$('#opera_action').addEventListener('click', function(e) {
+		e.target.select();
+	}, false);
+	
+	$('#ext_close_on_save').addEventListener('change', updateExternalAccess, false);
+	
+}, false);
+
+
+addEventListener('keypress', function(e) {
+
+	// Press ~ to list storage
+	if (e.keyCode == 96) {
+		var container = $('#storage_list');
+		container.innerHTML = '';
+		
+		var list = [];
+		for (var key in widget.preferences)
+			list.push(key);
+
+		list.sort(natcompare);
+		for (var i = 0; i < list.length; i++) {
+			var p = document.createElement('p');
+			p.innerHTML = '<strong>' + list[i] + '</strong> = ' + widget.preferences[list[i]];
+			container.appendChild(p);
+		}
+		
+		$('#options_debug').style.display = 'block';
+	}
+	// Press Shift + ~ to hide storage
+	else if (e.keyCode == 126) {
+		$('#options_debug').style.display = 'none';
+	}
+}, false);
+
+</script>
+	
+</body>
+</html>

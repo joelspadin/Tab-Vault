@@ -1,0 +1,7 @@
+These are the Paint.NET source files to the help images. It is not necessary to
+translate these, but you can if you want to. Also, I have had some trouble 
+getting Opera to localize files in subfolders, so I may not be able to get your
+translated images to show up.
+
+popup.png and trash.png are unedited screenshots. I did not edit them in 
+Paint.NET, so there aren't any Paint.NET source files for those images.
