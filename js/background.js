@@ -169,8 +169,9 @@ window.addEventListener('load', function() {
 				
 			case 'external_save':
 				// Page asks to save itself or another page
-				var pass = settings.get('password');
-				if (!pass || e.data.pass != pass) {
+				//var pass = settings.get('password');
+				//if (!pass || e.data.pass != pass) {
+				if (!checkPassword(e.data.pass)) {
 					opera.postError('Tab Vault: Cannot save page. Invalid password.');
 					return;
 				}
@@ -184,6 +185,10 @@ window.addEventListener('load', function() {
 						// Don't know why, but this fails when called from a button or shortcut
 						e.data.icon = tab.faviconUrl;
 					}
+					else {
+						externalSaveError();
+						break;
+					}
 				}
 
 				storage.tabs.add({
@@ -192,8 +197,10 @@ window.addEventListener('load', function() {
 					icon: e.data.icon,
 				});
 				
-				updateBadge(true);
+				if (settings.get('save_to_top')) 
+					storage.tabs.move(storage.tabs.count - 1, 0);
 				
+				updateBadge(true);
 				break;
 				
 			case 'get_all':
@@ -263,6 +270,8 @@ window.addEventListener('load', function() {
 				
 				sendGroupMsg(e.source, tabs, domain);
 				break;
+				
+			
 		}
 	}
 	
@@ -281,7 +290,11 @@ window.addEventListener('load', function() {
 	}
 	
 	
-	//TODO: Implement This
+	function checkPassword(pass) {
+		var temp = settings.get('password');
+		return temp && pass == temp
+	}
+	
 	function getDomain(url) {
 		return url.match(/:\/\/(www\.)?(.[^/:]+)/)[2];
 	}
@@ -380,6 +393,14 @@ window.addEventListener('load', function() {
 		}
 		else 
 			button.badge.display = 'none';
+	}
+	
+	function externalSaveError() {
+		button.badge.display = 'block';
+		button.badge.textContent = 'err';
+		if (notificationTimer)
+			clearTimeout(notificationTimer);
+		notificationTimer = setTimeout(updateBadge, notificationLength);
 	}
 	
 	/**

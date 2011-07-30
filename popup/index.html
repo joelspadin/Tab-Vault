@@ -164,6 +164,13 @@
 			removeEventListener('mousedown', blockEvent, true);
 		}
 		
+		function flashGroup(group) {
+			group.el.addClass('addtab');
+			setTimeout(function() {
+				group.el.removeClass('addtab');
+			}, 150);
+		}
+		
 		function blockEvent(e) {
 			e.stopPropagation();
 			e.preventDefault();
@@ -177,7 +184,6 @@
 			if (settings.get('close_on_save')) 
 				window.close();
 		}
-		
 		
 		opera.extension.onmessage = function(e) {
 			switch(e.data.action) {
@@ -196,6 +202,8 @@
 							
 							if (tabs.groupToTop)
 								group.move(group.tabs.length - 1, 0);
+							
+							flashGroup(group);
 						}
 					}
 					else {

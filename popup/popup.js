@@ -560,7 +560,7 @@ function Tab(info) {
 	}
 
 	this.reloadIcon = function() {
-		self.dom.icon.src = '../img/reloading.gif';
+		self.dom.icon.src = '../img/reload_anim.png';
 	}
 	
 	function build() {
@@ -633,6 +633,7 @@ function Tab(info) {
 
 function TabGroup(info) {
 	var self = this;
+	var updateHeightTimeout;
 	
 	this.parent = null;
 	this.info = info || {};
@@ -847,7 +848,11 @@ function TabGroup(info) {
 		var height = count ? self.dom.tabs.firstChild.offsetHeight : 0;
 		//self.dom.tabs.style.height = self.tabs.length * self.tabs[0].el.offsetHeight;
 		self.dom.tabs.style.height = (count * height) + 'px';
-		setTimeout(function() {
+		
+		if (updateHeightTimeout)
+			clearTimeout(updateHeightTimeout);
+		
+		updateHeightTimeout = setTimeout(function() {
 			self.dom.tabs.style.height = self.dom.tabs.scrollHeight + 'px';
 		}, instant ? 0 : tabs.animLength);
 	}

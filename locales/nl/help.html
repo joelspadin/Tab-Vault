@@ -1,0 +1,268 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/options.css">
+	<link rel="stylesheet" href="/help/help.css">
+	<link rel="stylesheet" href="/locale-help.css">
+	<script src="/js/debug.js"></script>
+	<script src="/js/storage.js"></script>
+	<script src="/js/options.js"></script>
+	<script src="/js/help.js"></script>
+	<script src="/js/il8n.js"></script>
+	<script src="/js/classList.js"></script>
+	<script src="/locale-options.js"></script>
+	<script>
+		il8n.loadLocaleScript('locale-options.js');
+		il8n.loadLocaleStyle('locale-help.css');
+	</script>
+	<title id="title">Tab Vault Help</title>
+</head>
+<body>
+	<header>
+		<img src="/img/icon.png">
+		<div class="right">
+			<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="help">Help</span></h1>
+			<h2><span data-loc="by">By</span> <span id="widget-author">Joel Spadin</span></h2>
+		</div>
+		<div class="clear"></div>
+	</header>
+
+	<!-- Start Translating Here -->
+	
+	<section>
+		<div id="first-time">
+			<h1>Nieuw met Tab Vault?</h1>
+			<p>
+				Als je niet zeker bent van wat Tab Vault is of hoe je het kan gebruiken, is het verstandig deze handleiding te lezen.
+				Als je niet het type bent dat alleen de handleiding leest als laatste toevluchtmogelijkheid, kunnen deze links je interesseren:
+			</p>
+			<ul>
+				<li><a href="/options.html">Verander je voorkeuren</a></li>
+				<li><a href="#" id="close">Ga weer browsen!</a></li>
+			</ul>
+		</div>
+		
+		<h2 class="expander">Wat is Tab Vault?</h2>
+		<div>
+			<p>				
+				Tab Vault, letterlijk vertaald "Tabblad Kluis", is een plaats om je tabbladen
+				op te bergen om ze later in je tabbalk te openen zonder dat ze geheugen
+				gebruiken in je tabbalk.
+				
+				Net zoals met Opera's tabbalk kan je herordenen en tabs groepen en
+				tabs verwijderen uit Tab Vault's Prullenbak.
+				
+				Tab Vault laat ook het nummer zien van het aantal tabs
+				dat je hebt opgeslagen om je terug op deze tabs te richten.
+			</p>
+		</div>
+		
+		<h2 class="expander collapsed">Hoe gebruik ik Tab Vault?</h2>
+		<div>
+			<p>
+				Klik op de extensie knop om Tab Vault te openen. Tab Vault laat het nummer
+				zien op een knop van het aantal tabbladen dat het heeft bewaard. Dit (en vele andere dingen)
+				kunnen veranderd worden vanaf de
+				<a href="/options.html" target="_blank">instellingen pagina.</a>.
+			</p>
+			<figure>
+				<img src="/help/open.png">
+				<figcaption>Tab Vault's extensie knop</figcaption>
+			</figure>
+			
+			<h3>De Tab Vault interface</h3>
+			<p>
+				Tab Vault heeft twee lijsten: Tabs en Prullenbak. De Tabs-lijst
+				bewaard je opgeslagen tabs. De vuilnisbak bewaard verwijderde tabs voor
+				het geval je ze wilt terugplaatsen in je Tabs-lijst. Klik de
+				<code>Tabs</code> en <code>Prullenbak</code> links bovenaan de 
+				popup om te wisselen tussen de lijsten.
+				(De Prullenbak is uitgeschakeld als deze leeg is)
+			</p>
+			<figure>
+				<img src="/help/popup.png">
+				<figcaption>De Tab Vault popup</figcaption>
+			</figure>
+			
+			<h3>De Tabs-lijst <span class="sub">Beheren en openen van tabs</span></h3>
+			<p>
+				Klik <code>Bewaar Tab</code> om de huidige tab op te slaan. Klik en sleep
+				tabs om ze te ordenen. Klik op een <code>X</code> knop van een tab om hem te verwijderen.
+				Je kan ook een tab verwijderen door het naar de <code>Prullenbak</code> te slepen
+				bovenaan. De Tabs-lijst toont alleen de tab titels, maar je kan de URL van een
+				tab zien door met je muis over de tab heen te gaan.
+			</p>
+			<p>
+				Er zijn drie mogelijkheden om een tab te openen. Je kan simpelweg op de tab klikken.
+				Hou <code>Ctrl</code> tijdens het klikken ingedrukt om de tab in een
+				achtergrondpagina te openen.
+				Sleep een tab van de popup en laat het los op de webpagina om het te
+				openen in de huidige pagina. Volledige tabgroepen kunnen ook op deze
+				manier worden geopend.
+			</p>
+			
+			<h3>De Prullenbak-lijst <span class="sub">Verwijderde tabs herstellen</span></h3>
+			<p>
+				Als je een tab verwijderd, komt hij in de Prullenbak. Klik op een
+				verwijderde tab om hem terug te plaatsen in de Tabs-lijst. Klik
+				<code>Prullenbak legen</code> om alle verwijderde tabs permanent te verwijderen.
+				Je kan verwijderde tabs niet ordenen.
+			</p>
+			<figure>
+				<img src="/help/trash.png">
+				<figcaption>De Prullenbak</figcaption>
+			</figure>
+			
+			<h3>Tab Groepen</h3>
+			<p>
+				Tab Vault ondersteunt nu tab groepen. Groepen hebben een uitklappijl
+				in plaats van een favicon en hebben geen <code>X</code> knop.
+				
+				Om een groep te maken, moet je beginnen met het slepen van een tab en je cursor
+				bewegen over de pijl aan de rechterkant van de tab. Sleep nu de tab over een andere
+				tab zodat de onderste tab donkerder wordt. Laat tenslotte de tab los om de twee
+				tabs samen te groeperen.
+				
+				<em>Denk eraan dat de cursor over de rechterkant van de tab moet gaan
+				om tabs te groeperen. Dit groepeer gebied is aangegeven tussen het rode hieronder.</em>
+			</p>
+			<figure>
+				<img src="/help/grouping.png">
+				<figcaption>Het groeperen van twee tabs (groepeer gebied aangegeven tussen rood)</figcaption>
+			</figure>
+			<p>
+				
+				Klik op de titel van een tabgroep om het in- of uit te klappen. Om
+				de naam van een groep te wijzen moet je op het pen-icoon klikken rechts van
+				de titel.
+				Tabgroepen kunnen gesleepd en verplaatst worden net als losse tabs, en je kan
+				tabs in of uit uitgeklapte groepen slepen.
+				
+				A group will disappear when the last tab in the group is deleted or 
+				moved outside the group. You can also delete an entire group by 
+				dragging it to <code>Trash</code> at the top.
+				
+				Een groep zal verdwijnen als de laatste tab uit de groep is verwijderd
+				of verplaatst uit de groep. Je kan ook een hele groep verwijderen door het
+				naar de <code>Prullenbak</code> bovenaan te slepen.
+			</p>
+			<figure>
+				<img src="/help/groups.png">
+				<figcaption>Links: een uitgeklapte tabgroep. Rechts: het wijzigen van een groepsnaam</figcaption>
+			</figure>
+			<p>
+				Tab Vault's tab group implementation is designed to be very similar
+				to Opera's tab stacking. Dropping a group onto a tab will merge the
+				group into a new group under the tab. Dropping a group onto another
+				collapsed group will merge the first into the second. Dropping a tab
+				onto a collapsed group will add the tab to the group.
+				
+				De verwezenlijking van Tab Vault's tabgroepen is ontworpen om zo goed
+				mogelijk overeen te komen met Opera's methode van tabs stapelen. Het loslaten van
+				een groep boven een tab zal de groep doen samenvloeien in een nieuwe groep onder
+				de tab.
+				Het loslaten van een groep boven een andere ingeklapte groep zal de eerste groep
+				doen samensmelten in de tweede groep. Het loslaten van een tab boven een ingeklapte
+				groep zal de tab doen toevoegen aan de groep.
+			</p>
+			
+		</div>
+		
+		<h2 class="expander collapsed">Extra Functies</h2>
+		<div>
+			<h3>Sessies</h3>
+			<p>
+				Tab Vault kan Opera's sessie-bestanden importeren en exporteren
+				via de Import/Export-sectie van de
+				<a href="/options.html" target="_blank">instellingen pagina</a>.
+			</p>
+			<p>
+				Om de bewaarde tabs te exporteren als een sessie-bestand kun je klikken
+				op "Export Sessie". Opera opent een nieuw tabblad. Gebruik
+				<code>Menu > Pagina > Opslaan Als...</code> (of Ctrl+S) om de tab op te
+				slaan als een .win bestand.
+			</p>
+			<p>
+				Gebruik voor het importeren van een sessie-bestand de bestandsselecteerder
+				en selecteer daarmee het .win-bestand. Klik dan op "Importeer Sessie".
+			</p>
+			<p>
+				Je kan uitzoeken waar Opera je sessie-bestanden opslaat door
+				te browsen naar <a href="opera:about">opera:about</a> en door te lezen
+				tot "Opgeslagen sessie". Als je de geëxporteerde sessies in Opera's
+				sessie-lijst wilt laten verschijnen, moet je ze op die locatie opslaan.
+			</p>
+			<p>
+				Terwijl ik Tab Vault heb ontworpen zodat het heel moeilijk is om
+				door bugs belangrijke gegevens te verliezen, heb ik (hele vreemde) meldingen
+				van mensen gehad dat tabs compleet verdwenen van Tab Vault.
+				Dit kan komen doordat Opera Tab Vault's data kwijtraakt na een crash, doordat
+				er een bug zit in Tab Vault die ik nog niet heb gevonden of iets heel anders.
+				In ieder geval raad ik je aan periodiek je tabs te exporteren voor het
+				geval er iets verkeerd gaat.
+			</p>
+			
+			<h3>Knoppen en Sneltoetsen</h3>
+			<p>
+				Tab Vault toont JavaScript functies zodat het mogelijk is het te besturen
+				vanaf webpagina's of andere onderdelen van Opera. Dit betekent dat je een
+				sneltoets of een knop snel een tab kan laten opslaan.
+			</p>
+			<p>
+				Ga naar de Knoppen en Sneltoetsen sectie van de 
+				<a href="/options.html" target="_blank">instellingen pagina</a> en stel een
+				wachtwoord in. Dit wachtwoord zorgt ervoor dat kwaadaardige sites geen
+				toegang krijgen tot je tabkluis. Je hoeft het niet te onthouden, dus klik
+				gewoon op de "Genereer" knop om een willekeurig wachtwoord te creëren.
+			</p>
+			<p>
+				Als je een knop wilt om de huidige tab op te slaan kan je simpelweg op de
+				gewenste knop klikken. Het zal dan worden toegevoegd bij de "Mijn knoppen"
+				sectie van het uiterlijk scherm, waarmee je het naar elke werkbalk kan slepen.
+				(Een fout in Opera maakt deze knop groter dan normaal, gebruik dus een van de
+				kleine knoppen)
+			</p>
+			<p>
+				Om een sneltoets of muisgebaar te maken kan je de tekst weergegeven onder
+				"Bewaar tab actie" kopiëren, gaan naar <code>Menu > Instellingen > Voorkeuren
+				> Geavanceerd > Sneltoetsen</code>, de muis of toetsenbord setup veranderen
+				en een nieuwe sneltoets creëren.
+			</p>
+			<p>
+				To save a tab from JavaScript, use the function
+				<code class="nowrap">window.opera.tabvault.save(pass, url, title, icon)</code>
+				where "pass" is your password, "url" is the URL of the tab, "title" is
+				the tab's title, and "icon" is the URL of the tab's favicon. Omit
+				everything after "pass" to save the current tab.
+				
+				Gebruik de functie <code class="nowrap">window.opera.tabvault.save(pass, url, title, icon)</code>
+				om een tab te bewaren met JavaScript. Hier is "pass" je wachtwoord, "url" is de URL
+				van de tab, "title" is de titel van de tab en "icon" is de URL van de favicon
+				van de tab. Laat alles achter tab weg om de huidige tab te bewaren.
+			</p>
+			<p>
+				Let op: Een fout in Opera houdt Tab Vault op het moment tegen van het
+				opslaan van een tab's favicon als er een tab met een knop of sneltoets wordt bewaard.
+			</p>
+		</div>
+		
+		<h3>Ben je er nog niet uit?</h3>
+		<p><a href="http://my.opera.com/spadija/blog/tab-vault">Klik hier om naar Tab
+		Vaults ondersteuningspagina te gaan, waar je me vragen kan stellen.</a></p>
+		
+	</section>
+	
+	<!-- Stop Translating Here -->
+	
+	<footer>
+		<p data-loc="footer">
+			<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
+			is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, 
+			images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
+			and <a href="http://www.opera.com">Opera Software</a>
+		</p>
+	</footer>
+	
+</body>
+</html>
