@@ -1,7 +1,6 @@
-// Strings used by options, help, and upgrade pages
 
 il8n.strings = {
-
+	
 	Title: 'Tab Vault Options',				// Options page tab title
 	By: 'By',
 	
@@ -14,6 +13,7 @@ il8n.strings = {
 	ActionFailed: 'Failed!',				// Status message for errors
 	ActionDone: 'Done!',					// Status message for success
 	
+	
 	Preferences: 'Preferences',				// Preferences category header
 	CompactTabs: '<Unused>',
 	Tooltips: 'Show help tooltips in the popup',
@@ -21,11 +21,10 @@ il8n.strings = {
 	TrashOnOpen: 'Send tabs to the trash after opening them',
 	DisableAnimation: 'Disable UI Animation',
 	SaveToTop: 'Add saved tabs to the top of the list',
-	GroupToTop: 'When grouping tabs, add tabs to the top of the group',
+	GroupTotop: 'When grouping tabs, add tabs to the top of the group',
 	CloseTabOnSave: 'Close the current tab after saving it',
 	CloseOnSave: 'Close the popup after saving the current tab',
 	CloseOnPageOpen: 'Close the popup after dropping a tab from the list onto the page',
-	KeepGroupsOpen: 'Keep groups expanded when reopening the popup',
 	ShowBadge: 'Show the number of saved tabs on the toolbar button',
 	BackgroundColor: 'Button background color',
 	BackgroundAlpha: 'Button background opacity',
@@ -34,25 +33,17 @@ il8n.strings = {
 	LimitHeight: 'Limit the height of the popup',
 	MaxHeight: 'Maximum popup height (px)',
 	PopupWidth: 'Popup width (px)',
-	LimitTrash: 'Limit the size of the trash list',
-	MaxTrash: 'Maximum trash size (tabs)',
-	MiddleClick: 'Middle click action',
-	MiddleClickOpen: 'Open tab in background',
-	MiddleClickClose: 'Delete tab',
-	MiddleClickNone: 'Do nothing',
-	CxMenuStyle: 'Context menu style',
-	Language: 'Language (requires restart)',
+	MiddleClickClose: 'Middle click to delete tabs (buggy: sometimes triggers panning too)',
+	
 	
 	ImportExport: 'Import/Export',			// Import/Export category header
 	ImportNote: '<strong>Note:</strong> Importing a session will temporarily open each imported tab to collect favicons.',
 	ExportButton: 'Export Session',
 	Export: 'Export your saved tabs as a session file',
-	ExportAdrButton: 'Export .adr',
-	ExportAdr: 'Export your saved tabs as a bookmarks file',
 	ImportButton: 'Import Session',
-	Import: 'Import a session/bookmarks file to your saved tabs',
+	Import: 'Import a session file to your saved tabs',
 	ImportWorking: 'Importing...',
-	ImportPlaceholder: 'Open a session file (.win or .adr) in a text editor, then copy and paste the contents here before clicking Import.',
+	ImportPlaceholder: 'Open a session file (.win) in a text editor, then copy and paste the contents here before clicking Import.',
 	
 	
 	Reset: 'Reset',							// Reset category header
@@ -63,14 +54,6 @@ il8n.strings = {
 	ResetAllButton: 'Reset Everything',
 	ResetAll: 'Reset Tab Vault to its original state',
 	
-	ExternalAccess: 'Buttons and Shortcuts',
-	EnableAccess: 'Set a password to allow shortcuts to access Tab Vault',
-	Password: 'Password',
-	NewPassword: 'Generate New Password',
-	SaveTabAction: 'Save tab action - use with keyboard shortcuts and mouse gestures',
-	SaveTabButton: 'Save tab button - click to save, then drag to a toolbar from the Appearance window',
-	SaveButtonTitle: 'Save to Tab Vault',
-	
 	
 	Help: 'Need Help?',						// Help category header
 	HelpLink: 'Click here to view the help page for more information about what Tab Vault is, how it works, and how to use it.',
@@ -80,7 +63,7 @@ il8n.strings = {
 	UpgradeMessage: 'Tab Vault 2 stores its settings slightly differently than version 1, so ' +
 			'to avoid possible incompatibilities, Tab Vault will now upgrade your settings ' +
 			'to the new format. Tab Vault has exported your saved tabs as a session file. ' +
-			'(Look at your tabs. It should be open next to this one.) If the upgrade fails, ' +
+			'(look at your tabs. It should be open next to this one) If the upgrade fails, ' +
 			'you can import this session to recover your tabs.',
 
 	UpgradeButton: 'Upgrade Now!',
@@ -95,7 +78,7 @@ il8n.strings = {
 	UpgradeStatus4: 'Restoring settings...',
 	UpgradeStatus5: 'Restoring tabs...',
 	
-	UpgradeFail1: 'Whoops! Something wen\'t wrong (or you have a really slow computer)',
+	UpgradeFail1: 'Whoops! Something wen\'t wrong. (or you have a really slow computer)',
 	UpgradeFail2: 'You can help by pressing Ctrl+Shift+O to open the error log and ' + 
 			'posting any errors after "Starting upgrade" to the Reported Issues section of ' +
 			'<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault\'s ' +
@@ -105,5 +88,5 @@ il8n.strings = {
 			'is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, ' +
 			'images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a> ' +
 			'and <a href="http://www.opera.com">Opera Software</a>',
-	
+
 }

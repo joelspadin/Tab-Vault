@@ -34,6 +34,8 @@ il8n.strings = {
 	LimitHeight: 'Limit the height of the popup',
 	MaxHeight: 'Maximum popup height (px)',
 	PopupWidth: 'Popup width (px)',
+	LimitTrash: 'Limit the size of the trash list',
+	MaxTrash: 'Maximum trash size (tabs)',
 	MiddleClick: 'Middle click action',
 	MiddleClickOpen: 'Open tab in background',
 	MiddleClickClose: 'Delete tab',
@@ -45,10 +47,12 @@ il8n.strings = {
 	ImportNote: '<strong>Note:</strong> Importing a session will temporarily open each imported tab to collect favicons.',
 	ExportButton: 'Export Session',
 	Export: 'Export your saved tabs as a session file',
+	ExportAdrButton: 'Export .adr',
+	ExportAdr: 'Export your saved tabs as a bookmarks file',
 	ImportButton: 'Import Session',
-	Import: 'Import a session file to your saved tabs',
+	Import: 'Import a session/bookmarks file to your saved tabs',
 	ImportWorking: 'Importing...',
-	ImportPlaceholder: 'Open a session file (.win) in a text editor, then copy and paste the contents here before clicking Import.',
+	ImportPlaceholder: 'Open a session file (.win or .adr) in a text editor, then copy and paste the contents here before clicking Import.',
 	
 	
 	Reset: 'Reset',							// Reset category header

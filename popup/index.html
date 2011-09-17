@@ -101,6 +101,15 @@
 				$('#button-trash').removeClass('disabled');
 		}
 		
+		function limitTrashSize() {
+			if (settings.get('limit_trash')) {
+				var size = settings.get('max_trash');
+				while (storage.trash.count > size) {
+					trash.remove(0);
+				}
+			}
+		}
+		
 		// Asks the background page to resize the current page
 		function requestResize(page, delay) {
 			//debug('resize ' + page);
@@ -125,6 +134,8 @@
 		function resizeLists() {
 			var lists = document.querySelectorAll('section.page > ul');
 			
+			var msg = 'resizing lists: window height is ' + window.innerHeight + 'px';
+			
 			for (var i = 0; i < lists.length; i++) {
 				var pos = dom.position(lists[i]);
 				var height = window.innerHeight - pos.y - 8;
@@ -140,7 +151,10 @@
 				}
 
 				lists[i].style.maxHeight = height + 'px';
+				msg += '\nresized list ' + i + ' to ' + height + 'px. actual height is ' + lists[i].scrollHeight + 'px';
 			}
+			
+			console.log(msg);
 		}
 		
 
@@ -168,7 +182,7 @@
 			group.el.addClass('addtab');
 			setTimeout(function() {
 				group.el.removeClass('addtab');
-			}, 150);
+			}, 250);
 		}
 		
 		function blockEvent(e) {
@@ -308,6 +322,8 @@
 					requestResize('tabs', tabs.animLength);
 				else
 					requestResize('tabs');
+				
+				limitTrashSize();
 				enableTrash();
 			};
 			tabs.ongroupexpand = function(e) {

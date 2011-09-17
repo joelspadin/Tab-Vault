@@ -121,21 +121,28 @@ window.addEventListener('load', function() {
 				
 			case 'export':
 				// Exports tabs as a session
-				var wind = {
-					x: screen.width * 0.1,
-					y: screen.height * 0.1,
-					width: screen.width * 0.75,
-					height: screen.height * 0.75
+				var uri;
+				if (e.data.format == 'adr') {
+					uri = session.writeAdr(storage.tabs.getAll());
 				}
-				var uri = session.write(storage.tabs.getAll(), wind);
+				else {
+					var wind = {
+						x: screen.width * 0.1,
+						y: screen.height * 0.1,
+						width: screen.width * 0.75,
+						height: screen.height * 0.75
+					}
+					uri = session.write(storage.tabs.getAll(), wind);
+				}
 				opera.extension.tabs.create({ url: uri, focused: e.data.focused || false });
 				break;
 				
 			case 'import':
 				// Import tabs from a session
 				var tabs = [];
+				tabs = session.read(e.data.session);
 				try {
-					tabs = session.read(e.data.session);
+					//tabs = session.read(e.data.session);
 					getFavicons(tabs, function() {
 						storage.tabs.importTabs(tabs);
 						e.source.postMessage({ action: 'import_done' });

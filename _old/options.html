@@ -1,0 +1,484 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="options.css">
+  <script src="storage.js"></script>
+  <script src="natcompare.js"></script>
+  <title id="widget-title">Opera Extensions | Tab Vault</title>
+  
+  <script>
+	var $ = function(sel) {
+		return document.querySelector(sel);
+	}
+	
+	var importing = false;
+
+	// get a communication path to the background page
+	var extension;
+	var updateAction;
+
+	opera.extension.onmessage = function(e) {
+		switch (e.data.action) {
+			case 'hello_options_page':
+				extension = e.source;
+				break;
+			case 'import_complete':
+				importing = false;
+				var textarea = $('#import_textarea');
+				textarea.value = '';
+				textarea.disabled = false;
+				textarea.focus();
+				textarea.blur();
+				// fall into update case
+			case 'update':
+				if (updateAction) {
+					updateAction(e.data);
+					updateAction = null;
+				}
+				break;
+		}
+	}
+  </script>
+  
+</head>
+<body>
+  <header>
+    <img src="img/icon.png">
+      <hgroup>
+        <h1><span id="widget-name">Tab Vault</span> <span id="widget-version"></span></h1>
+        <h2>By <span id="widget-author">Joel Spadin</span></h2>
+      </hgroup>
+    <div class="clear"></div>
+  </header>
+
+  <section>
+    <h3>Panel Settings</h3>
+    <fieldset>
+      <p>
+        <input name="show_badge" id="show_badge" type="checkbox" />
+        <label for="show_badge">Show the number of saved tabs on Tab Vault's button</label>
+      </p>
+      <p class="child">
+        <input name="hide_zero" id="hide_zero" type="checkbox" data-depends="show_badge" />
+        <label for="hide_zero">Hide "0" on the button when no tabs are saved</label>
+      </p>
+      <p>
+        <input name="trash_on_open" id="trash_on_open" type="checkbox" />
+        <label for="trash_on_open">Send tabs to the trash after opening</label>
+      </p>
+      <p>
+        <input name="close_on_add" id="close_on_add" type="checkbox" />
+        <label for="close_on_add">Close the current tab after clicking <em>Add Current Tab</em></label>
+      </p>
+      <p class="child">
+        <input name="reopen_ui" id="reopen_ui" type="checkbox" data-depends="close_on_add" />
+        <label for="reopen_ui">Reopen the Tab Vault panel after closing tab</label>
+      </p>
+	  <p>
+        <input name="instant_open" id="instant_open" type="checkbox" />
+        <label for="instant_open">Open and close the Tab Vault panel instantly (may cause redraw issues)</label>
+      </p>
+      <p>
+        <input name="cache_styles" id="cache_styles" type="checkbox" />
+        <label for="cache_styles">Cache CSS (Uses more memory but may improve performance when opening panel)</label>
+      </p>
+    </fieldset>
+	
+	<h3>Crash Workarounds</h3>
+    <fieldset>
+      <p>
+        <input name="linux_crash_workaround" id="linux_crash_workaround" type="checkbox" />
+        <label for="linux_crash_workaround">Check this if Opera crashes when you close Tab Vault's panel (Tab Vault will leave its stylesheet in the page)</label>
+      </p>
+      <p>
+        <input name="focus_crash_workaround" id="focus_crash_workaround" type="checkbox" />
+        <label for="focus_crash_workaround">Check this if Opera crashes when you open a tab from Tab Vault's panel (Tab Vault will not focus opened tabs)</label>
+      </p>
+    </fieldset>
+	
+	<h3>Import/Export</h3>
+	<fieldset>
+	  <p>
+	    <button id="export">Export Session</button>
+	    <label for="export">Export saved tabs as an Opera session</label>
+	  </p>
+	  <p>
+	    <button id="import">Import Session</button>
+	    <label for="import">Import tabs from an Opera session</label>
+	    <span class="status">
+		  <span class="working">Importing...</span>
+		  <span class="complete">Done!</span>
+	    </span>
+		<span class="right"><textarea id="import_textarea"></textarea></span>
+	  </p>
+	</fieldset>
+    
+    <h3>Appearance</h3>
+    <fieldset class="colors">
+	  <p>Turn <em>Cache CSS</em> off while making changes to Tab Vault's appearance</p>
+	  <p>
+        <input name="badge_background" id="badge_background" type="text" />
+        <button>Default</button>
+		<label for="badge_background">Badge color</label>
+      </p>
+	  <p>
+        <input name="badge_text" id="badge_text" type="text" />
+        <button>Default</button>
+		<label for="badge_text">Badge text color</label>
+      </p>
+	  <p>
+        <input name="text" id="text" type="text" />
+		<button>Default</button>
+        <label for="text">Text color</label>
+      </p>
+	  <p>
+        <input name="link_hover" id="link_hover" type="text" />
+        <button>Default</button>
+		<label for="link_hover"><em>Clear List of Closed Tabs</em> hover color</label>
+      </p>
+	  <p>
+		<input name="overlay_opacity" id="overlay_opacity" type="range" min="0" max="1" step="0.05" />
+		<button>Default</button>
+		<label for="overlay_opacity">Overlay Opacity</label>
+	  </p>
+	  <p>
+        <input name="divider" id="divider" type="text" />
+		<button>Default</button>
+        <label for="divider">Divider color</label>
+      </p>
+	  <p>
+        <input name="panel_background" id="panel_background" type="text" />
+        <button>Default</button>
+		<label for="panel_background">Panel background color</label>
+      </p>
+	  <p>
+        <input name="panel_border" id="panel_border" type="text" />
+		<button>Default</button>
+        <label for="panel_border">Panel left border color</label>
+      </p>
+	  <p>
+        <input name="buttons_border" id="buttons_border" type="text" />
+		<button>Default</button>
+        <label for="buttons_border">Buttons bottom border color</label>
+      </p>
+	  <p>
+        <input name="tab_background" id="tab_background" type="text" />
+		<button>Default</button>
+        <label for="tab_background">Tab background color</label>
+      </p>
+	  <p>
+        <input name="tab_background_hover" id="tab_background_hover" type="text" />
+        <button>Default</button>
+		<label for="tab_background_hover">Tab background hover color</label>
+      </p>
+	  <p>
+        <input name="tab_border" id="tab_border" type="text" />
+        <button>Default</button>
+		<label for="tab_border">Tab border color</label>
+      </p>
+	  <p>
+        <input name="tab_border_hover" id="tab_border_hover" type="text" />
+        <button>Default</button>
+		<label for="tab_border_hover">Tab border hover color</label>
+      </p>
+	  <p>
+        <input name="tab_highlight" id="tab_highlight" type="text" />
+        <button>Default</button>
+		<label for="tab_highlight">Tab highlight color</label>
+      </p>
+	  <p>
+        <input name="tab_url" id="tab_url" type="text" />
+        <button>Default</button>
+		<label for="tab_url">Tab URL color</label>
+      </p>
+	  <p>
+        <input name="drop_info_background" id="drop_info_background" type="text" />
+        <button>Default</button>
+		<label for="drop_info_background">Drop on page background color</label>
+      </p>
+	  <p>
+        <input name="drop_info_text" id="drop_info_text" type="text" />
+        <button>Default</button>
+		<label for="drop_info_text">Drop on page text color</label>
+      </p>
+    </fieldset>
+	
+    <h3>Reset/Repair</h3>
+    <fieldset>
+      <p>
+	    If Tab Vault is not working correctly, its tab or trash storage may have
+	    become corrupted. <em>Repair Storage</em> will attempt to fix this, but
+		it's not supposed to happen in the first place.	If you find a problem,
+		please report it so I can fix it.  Thanks!
+	  </p>
+      <p>
+        <button id="repair">Repair Storage</button>
+        <label for="repair">Repair Tab Vault's tab and trash storage</label>
+		<span class="status">
+		  <span class="working">Repairing...</span>
+		  <span class="complete">Repaired!</span>
+		</span>
+	  </p>
+      <p>
+        <button id="reset">Reset Settings</button>
+        <label for="reset">Reset all settings to their defaults</label>
+		<span class="status">
+		  <span class="working">Resetting...</span>
+		  <span class="complete">Done!</span>
+		</span>
+      </p>
+      <p>
+        <button id="reset_all">Reset Everything</button>
+        <label for="reset_all">Completely reset Tab Vault to its initial state</label>
+		<span class="status">
+		  <span class="working">Resetting...</span>
+		  <span class="complete">Done!</span>
+		</span>
+      </p>
+    </fieldset>
+  </section>
+
+  <section id="storage_list" style="display: none">
+  </section>
+	
+  <footer>
+    <p>Tab Vault is &copy; 2010 <a href="http://chaosinacan.com">Joel Spadin</a>, with
+	icon by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a></p>
+  </footer>
+	
+<script>
+
+// list of FORM elements
+var skip      = hash('hidden,submit,image,reset,button');
+var checkable = hash('checkbox,radio');
+
+// string to hash
+function hash(str, glue) {
+	var obj = {};
+	var tmp = str.split(glue || ',');
+
+	while( tmp.length ) 
+		obj[ tmp.pop() ] = true;
+
+	return obj;
+}
+
+addEventListener('DOMContentLoaded', function() {
+	// get the FORM elements
+	var formElements = document.querySelectorAll('input,select');
+
+	// walk the elements and apply a callback method to them
+	function walkElements(callback)
+	{
+		var obj = [];
+		for(var i = 0, element = null; element = formElements[i]; i++)
+		{
+			// skip the element if it has no name or is of a type with no useful value
+			var type = element.type.toLowerCase();
+			var name = element.name || '';
+			if(skip[type] === true || name == '') continue;
+
+			var tmp = callback(element, name, type);
+			if(tmp != null)
+				obj.push(tmp);
+		}
+		return obj;
+	}
+	
+	function elementChanged(e) {
+		var element = e.currentTarget || e;
+		var type = element.type.toLowerCase();
+		var name = element.name || '';
+		var value = checkable[type] ? element.checked : element.value;
+		
+		storage.settings.set(name, value);
+	}
+	
+	// set the textContent of an element
+	function setText(id, txt) {
+		var e = document.getElementById(id);
+		if(e) 
+			e.textContent = txt;
+	}
+
+
+	// populate the title, name, author, ...
+	setText('widget-title', widget.name);
+	setText('widget-name', widget.name);
+	setText('widget-author', widget.author);
+	setText('widget-version', widget.version);
+	
+	
+	// walk and set the elements accordingly to the storage
+	walkElements(function(element, name, type) {
+		var value = storage.settings.get(name);
+		if(checkable[type] === true) 
+			element.checked = value;
+		else 
+			element.value = value;
+
+		var defaultBtn = element.nextElementSibling;
+		if (defaultBtn && defaultBtn.tagName == 'BUTTON') {
+			defaultBtn.addEventListener('click', function() {
+				storage.settings.reset(name);
+				var evt = document.createEvent('HTMLEvents');
+				evt.initEvent('storage', true, true);
+				evt.key = 'st_' + name;
+				document.dispatchEvent(evt);
+			}, false);
+		}
+
+		// listen to changes
+		element.addEventListener('change', elementChanged, true);
+	});
+	
+	// Set events so that settings dependent on a parent setting are
+	// disabled when the parent setting is unchecked
+	var children = document.querySelectorAll('input[data-depends]');
+	for (var i = 0; i < children.length; i++) {
+		var element = children[i];
+		var parent = document.getElementsByName(element.getAttribute('data-depends'))[0];
+		attachDependency(element, parent);
+	}
+	
+	function attachDependency(element, parent) {
+		element.disabled = !parent.checked;
+		parent.addEventListener('change', function() {
+			element.disabled = !parent.checked;
+		}, true);
+	}
+	
+	
+	function openStatus(id) {
+		var status = $('#' + id + ' ~ .status');
+		status.className = 'status working open';
+	}
+	
+	function closeStatus(id) {
+		var status = $('#' + id + ' ~ .status');
+		status.className = 'status complete open';
+		window.setTimeout(function() {
+			status.className = 'status complete';
+		}, 5000);
+	}
+	
+	// set event handlers for buttons
+	$('#export').addEventListener('click', function() {
+		extension.postMessage({
+			action: 'export',
+			screen: {
+				x: window.screenLeft,
+				y: window.screenTop,
+				width: window.outerWidth,
+				height: window.outerHeight,
+			}
+		});
+	}, false);
+	
+	var importMsg = 'Open a session file in a text editor, then copy and paste the session here before clicking Import.  This will temporarily open all the imported tabs to collect favicons.';
+	var importText = $('#import_textarea');
+	importText.value = importMsg;
+	importText.addEventListener('focus', function(e) {
+		if (importText.value == importMsg)
+			importText.value = '';
+	}, false);
+	importText.addEventListener('blur', function(e) {
+		if (importText.value == '')
+			importText.value = importMsg;
+	}, false);
+	
+	$('#import').addEventListener('click', function() {
+		if (importing)
+			return;
+		
+		importing = true;
+		openStatus('import');
+		updateAction = function() { closeStatus('import') };
+		
+		var textarea = $('#import_textarea');
+		textarea.disabled = true;
+		extension.postMessage({
+			action: 'import',
+			session: textarea.value,
+		});
+	}, false);
+	
+	$('#repair').addEventListener('click', function() {
+		openStatus('repair');
+		updateAction = function() { closeStatus('repair') };
+		extension.postMessage({	action: 'repair_tabs' });
+		extension.postMessage({ action: 'repair_trash' });
+	}, false);
+	
+	$('#reset').addEventListener('click', function() {
+		if (!confirm('Reset all Tab Vault settings to their defaults?'))
+			return;
+		openStatus('reset');
+		updateAction = function() { closeStatus('reset') };
+		extension.postMessage({ action: 'reset_settings' });
+	}, false);
+  
+	$('#reset_all').addEventListener('click', function() {
+		if (!confirm('Reset Tab Vault completely?  You will lose all saved tabs.'))
+			return;
+		openStatus('reset_all');
+		updateAction = function() { closeStatus('reset_all') };
+		extension.postMessage({ action: 'reset_all' });
+	}, false);
+	
+}, false);
+
+
+// Listen for changed settings and update accordingly
+addEventListener('storage', function(e) {
+	var name = e.key.replace(/^st_/, '');
+	var element = document.getElementsByName(name)[0];
+	if (element) {
+		var type = element.type.toLowerCase();
+		var value = storage.settings.get(name);//JSON.parse(e.newValue);
+		
+		if (checkable[type] === true)
+			element.checked = value;
+		else
+			element.value = value;
+		
+		// Manually fire change event
+		var evt = document.createEvent('HTMLEvents');
+		evt.initEvent('change', true, true);
+		element.dispatchEvent(evt);
+	}
+}, false);
+
+
+
+
+addEventListener('keypress', function(e) {
+	// Press ~ to list storage
+	if (e.keyCode == 96) {
+		var container = $('#storage_list');
+		container.innerHTML = '';
+		
+		var list = [];
+		for (var key in widget.preferences)
+			list.push(key);
+
+		list.sort(natcompare);
+		for (var i = 0; i < list.length; i++) {
+			var p = document.createElement('p');
+			p.innerHTML = '<strong>' + list[i] + '</strong> = ' + widget.preferences[list[i]];
+			container.appendChild(p);
+		}
+		
+		$('#storage_list').style.display = 'block';
+	}
+	// Press Shift + ~ to hide storage
+	else if (e.keyCode == 126) {
+		$('#storage_list').style.display = 'none';
+	}
+}, false);
+
+</script>
+	
+</body>
+</html>

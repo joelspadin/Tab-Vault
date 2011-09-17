@@ -5,6 +5,10 @@ var session = new function SessionExporter() {
 	 * Reads a session file and returns a list of tab objects without favicons
 	 */  
 	this.read = function(text) {
+		var type = text.match(/^\s*Opera\s+(Preferences|Hotlist)/i);
+		if (type && type[1].toLowerCase() == 'hotlist')
+			return this.readAdr(text);
+		
 		var tabs = [];
 		var modes = {
 			none: 0,
@@ -109,6 +113,99 @@ var session = new function SessionExporter() {
 		return tabs;
 	}
 	
+	this.readAdr = function(text) {
+		var tabs = [];
+		
+		var adr = new IniReader(AdrUtils);
+		adr.open(text);
+		
+		var tab = null;
+		var group = null;
+		var isGroup = false;
+		var ignore = false;
+		var level = 0;
+		
+		while (adr.read()) {
+			if (adr.isSection) {
+				switch (adr.section.toLowerCase()) {
+					case 'url':
+						if (!isGroup && tab) 
+							addTab(tab);
+						tab = { url: '', title: '', icon: '' };
+						isGroup = ignore = false;
+						break;
+						
+					case 'folder':
+						if (!isGroup && tab)
+							addTab(tab);
+						if (group) {
+							ignore = true;
+							tab = null;
+							level++;
+							console.log('ignoring', level, 'level folder');
+						}
+						else {
+							console.log('making new group');
+							tab = group = { group: true, title: '', tabs: [] };
+							isGroup = true;
+						}
+						break;
+					
+					case '-':
+						if (level > 0) {
+							level--;
+							console.log('level', level);
+							break;
+						}
+						
+						if (!isGroup && tab)
+							addTab(tab);
+						if (group) 
+							addGroup(group);
+						else
+							level--;
+						console.log('ending group', level);
+						tab = group = null;
+						isGroup = ignore = false;
+						break;
+				}
+			}
+			else if (tab && !ignore) {
+				switch (adr.key.toLowerCase()) {
+					case 'name':
+						tab.title = adr.value;
+						break;
+						
+					case 'url':
+						if (!isGroup)
+							tab.url = adr.value;
+						break;
+				}
+			}
+		}
+		
+		if (!isGroup && tab)
+			addTab(tab);
+		if (group)
+			tabs.push(group);
+		
+		function addTab(info) {
+			console.log('adding tab ', info.title);
+			if (group) 
+				group.tabs.push(info);
+			else
+				tabs.push(info);
+		}
+		
+		function addGroup(info) {
+			console.log('adding group ', info.title, ', tabs:', info.tabs.length);
+			if (info.tabs.length > 0)
+				tabs.push(info);
+		}
+		
+		console.log(tabs);
+		return tabs;
+	}
 	
 	
 	var polling = {
@@ -208,17 +305,42 @@ var session = new function SessionExporter() {
 			if (tabs[i].group) {
 				groupId++;
 				for (var j = 0; j < tabs[i].tabs.length; j++) {
-					writeTab(ini, index, windowId, tabs[i].tabs[j], groupId, j);
-					index++;
+					writeTab(ini, index++, windowId, tabs[i].tabs[j], groupId, j);
 				}
 			}
 			else {
-				writeTab(ini, index, windowId, tabs[i]);
-				index++;
+				writeTab(ini, index++, windowId, tabs[i]);
 			}
 		}
 		
 		return ini.toDataURI();
+	}
+	
+	this.writeAdr = function(tabs) {
+		var adr = new IniWriter(true);
+		adr.open();
+		adr.writeHeader('2.0');
+		
+		var id = 1;
+		
+		for (var i = 0; i < tabs.length; i++) {
+			if (tabs[i].group) {
+				adr.writeSection('FOLDER');
+				adr.write('ID', id++);
+				adr.write('NAME', tabs[i].title);
+				adr.writeLine();
+				
+				for (var j = 0; j < tabs[i].tabs.length; j++) {
+					writeAdrTab(adr, id++, tabs[i].tabs[j]);
+				}
+				adr.writeLine('-');
+				adr.writeLine();
+			}
+			else
+				writeAdrTab(adr, id++, tabs[i]);
+		}
+		
+		return adr.toDataURI();
 	}
 	
 	function writeTab(ini, index, windowId, info, groupId, groupIndex) {
@@ -264,21 +386,40 @@ var session = new function SessionExporter() {
 		ini.write('0', title);
 		ini.writeLine();
 	}
+	
+	function writeAdrTab(adr, id, info) {
+		adr.writeSection('URL');
+		adr.write('ID', id);
+		adr.write('NAME', info.title);
+		adr.write('URL', info.url);
+		adr.writeLine();
+	}
 }
 
 var IniUtils = {
 	section: /^\s*\[(.+)\]\s*$/,
 	value: /^\s*(.+?)\s*=\s*(.*)\s*$/,
+	endGroup: '',
 	comment: ';',
 	newline: '\n',
 }
 
-function IniReader() {
+var AdrUtils = {
+	section: /^\s*\#(.+)\s*$/,
+	value: /^\s*(.+?)\s*=\s*(.*)\s*$/,
+	endGroup: '-',
+	comment: ';',
+	newline: '\n',
+}
+
+function IniReader(utils) {
 	var text = null;
 	this.isSection = false;
 	this.section = null;
 	this.key = null;
 	this.value = null;
+	
+	utils = utils || IniUtils;
 
 	this.open = function(iniText) {
 		text = iniText;
@@ -326,7 +467,7 @@ function IniReader() {
 		if (text.length == 0)
 			return null;
 		
-		var eol = text.indexOf(IniUtils.newline);
+		var eol = text.indexOf(utils.newline);
 		if (eol == -1) {
 			var temp = text;
 			text = '';
@@ -344,17 +485,22 @@ function IniReader() {
 		line = line.replace(/^\s+/, '');
 		
 		// Ignore commented and empty lines
-		if (line.indexOf(IniUtils.comment) == 0 || line.match(/^\s*$/))
+		if (line.indexOf(utils.comment) == 0 || line.match(/^\s*$/))
 			return null;
+		
+		if (line.indexOf(utils.endGroup) == 0) {
+			data.section = utils.endGroup;
+			return data;
+		}
 
 		// Test for section header
-		var match = line.match(IniUtils.section);
+		var match = line.match(utils.section);
 		if (match != null) {
 			data.section = match[1];
 			return data;
 		}
 		// Test for data
-		match = line.match(IniUtils.value);
+		match = line.match(utils.value);
 		if (match != null) {
 			data.key = match[1];
 			data.value = match[2];
@@ -366,8 +512,10 @@ function IniReader() {
 
 
 
-function IniWriter() {
+function IniWriter(adr) {
 	this.text = null;
+	adr = adr || false;
+	utils = adr ? AdrUtils : IniUtils;
 
 	this.open = function() {
 		this.text = '';
@@ -379,30 +527,40 @@ function IniWriter() {
 
 	this.write = function(string, value) {
 		if (typeof value != 'undefined')
-			this.text += string + '=' + value + IniUtils.newline;
+			this.text += (adr ? '\t' : '') + string + '=' + value + utils.newline;
 		else
 			this.text += string;
 	}
 
 	this.writeLine = function(string) {
 		string = string || '';
-        this.text += string + IniUtils.newline;
+        this.text += string + utils.newline;
 	}
 
 	this.writeComment = function(string) {
-		this.writeLine(IniUtils.comment + ' ' + string);
+		this.writeLine(utils.comment + ' ' + string);
 	}
 
 	this.writeHeader = function(version) {
 		version = version || '2.1';
-		this.writeLine('Opera Preferences version ' + version);
-		this.writeComment('Do not edit this file while Opera is running');
-		this.writeComment('This file is stored in UTF-8 encoding');
-		this.writeLine();
+		if (adr) {
+			this.writeLine('Opera Hotlist version ' + version);
+			this.writeLine('Options: encoding = utf8, version=3');
+			this.writeLine();
+		}
+		else {
+			this.writeLine('Opera Preferences version ' + version);
+			this.writeComment('Do not edit this file while Opera is running');
+			this.writeComment('This file is stored in UTF-8 encoding');
+			this.writeLine();
+		}
 	}
 
 	this.writeSection = function(name) {
-		this.writeLine('[' + name + ']');
+		if (adr)
+			this.writeLine('#' + name);
+		else
+			this.writeLine('[' + name + ']');
 	}
     
     this.toDataURI = function() {

@@ -1,0 +1,205 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="options.css">
+	<link rel="stylesheet" href="help/help.css">
+	<link rel="stylesheet" href="locale-help.css">
+	<script src="js/debug.js"></script>
+	<script src="js/storage.js"></script>
+	<script src="js/options.js"></script>
+	<script src="js/il8n.js"></script>
+	<script src="locale-options.js"></script>
+	<script src="js/help.js"></script>
+	<title id="title">Tab Vault Yardım</title>
+</head>
+<body>
+	<header>
+		<img src="img/icon.png">
+		<div class="right">
+			<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="help">Yardım</span></h1>
+			<h2><span data-loc="by">By</span> <span id="widget-author">Joel Spadin</span></h2>
+		</div>
+		<div class="clear"></div>
+	</header>
+
+	<!-- Start Translating Here -->
+	
+	<section>
+		<div id="first-time">
+			<h1>Tab Vault'u ilk defa mı kulanıyorsunuz?</h1>
+			<p>
+				Eğer Tab Vault'un ne olduğunu bilmiyorsanız ya da nasıl kullanacağınızdan emin değilseniz, okumaya devam edin.
+				Eğer kullanma kılavuzlarına son çare olarak bakanlardansanız, işte size ilginizi çekebilecek bir kaç bağlantı:
+			</p>
+			<ul>
+				<li><a href="options.html">Tercihlerinizi değiştirin</a></li>
+				<li><a href="#" id="close">Gezintinize devam edin!</a></li>
+			</ul>
+		</div>
+		
+		<h2 class="expander">Tab Vault Nedir?</h2>
+		<div>
+			<p>
+				Tab Vault sekme çubuğunda yer kaplamamasını ve hafızayı boşaltmak için
+				kapatacağınız sekmeleri daha sonra okumak için saklayabileceğiniz
+				bir yer oluşturur.
+				
+				Tıpkı Opera'nın sekme çubuğu gibi, onları sıralayabilir, gruplayabilir
+				ve sildiğiniz sekmeleri Tab Vault'un çöp listesinden kurtarabilirsiniz.
+				
+				Tab Vault ayrıca, sonra bakmak için sakladığınız sekmelerin sayısını da gösterir.
+			</p>
+		</div>
+		
+		<h2 class="expander collapsed">Tab Vault'u nasıl kullanabilirim?</h2>
+		<div>
+			<p>
+				Tab Vault'u açmak için eklenti düğmesine tıklayın. Tab Vault, düğmenin
+				üzerinde kaç sekmenin bulunduğunu gösterir. Bu (ve diğer bir çok şey)
+				<a href="options.html" target="_blank">seçenekler sayfasından</a> değiştirilebilir.
+			</p>
+			<figure>
+				<img src="help/open.png">
+				<figcaption>Tab Vault'un eklenti düğmesi</figcaption>
+			</figure>
+			
+			<h3>Tab Vault Arayüzü</h3>
+			<p>
+				Tab Vault iki listeye sahiptir: Sekmeler ve Çöp Kutusu. Sekmeler; kaydettiğiniz
+				sekmeleri saklar. Çöp Kutusu; onları geri kurtarma ihtimalinize karşın
+				sildiğiniz sekmeleri tutar. Açılır pencerenin en üstündeki
+				<code>Sekmeler</code> ve <code>Çöp Kutusu</code> bağlantılarıyla
+				listeler arası geçiş yapabilirsiniz.
+				(Çöp Kutusu listesi boş ise devredışı olur.)
+			</p>
+			<figure>
+				<img src="help/popup.png">
+				<figcaption>Tab Vault Açılır Penceresi</figcaption>
+			</figure>
+			
+			<h3>Sekmeler Listesi <span class="sub">Yönetim ve Sekme Açma</span></h3>
+			<p>
+				<code>Sekmeyi Kaydet</code>e tıklayarak açık sekmeyi kaydedebilirsiniz.
+				Sekmeleri sıralamak için onları tutun ve çekin. Sekmeyi silmek için
+				sekmenin <code>X</code> düğmesine tıklayın. Ayrıca üstteki
+				<code>Çöp Kutusu</code>na taşıyarak da silebilirsiniz.
+				Sekmeler listesi sadece sekme başlıklarını gösterir, ama sekmenin
+				URL'sini sekme üzerinde bekleterek görebilirsiniz.
+			</p>
+			<p>
+				Bir sekmeyi açmak için 3 yol vardır. En basiti yeni sayfada açmak için
+				sekmeye	tıklayın.
+				Arka planda bir sekmede açmak için tıklarken
+				<code>Ctrl</code>ye basılı tutun.
+				Açılır pencereden bir sekmeyi tutun ve açık sayfada açmak için,
+				sayfanın üzerine bırakın.
+			</p>
+			
+			<h3>Çöp listesi <span class="sub">Silinen Sekmeler</span></h3>
+			<p>
+				Bir sekmeyi sildiğinizde, doğruca buraya gider. Silinmiş bir sekmeyi
+				tıklayarak yeniden sekmeler listesine aktarabilirsiniz. <code>Kapatılan Sekmelerin Listesini Temizle</code>ye
+				tıkladığınızda tüm silinerek çöp kutusuna gönderilmiş sekmeler, kalıcı
+				olarak silinir. Silinmiş sekmelerin sırasını değiştiremezsiniz.
+			</p>
+			<figure>
+				<img src="help/trash.png">
+				<figcaption>Çöp listesi</figcaption>
+			</figure>
+			
+			<h3>Sekme Grupları</h3>
+			<p>
+				Tab Vault artık sekme gruplarını destekliyor. Gruplar favicon'un
+				bulunduğu yerde bir genişletici ok bulundurur ve <code>X</code> düğmesini
+				bulundurmaz.
+				
+				Bir grup oluşturmak için sekmeyi tutun ve farenizi, sekmenin sağındaki
+				okun üzerine taşıyın. Şimdi ise sekmeyi bir başka sekmenin üzerine bırakın.
+				Bırakacağınız sekme biraz karararınca doğru yolda olduğunuzu fark edeceksiniz.
+				
+				<em>Gruplamayı aktif etmek için farenin sağ tarafta olmasına dikkat.
+				Bu gruplama alanı kırmızı olarak aşağıda kutu içine alındı.</em>
+			</p>
+			<figure>
+				<img src="help/grouping.png">
+				<figcaption>İki sekmeyi gruplama (Gruplama alanı kırmızı içinde)</figcaption>
+			</figure>
+			<p>
+				Sekme grubunu genişletmek ya da daraltmak için başlığa tıklayın.
+				Grubun adını değiştirmek için, başlığın sağındaki kalem ikonuna tıklayın.
+				Sekme grupları, sekmeler gibi tutup çekilebilirler ve sekmelerinizi
+				genişletilmiş bir grubun içine ya da dışına taşıyabilirsiniz.
+				
+				Bir grup, içindeki son sekme silindiğinde ya da taşındığında kaybolacaktır.
+				Ayrıca bir grubun tamamını üstteki <code>Çöp kutusu</code>na taşıyarak da 
+				silebilirsiniz.
+			</p>
+			<figure>
+				<img src="help/groups.png">
+				<figcaption>Soldaki: genişletilmiş bir grup. Sağdaki: grubun adını düzenleme</figcaption>
+			</figure>
+			<p>
+				Tab Vault'un sekme gruplaması Opera'nın sekme gruplamasına benzer bir
+				şekilde tasarlandı. Bir grubu bir sekmeye taşıma, o sekmeyi de barındıran
+				yeni bir gruba dönüştürecektir. Bir grubu daraltılmış bir başka
+				gruba taşıdığınızda, ilkini ikincisiyle birleştirecektir. Daraltılmış bir
+				gruba sekme taşıdığınızda, sekme, gruba eklenir.
+			</p>
+			
+		</div>
+		
+		<h2 class="expander collapsed">Ekstra Özellikler</h2>
+		<div>
+			<h3>Oturumlar</h3>
+			<p>
+				Tab Vault Opera oturum dosyalarını 
+				<a href="options.html" target="_blank">seçenekler sayfası</a>daki
+				Al/Aktar bölümünden alabilir ya da aktarabilir.
+			</p>
+			<p>
+				Deponuzun sekmelerini oturum dosyası olarak aktarmak için
+				"Oturumu Aktar"a basınız. Opera yeni bir sekme açacaktır.
+				<code>Menü > Sayfa > Farklı kaydet...</code> (ya da Ctrl+S)
+				ile bu sekmeyi bir .win dosyası olarak kaydedin.
+			</p>
+			<p>
+				Bir oturum dosyasını almak için, öncelikle .win dosyasını bir metin düzenleyicide
+				açın ve dosyadaki her şeyi seçenekler sayfasındaki ilgili metin kutusuna
+				kopyalayın. Ardından "Oturumu Al"a tıklayın.
+			</p>
+			<p>
+				Opera'nın oturum dosyalarınızı nerede tuttuğunu <a href="opera:about">opera:about</a>
+				sayfasındaki "Kayıtlı oturumlar" yanındaki yerden öğrenebilirsiniz.
+				Eğer aktardığınız oturumu Opera'nın oturum listesinde görmek istiyorsanız,
+				o dosyayı bu konuma kaydedin.
+			</p>
+			<p>
+				Tab Vault'u tasarlarken önemli veri kayıplarına dair çok nadir raporlar aldım.
+				Bunun nedeni Opera'nın çökme sonrası Tab Vault'un verisini kaybetmesi,
+				henüz keşfemediğim bir Tab Vault hatası ya da bambaşka bir şey olabilir.
+				Her ihtimale karşı belirli aralıklarla sekmelerinizi güvenli bir yere
+				yedeklemenizi (aktarmanızı) öneririm.
+			</p>
+				
+		</div>
+		
+		<h3>Halen sorunuz mu var?</h3>
+		<p><a href="http://my.opera.com/spadija/blog/tab-vault">Buraya tıklayarak
+		Tab Vault'un yardım sayfasında gidin ve bana sorun</a></p>
+		
+	</section>
+	
+	<!-- Stop Translating Here -->
+	
+	<footer>
+		<p data-loc="footer">
+			<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
+			is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, 
+			images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
+			and <a href="http://www.opera.com">Opera Software</a>
+		</p>
+	</footer>
+	
+</body>
+</html>

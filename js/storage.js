@@ -313,6 +313,8 @@ var storage = new function Storage() {
 			['group_to_top', false],
 			['limit_height', false],
 			['max_height', screen.height],
+			['limit_trash', false],
+			['max_trash', 32],
 			['popup_width', 250],
 			
 			['locale', ''],

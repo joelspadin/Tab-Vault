@@ -116,6 +116,16 @@
 				<label for="popup_width">Popup width (px)</label>
 			</p>
 			<p>
+				<input name="limit_trash" id="limit_trash" type="checkbox">
+				<label for="limit_trash">Limit the size of the trash list</label>
+			</p>
+			<div class="suboption" data-expandsetting="limit_trash" data-expandvalue="true">
+				<p>
+					<input name="max_trash" id="max_trash" type="number" min="0" step="1">
+					<label for="max_trash">Maximum trash size (tabs)</label>
+				</p>
+			</div>
+			<p>
 				<select name="middle_click" id="middle_click">
 					<option value="open" data-loc="mc_open">Open tab in background</option>
 					<option value="close" data-loc="mc_close">Delete tab</option>
@@ -157,6 +167,10 @@
 			<p>
 				<button id="export">Export Session</button>
 				<label for="export">Export your saved tabs as a session file</label>
+			</p>
+			<p>
+				<button id="export_adr">Export .adr</button>
+				<label for="export_adr">Export your saved tabs as a bookmarks file</label>
 			</p>
 			<p>
 				<button id="import">Import Session</button>
@@ -288,6 +302,8 @@ il8n.translatePage([
 	['lbl:text_alpha', 'TextAlpha'],
 	['lbl:limit_height', 'LimitHeight'],
 	['lbl:max_height', 'MaxHeight'],
+	['lbl:limit_trash', 'LimitTrash'],
+	['lbl:max_trash', 'MaxTrash'],
 	['lbl:popup_width', 'PopupWidth'],
 	['lbl:middle_click', 'MiddleClick'],
 	['loc:mc_open', 'MiddleClickOpen'],
@@ -301,6 +317,8 @@ il8n.translatePage([
 	['loc:importnote', 'ImportNote', 'html'],
 	['export', 'ExportButton'],
 	['lbl:export', 'Export'],
+	['export_adr', 'ExportAdrButton'],
+	['lbl:export_adr', 'ExportAdr'],
 	['import', 'ImportButton'],
 	['lbl:import', 'Import'],
 	['import_textarea', 'ImportPlaceholder', 'placeholder'],
@@ -561,6 +579,10 @@ addEventListener('DOMContentLoaded', function() {
 	
 	$('#export').addEventListener('click', function(e) {
 		opera.extension.postMessage({ action: 'export', focused: true });
+	}, false);
+	
+	$('#export_adr').addEventListener('click', function(e) {
+		opera.extension.postMessage({ action: 'export', format: 'adr', focused: true });
 	}, false);
 	
 	$('#import').addEventListener('click', function(e) {
