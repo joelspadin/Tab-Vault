@@ -1,8 +1,0 @@
-﻿
-.expander:after {
-	content: '(gizlemek için tıklayın)';
-}
-
-.expander.collapsed:after {
-	content: '(göstermek için tıklayın)';
-}

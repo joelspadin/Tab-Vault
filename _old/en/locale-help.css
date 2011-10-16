@@ -1,8 +1,0 @@
-
-.expander:after {
-	content: '(click to hide)';
-}
-
-.expander.collapsed:after {
-	content: '(click to show)';
-}
