@@ -41,6 +41,7 @@ il8n.strings = {
 	CxReloadIcon: 'Reload Icon',
 	CxRename: 'Rename',
 	CxDelete: 'Delete',
+	CxCopyUrl: 'Copy Tab URL',
 	
 	CxSaveCurrent: 'Save Current Tab',
 	CxSaveAsGroup: 'Save Tab to New Group',

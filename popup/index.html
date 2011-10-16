@@ -9,6 +9,7 @@
 	<script src="../js/classList.js"></script>
 	<script src="../locale-popup.js"></script>
 	<script src="../locale-misc.js"></script>
+	<script src="ZeroClipboard.js"></script>
 	<script src="context.js"></script>
 	<script src="popup.js"></script>
 	<script src="dragdrop.js"></script>
@@ -80,6 +81,14 @@
 			tabs.animLength = 10;
 		}
 		
+		if (parseFloat(opera.version()) >= 12.00) {
+			var style = dom.make('style');
+			style.textContent = 'body{background-color:#f4f4f5!important}' + 
+				'.tabgroup ul{background-color:#fff;}' + 
+				'body.tabs #button-tabs:after,body.trash #button-trash:after { border-bottom-color: #f4f4f5; }';
+			document.head.appendChild(style);
+		}
+		
 		// Changes between 'tabs' and 'trash' lists
 		function changePage(page) {
 			document.body.className = page;
@@ -134,7 +143,7 @@
 		function resizeLists() {
 			var lists = document.querySelectorAll('section.page > ul');
 			
-			var msg = 'resizing lists: window height is ' + window.innerHeight + 'px';
+			//var msg = 'resizing lists: window height is ' + window.innerHeight + 'px';
 			
 			for (var i = 0; i < lists.length; i++) {
 				var pos = dom.position(lists[i]);
@@ -151,10 +160,10 @@
 				}
 
 				lists[i].style.maxHeight = height + 'px';
-				msg += '\nresized list ' + i + ' to ' + height + 'px. actual height is ' + lists[i].scrollHeight + 'px';
+				//msg += '\nresized list ' + i + ' to ' + height + 'px. actual height is ' + lists[i].scrollHeight + 'px';
 			}
 			
-			console.log(msg);
+			//console.log(msg);
 		}
 		
 

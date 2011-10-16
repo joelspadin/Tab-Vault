@@ -311,6 +311,10 @@ fieldset div[data-expandsetting]:last-child {
 	margin: 5px 10px;
 }
 
+#custombutton {
+	margin-left: 10px;
+}
+
 #save_buttons {
 	display: block;
 	margin-left: 5px;
@@ -346,6 +350,14 @@ fieldset div[data-expandsetting]:last-child {
 
 .o-button .icon.text {
 	padding: 0 4px;
+}
+
+body .opera12 {
+	display: none;
+}
+
+body.opera12 .opera12 {
+	display: inherit;
 }
 
 

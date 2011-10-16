@@ -206,8 +206,11 @@ var tabs = new function TabList() {
 	this.tooltips = settings.get('tooltips') || false;
 	this.verboseTips = settings.get('verbose_tab_tips') || false;
 	this.keepExpanded = settings.get('keep_groups_open') || false;
+	this.openOneGroup = settings.get('open_one_group') || false;
+	this.closeOnOpen = settings.get('close_on_open') || false;
 	this.saveToTop = settings.get('save_to_top') || false;
 	this.groupToTop = settings.get('group_to_top') || false;
+	this.removeDuplicates = settings.get('remove_duplicates') || false;
 	this.allowOpen = true;
 
 	this.tabs = [];
@@ -250,12 +253,20 @@ var tabs = new function TabList() {
 		group.onexpand = function(e) {
 			if (tabs.ongroupexpand)
 				tabs.ongroupexpand(e);
+			
+			if (e.expanded && tabs.openOneGroup) {
+				tabs.collapseOtherGroups(group);
+			}
 		}
 	}
 	
 	this.add = function(tab) {
 		this.attachTab(tab);
 		storage.tabs.add(tab.info);
+		
+		if (tabs.removeDuplicates && tab instanceof Tab) {
+			this.removeDuplicateTabs(tab);
+		}
 	}
 	
 	this.swap = function(index1, index2, nodomchange) {
@@ -287,7 +298,7 @@ var tabs = new function TabList() {
 			this.el.moveChild(from, to);
 	}
 	
-	this.remove = function(index, notrash, nodomchange) {
+	this.remove = function(index, notrash, nodomchange, skiptrash) {
 		if (index >= this.tabs.length) 
 			throw new Error('index out of bounds: ' + index + ' >= ' + this.tabs.length);
 		
@@ -312,13 +323,27 @@ var tabs = new function TabList() {
 			
 			if (!notrash) {
 				if (!(tab instanceof TabGroup)) {
-					storage.trashTab(index);
-					trash.attachTab(new Trash(info));
+					if (skiptrash) {
+						storage.tabs.remove(index);
+					}
+					else {
+						storage.trashTab(index);
+						trash.attachTab(new Trash(info));
+					}
 				}
 
 				if (this.ontrash)
 					this.ontrash({group: false});
 			}
+		}
+	}
+	
+	this.removeDuplicateTabs = function(tab) {
+		for (var i = 0; i < this.tabs.length; i++) {
+			if (this.tabs[i] instanceof TabGroup)
+				this.tabs[i].removeDuplicateTabs(tab);
+			else if (this.tabs[i] != tab && this.tabs[i].url == tab.url)
+				this.remove(i, false, false, true);
 		}
 	}
 	
@@ -378,6 +403,13 @@ var tabs = new function TabList() {
 		}
 		
 		return node.tabInfo;
+	}
+	
+	this.collapseOtherGroups = function(openGroup) {
+		for (var i = 0; i < tabs.tabs.length; i++) {
+			if (tabs.tabs[i] != openGroup && tabs.tabs[i] instanceof TabGroup && tabs.tabs[i].expanded)
+				tabs.tabs[i].collapse();
+		}
 	}
 }
 
@@ -506,6 +538,9 @@ function Tab(info) {
 			url: this.url,
 			focused: !background
 		});
+		
+		if (tabs.closeOnOpen && !background)
+			window.close();
 	}
 	
 	this.openCurrent = function(trash) {
@@ -715,7 +750,7 @@ function TabGroup(info) {
 			this.dom.tabs.moveChild(from, to);
 	}
 	
-	this.remove = function(index, notrash, nodomchange) {
+	this.remove = function(index, notrash, nodomchange, skiptrash) {
 		if (index >= self.tabs.length) 
 			throw new Error('index out of bounds: ' + index + ' >= ' + self.tabs.length);
 		
@@ -726,8 +761,13 @@ function TabGroup(info) {
 			self.dom.tabs.childNodes[index].removeSelf();
 		
 		if (!notrash) {
-			storage.trashTab(index, self.group);
-			trash.attachTab(new Trash(info));
+			if (skiptrash) {
+				storage.tabs.remove(index, self.group);
+			}
+			else {
+				storage.trashTab(index, self.group);
+				trash.attachTab(new Trash(info));
+			}
 
 			if (self.ontrash)
 				self.ontrash({group: true});
@@ -750,6 +790,13 @@ function TabGroup(info) {
 		
 		while (self.tabs.length > 0)
 			self.remove(0, notrash, nodomchange);
+	}
+	
+	this.removeDuplicateTabs = function(tab) {
+		for (var i = 0; i < this.tabs.length; i++) {
+			if (this.tabs[i] != tab && this.tabs[i].url == tab.url)
+				this.remove(i, false, false, true);
+		}
 	}
 	
 	this.mergeGroup = function(otherGroup, toTop) {
@@ -880,6 +927,9 @@ function TabGroup(info) {
 		// Open all tabs in this group and focus the first if !background
 		for (var i = this.tabs.length - 1; i >= 0; i--) 
 			this.tabs[i].open(background || i != 0, false);
+		
+		if (tabs.closeOnOpen && !background)
+			window.close();
 	}
 	
 	this.openCurrent = function(trash) {

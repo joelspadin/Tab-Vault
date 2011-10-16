@@ -1,4 +1,5 @@
 
+
 body {
 	font: 13px/18px 
 		'Segoe UI', "helvetica neue",
@@ -8,7 +9,9 @@ body {
 		Arial, sans-serif;
 	
 	overflow: hidden;
+	background-color: #fff;
 }
+
 
 header {
 	display: block;
@@ -607,21 +610,24 @@ section.page > ul.scroll {
 	color: #000 !important;
 }
 
-.cxmenu.win a:not(.separator):hover {
+.cxmenu.win a:not(.separator):hover,
+.win #cx_copy_url.hover a {
 	border-color: #aecff7;
 	border-radius: 3px;
 	background: rgba(174,207,247, 0.2);
 	background: -o-linear-gradient(rgba(255,255,255,0.3), rgba(174,207,247,0.3));
 }
 
-.cxmenu.win.op a:not(.separator):hover {
+.cxmenu.win.op a:not(.separator):hover,
+.win.op #cx_copy_url.hover a{
 	color: #fff !important;
 	border-color: #1676ff;
 	border-radius: 0;
 	background: transparent;
 }
 
-.cxmenu.mac a:not(.separator):hover {
+.cxmenu.mac a:not(.separator):hover,
+.mac #cx_copy_url.hover a {
 	color: #fff !important;
 	border-top-color: #6d91ec;
 	border-bottom-color: #2266ea;
@@ -629,14 +635,16 @@ section.page > ul.scroll {
 	background: -o-linear-gradient(#7699f5, #3573f2);
 }
 
-.cxmenu.uty a:not(.separator):hover {
+.cxmenu.uty a:not(.separator):hover,
+.uty #cx_copy_url.hover a {
 	color: #fff !important;
 	border-color: #c75d33;
 	box-shadow: inset 0 1px 1px rgba(255,255,255, 0.24), 
 		inset 0 -1px 3px -1px rgba(255,255,255, 0.15);
 }
 
-.cxmenu.dfl a:not(.separator):hover {
+.cxmenu.dfl a:not(.separator):hover,
+.dfl #cx_copy_url.hover a {
 	background: rgba(0,0,255,0.1);
 }
 
@@ -700,11 +708,13 @@ section.page > ul.scroll {
 	background-image: url('../img/close.png');
 }
 
-.cxmenu.win.op li:hover {
+.cxmenu.win.op li:hover,
+.win.op #cx_copy_url.hover {
 	background-color: #46a9ff;
 }
 
-.cxmenu.uty li:hover {
+.cxmenu.uty li:hover,
+.uty #cx_copy_url.hover  {
 	/*background: #ef7544;*/
 	background: -o-linear-gradient(#f98658 5%, #eb703f 65%, #ea6e3d 95%);
 }

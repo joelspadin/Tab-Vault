@@ -5,27 +5,33 @@ il8n.strings = {
 	Title: 'Tab Vault Options',				// Options page tab title
 	By: 'By',
 	
-	TitleHelp: 'Tab Vault Help',			// Help page tab title
+	TitleHelp: 'Tab Vault Help',				// Help page tab title
 	TitleHelp2: 'Help',
 	TitleUpgrade: 'Tab Vault Upgrader',		// Upgrade page tab title
 	TitleUpgrade2: 'Upgrader',
 	
-	Default: 'Default',						// Default button text
-	ActionFailed: 'Failed!',				// Status message for errors
-	ActionDone: 'Done!',					// Status message for success
+	Default: 'Default',							// Default button text
+	ActionFailed: 'Failed!',					// Status message for errors
+	ActionDone: 'Done!',							// Status message for success
 	
 	Preferences: 'Preferences',				// Preferences category header
+	VaultSettings: 'Vault Settings',			
+	DisplaySettings: 'Display Settings',	
+	OtherSettings: 'Other Settings',
 	CompactTabs: '<Unused>',
 	Tooltips: 'Show help tooltips in the popup',
 	VerboseTabTips: 'Show both title and URL in tab tooltips',
 	TrashOnOpen: 'Send tabs to the trash after opening them',
+	RemoveDuplicates: 'Remove duplicate tabs from the list when saving tabs',
 	DisableAnimation: 'Disable UI Animation',
 	SaveToTop: 'Add saved tabs to the top of the list',
 	GroupToTop: 'When grouping tabs, add tabs to the top of the group',
 	CloseTabOnSave: 'Close the current tab after saving it',
 	CloseOnSave: 'Close the popup after saving the current tab',
 	CloseOnPageOpen: 'Close the popup after dropping a tab from the list onto the page',
+	CloseOnOpen: 'Close the popup after opening a tab in the foreground',
 	KeepGroupsOpen: 'Keep groups expanded when reopening the popup',
+	OpenOneGroup: 'Allow only one expanded group',
 	ShowBadge: 'Show the number of saved tabs on the toolbar button',
 	BackgroundColor: 'Button background color',
 	BackgroundAlpha: 'Button background opacity',
@@ -43,6 +49,10 @@ il8n.strings = {
 	CxMenuStyle: 'Context menu style',
 	Language: 'Language (requires restart)',
 	
+	EnableClipboard: 'To enable copying tab URLs, go to the ' +
+				'<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04a.html">Flash player settings manager</a> ' +
+				'and add this URL to the list of trusted locations.',
+	
 	ImportExport: 'Import/Export',			// Import/Export category header
 	ImportNote: '<strong>Note:</strong> Importing a session will temporarily open each imported tab to collect favicons.',
 	ExportButton: 'Export Session',
@@ -50,7 +60,7 @@ il8n.strings = {
 	ExportAdrButton: 'Export .adr',
 	ExportAdr: 'Export your saved tabs as a bookmarks file',
 	ImportButton: 'Import Session',
-	Import: 'Import a session/bookmarks file to your saved tabs',
+	Import: 'Import a session or bookmarks (.win or .adr) file to your saved tabs',
 	ImportWorking: 'Importing...',
 	ImportPlaceholder: 'Open a session file (.win or .adr) in a text editor, then copy and paste the contents here before clicking Import.',
 	
@@ -70,6 +80,7 @@ il8n.strings = {
 	SaveTabAction: 'Save tab action - use with keyboard shortcuts and mouse gestures',
 	SaveTabButton: 'Save tab button - click to save, then drag to a toolbar from the Appearance window',
 	SaveButtonTitle: 'Save to Tab Vault',
+	CustomButton: 'Custom Icon',
 	
 	
 	Help: 'Need Help?',						// Help category header

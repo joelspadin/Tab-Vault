@@ -248,19 +248,14 @@ var access = new function ExternalAccess() {
 	}
 	
 	
-	this.makeButtons = function(container, closeOnSave) {
+	this.makeButtons = function(container, closeOnSave, custom) {
 		var label = il8n.get('SaveButtonTitle');
 		var icons = [
 			'Add to bookmarks',
 			'Bookmarks',
-			'Panel bookmarks',
-			'New Note',
-			'New Window',
-			'Add widget',
 			'New page',
 			'Save',
 			'16:Bookmark Visited',
-			'16:Menu Bookmarks',
 			'16:Bookmark Unvisited',
 			'16:Search Bookmark',
 			'16:Note',
@@ -271,6 +266,9 @@ var access = new function ExternalAccess() {
 			'16:Menu Transfers',
 			'',
 		];
+		
+		if (custom)
+			icons.push(custom);
 		
 		container.innerHTML = '';
 		

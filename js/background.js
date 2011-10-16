@@ -523,6 +523,8 @@ window.addEventListener('load', function() {
 				break;
 		}
 		
+		console.log(name);
+		
 		// Check if the number of stored tabs changed
 		// Wait a moment in case multiple changes occur at once
 		if (name.match(/_count/)) {

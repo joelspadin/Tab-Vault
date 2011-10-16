@@ -21,8 +21,9 @@ function ContextMenu(options) {
 		if (options.pageOffset === undefined)
 			options.pageOffset = 4;
 		if (options.zIndex === undefined)
-			options.zIndex = 10000;
+			options.zIndex = 90;
 		options.beforeShow = options.beforeShow || empty;
+		options.afterShow = options.afterShow || empty;
 		options.beforeHide = options.beforeHide || empty;
 		options.beforeSelect = options.beforeSelect || empty;
 		
@@ -31,12 +32,18 @@ function ContextMenu(options) {
 		this.container = document.createElement('div');
 		this.container.className = this.options.className;
 		this.container.style = 'display:none; position:absolute';
+		this.container.cxmenu = this;
+		if (options.id)
+			this.container.id = options.id;
 		
 		var list = document.createElement('ul');
 
 		this.options.menuItems.forEach(function(item) {
 			var el = document.createElement('li');
 			el.className = item.className || '';
+			
+			if (item.id)
+				el.id = item.id;
 			
 			if (item.separator)
 				el.className = 'separator';
@@ -133,6 +140,7 @@ function ContextMenu(options) {
 		this.container.style.zIndex = this.options.zIndex;
 		
 		this.event = e;
+		this.options.afterShow(e);
 	}
 	
 	this.onClick = function(e) {
@@ -219,6 +227,7 @@ function RightClickShim(eventhandler, allowLeft) {
 var contextmenus = new function ContextMenuList() {
 	var empty = function() {};
 
+	this.style = '';
 	this.callbacks = {
 		open: empty,
 		openBackground: empty,
@@ -245,12 +254,13 @@ var contextmenus = new function ContextMenuList() {
 contextmenus.init = function() {
 
 	var className = 'cxmenu';
-	var style = settings.get('cxmstyle');
+	var style = contextmenus.style = settings.get('cxmstyle');
 	
 	if (style)
 		className += ' ' + style;
 	
 	contextmenus.tab = new ContextMenu({
+		id: 'cxmenu_tab',
 		className: className,
 		menuItems: [
 			{
@@ -279,6 +289,12 @@ contextmenus.init = function() {
 				callback: function(e) {contextmenus.callbacks.createGroup(e)}
 			},
 			{
+				name: _('CxCopyUrl'),
+				className: 'copy',
+				id: 'cx_copy_url',
+				callback: function() {},
+			},
+			{
 				name: _('CxReloadIcon'),
 				className: 'icon',
 				callback: function(e) {contextmenus.callbacks.reloadIcon(e)}
@@ -296,11 +312,13 @@ contextmenus.init = function() {
 				className: 'delete',
 				callback: function(e) {contextmenus.callbacks.trash(e)}
 			}
-		]
+		],
+		afterShow: showClipboard,
 	});
 
 
 	contextmenus.group = new ContextMenu({
+		id: 'cxmenu_group',
 		className: className,
 		menuItems: [
 			{
@@ -341,6 +359,7 @@ contextmenus.init = function() {
 	});
 
 	contextmenus.save = new ContextMenu({
+		id: 'cxmenu_save',
 		className: className,
 		selector: '#save-tab',
 		menuItems: [
@@ -373,6 +392,7 @@ contextmenus.init = function() {
 	});
 
 	contextmenus.trash = new ContextMenu({
+		id: 'cxmenu_id',
 		className: className,
 		menuItems: [
 			{
@@ -498,3 +518,24 @@ contextmenus.init = function() {
 		}
 	}
 }
+
+
+var clipboard = new ZeroClipboard.Client();
+clipboard.glued = false;
+
+function showClipboard(e) {
+	var tab = tabs.getTabFromNode(e.target);
+	if (tab instanceof Tab) {
+		if (!clipboard.glued)
+			clipboard.glue('cx_copy_url');
+		else
+			clipboard.show();
+		
+		clipboard.setText(tab.url);
+	}
+}
+
+clipboard.addEventListener('complete', function(client, text) {
+	$('#cxmenu_tab').style.display = 'none';
+	clipboard.hide();
+})

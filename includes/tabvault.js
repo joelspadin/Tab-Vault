@@ -65,8 +65,8 @@ opera.extension.onmessage = function(e) {
 	}
 }
 
-window.opera.tabvault = new function TabVault() {
-	this.save = function(pass, url, title, icon) {
+window.opera.tabvault = {
+	save: function(pass, url, title, icon) {
 		opera.extension.postMessage({
 			action: 'external_save',
 			pass: pass,

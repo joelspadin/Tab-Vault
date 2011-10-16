@@ -16,11 +16,12 @@
 		il8n.loadLocaleScript('locale-options.js');
 		il8n.loadLocaleStyle('locale-help.css');
 	</script>
+	<link rel="icon" type="image/png" href="img/icon_16.png">
 	<title id="title">Tab Vault Help</title>
 </head>
 <body>
 	<header>
-		<img src="/img/icon.png">
+		<img src="/img/icon.png" alt="Vault Icon">
 		<div class="right">
 			<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="help">Help</span></h1>
 			<h2><span data-loc="by">By</span> <span id="widget-author">Joel Spadin</span></h2>
@@ -35,8 +36,8 @@
 			<h1>New to Tab Vault?</h1>
 			<p>
 				If you aren't sure what Tab Vault is or how to use it, just read on.
-				If you're the type that only reads the manual as a last resort, these
-				links might interest you:
+				If you only read the manuals as a last resort, these links might 
+				interest you:
 			</p>
 			<ul>
 				<li><a href="/options.html">Change your preferences</a></li>
@@ -76,12 +77,12 @@
 				Tab Vault has two lists: Tabs and Trash. Tabs holds your saved tabs.
 				Trash keeps deleted tabs in case you want to restore them. Click the
 				<code>Tabs</code> and <code>Trash</code> links at the top of the 
-				popup to change between the lists. 
+				pop-up to change between the lists. 
 				(The trash list is disabled if it is empty)
 			</p>
 			<figure>
 				<img src="/help/popup.png">
-				<figcaption>The Tab Vault popup</figcaption>
+				<figcaption>The Tab Vault pop-up</figcaption>
 			</figure>
 			
 			<h3>The Tabs List <span class="sub">Managing and Opening Tabs</span></h3>
@@ -93,11 +94,12 @@
 				hovering your mouse over the tab.
 			</p>
 			<p>
-				There are three ways to open a tab. Simply click a tab to open it
+				There are four ways to open a tab. Simply click a tab to open it
 				in a new page. Hold <code>Ctrl</code> while clicking a tab to open 
 				it in a background page. 
 				Drag a tab from the popup and drop it on the web page to open it in 
 				the current page. Entire tab groups can be opened like this too.
+				Right click a tab or group for even more options.
 			</p>
 			
 			<h3>The Trash List <span class="sub">Restoring Deleted Tabs</span></h3>
@@ -114,7 +116,7 @@
 			
 			<h3>Tab Groups</h3>
 			<p>
-				Tab Vault now supports tab groups. Groups have an expander arrow
+				Tab Vault supports tab groups. Groups have an expander arrow
 				in place of a favicon and they don't have a <code>X</code> button.
 				
 				To create a group, start dragging a tab and move your cursor over the 
@@ -157,18 +159,19 @@
 		<div>
 			<h3>Sessions</h3>
 			<p>
-				Tab Vault can import and export Opera session files from the
+				Tab Vault can import and export Opera session and bookmarks files from the
 				Import/Export section of the 
 				<a href="/options.html" target="_blank">options page</a>.
 			</p>
 			<p>
-				To export your vault's tabs as a session file, click "Export Session". 
+				To export your vault's tabs as a session file, click <code>Export Session</code>.
 				Opera will open a new tab. Use <code>Menu > Page > Save As...</code> 
-				(or Ctrl+S) to save this tab as a .win file.
+				(or Ctrl+S) to save this tab as a .win file. You can also export as
+				an Opera bookmarks file with the <code>Export .adr</code> button.
 			</p>
 			<p>
-				To import a session file, use the file picker to select the .win file, 
-				then click "Import Session". 
+				To import a session or bookmarks file, use the file picker to select 
+				the .win or .adr file, then click "Import Session".
 			</p>
 			<p>
 				You can find where Opera keeps your session files by going to
@@ -177,12 +180,9 @@
 				in Opera's session list, save them to this location.
 			</p>
 			<p>
-				While I have designed Tab Vault so that it is very difficult for any 
-				bug to cause catastrophic data loss, I have gotten (very rare) reports of 
-				people's tabs completely disappearing from Tab Vault. 
-				This could be because Opera lost Tab Vault's data after a crash, a 
-				bug in Tab Vault I haven't discovered, or something else entirely.
-				In any case, I recommend you periodically export your tabs for 
+				I have received reports where a problem with Opera caused it to
+				lose all of Tab Vault's saved data. While this is very rare, 
+				I recommend you periodically export your tabs for 
 				safekeeping, just in case something does go wrong.
 			</p>
 			
@@ -198,13 +198,15 @@
 				password. This password keeps malicious sites from saving things to
 				your vault. You don't have to remember it, so just click the 
 				"Generate" button to create a random password.
+				<em>This password does not secure the vault. It only prevents web sites
+				from interacting with the vault.</em>
 			</p>
 			<p>
 				To make a button to save the current tab, just click the button with
 				the icon you want. It will be added to the "My Buttons" section of
 				the appearance window, from which you can drag it to any toolbar.
 				(A bug in Opera currently makes this button bigger than normal, so
-				use one of the smaller buttons)
+				use one of the smaller buttons.)
 			</p>
 			<p>
 				To make a keyboard shortcut or mouse gesture, copy the text shown
