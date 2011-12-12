@@ -11,6 +11,7 @@ il8n.strings = {
 	Trash: 'Trash',
 	TrashTip: 'View the List of Deleted Tabs',
 	DropToTrash: 'Drop to Delete Item',
+	Search: 'Search tabs',
 	
 	CannotSave: 'Tab Vault cannot save this tab. Reload the page and try again.',
 	CannotOpen: 'Tab Vault cannot open the tab in the current page. ' +

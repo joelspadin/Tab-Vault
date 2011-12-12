@@ -29,6 +29,9 @@
 	</header>
 	
 	<section id="panel-tabs" class="page">
+		<div id="search-bar" class="hidden">
+			<input type="text" id="search" placeholder="Search"><button id="close-search" class="close"></a>
+		</div>
 		<ul id="tab-list" style="display:none"></ul>
 	</section>
 	
@@ -58,7 +61,8 @@
 			['button-trash', 'Trash'],
 			['clear-trash', 'ClearTrash'],
 			['trash-shim', 'DropToTrash'],
-		], 'text');
+			['search', 'Search', 'placeholder'],
+		]);
 		
 		if (tabs.tooltips) {
 			il8n.translatePage([
@@ -70,10 +74,12 @@
 			], 'title');
 		}
 		
+		// Get popup width and load variable stylesheet
 		localesettings.PopupWidth = Math.max(
 			localesettings.PopupWidth, settings.get('popup_width'));
 		varstyle.addStyle('variable.css', localesettings);
 		
+		// Maybe disable animation by disabling css transitions
 		if (settings.get('disable_animation')) {
 			var style = dom.make('style');
 			style.textContent = '*{-o-transition-property:none !important}';
@@ -81,11 +87,11 @@
 			tabs.animLength = 10;
 		}
 		
-		if (parseFloat(opera.version()) >= 12.00) {
+		// Extra styles for Opera <11.60 (popup has white border instead of light gray)
+		if (parseFloat(opera.version()) < 11.60) {
 			var style = dom.make('style');
-			style.textContent = 'body{background-color:#f4f4f5!important}' + 
-				'.tabgroup ul{background-color:#fff;}' + 
-				'body.tabs #button-tabs:after,body.trash #button-trash:after { border-bottom-color: #f4f4f5; }';
+			style.textContent = 'body{background-color:#fff!important}' +  
+				'body.tabs #button-tabs:after,body.trash #button-trash:after { border-bottom-color: #fff; }';
 			document.head.appendChild(style);
 		}
 		
@@ -110,6 +116,7 @@
 				$('#button-trash').removeClass('disabled');
 		}
 		
+		// Clears tabs from the trash to keep it within the maximum size
 		function limitTrashSize() {
 			if (settings.get('limit_trash')) {
 				var size = settings.get('max_trash');
@@ -124,11 +131,13 @@
 			//debug('resize ' + page);
 			var size = 0;
 			if (page == 'tabs') {
-				var size = tabs.tabs.length;
+				var size = 0;
 				for (var i = 0; i < tabs.tabs.length; i++) {
-					if (tabs.tabs[i].tabsize) 
-						size += tabs.tabs[i].tabsize - 1;
+					size += tabs.tabs[i].tabsize;
 				}
+				
+				if (search.isOpen)
+					size++;
 			}
 			
 			opera.extension.postMessage({ 
@@ -148,6 +157,9 @@
 			for (var i = 0; i < lists.length; i++) {
 				var pos = dom.position(lists[i]);
 				var height = window.innerHeight - pos.y - 8;
+				
+				//msg += '\n list ' + i + ' position: ' + pos.y + 'px';
+				
 				if (lists[i].scrollHeight > height) {
 					if (!lists[i].hasClass('scroll')) 
 						lists[i].addClass('scroll');
@@ -340,6 +352,17 @@
 				if (e.expanded)
 					setTimeout(function() { requestResize('tabs') }, tabs.animLength);
 			};
+			
+			search.onopen = function(e) {
+				requestResize('tabs', !e.open * search.animLength);
+				if (e.open)
+					setTimeout(function() { requestResize('tabs') }, search.animLength);
+			}
+			
+			search.onfilter = function() {
+				requestResize('tabs');
+			}
+			
 			trash.onrestore = function() {
 				requestResize('trash');
 				enableTrash();
@@ -356,16 +379,19 @@
 		//	resizeLists('tabs');
 		//}, false);
 		
+		// Prevent text selection to make drag and drop work nicely
 		document.body.addEventListener('mousedown', function(e) {
-			e.preventDefault();
+			if (e.target.nodeName != 'INPUT')
+				e.preventDefault();
 		}, false);
 		
 		// Space and Enter like to press the extension's button which resizes the popup
 		addEventListener('keypress', function(e) {
-			if (e.target.nodeName == 'INPUT') 
+			// Don't ignore key presses for input boxes (except ESC which closes the popup)
+			if (e.target.nodeName == 'INPUT' && e.keyCode != keys.esc) 
 				return;
 			
-			if (e.keyCode == 13 || e.keyCode == 32) ;
+			if (e.keyCode == keys.enter || e.keyCode == keys.space) ;
 				e.preventDefault();
 		}, false);
 		

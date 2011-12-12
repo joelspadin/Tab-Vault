@@ -81,7 +81,12 @@ var dom = new function DomUtils() {
 	
 }
 
-
+var keys = {
+	f: 70,
+	enter: 13,
+	esc : 27, 
+	space: 32,
+}
 
 
 // Utility functions for HTML elements
@@ -210,7 +215,10 @@ var tabs = new function TabList() {
 	this.closeOnOpen = settings.get('close_on_open') || false;
 	this.saveToTop = settings.get('save_to_top') || false;
 	this.groupToTop = settings.get('group_to_top') || false;
-	this.removeDuplicates = settings.get('remove_duplicates') || false;
+	this.allowListDupes = settings.get('allow_list_dupes') || false;
+	this.allowGroupDupes = settings.get('allow_group_dupes') || false;
+	this.removeListDupes = settings.get('remove_list_dupes') || false;
+	this.removeGroupDupes = settings.get('remove_group_dupes') || false;
 	this.allowOpen = true;
 
 	this.tabs = [];
@@ -264,7 +272,7 @@ var tabs = new function TabList() {
 		this.attachTab(tab);
 		storage.tabs.add(tab.info);
 		
-		if (tabs.removeDuplicates && tab instanceof Tab) {
+		if (tab instanceof Tab) {
 			this.removeDuplicateTabs(tab);
 		}
 	}
@@ -338,12 +346,23 @@ var tabs = new function TabList() {
 		}
 	}
 	
-	this.removeDuplicateTabs = function(tab) {
+	this.removeDuplicateTabs = function(tab, ignoreGroups) {
+	
 		for (var i = 0; i < this.tabs.length; i++) {
-			if (this.tabs[i] instanceof TabGroup)
-				this.tabs[i].removeDuplicateTabs(tab);
-			else if (this.tabs[i] != tab && this.tabs[i].url == tab.url)
-				this.remove(i, false, false, true);
+			if (this.tabs[i] instanceof TabGroup) {
+				if (!ignoreGroups && !tabs.allowGroupDupes && tabs.removeGroupDupes) {
+					var g = this.tabs[i];	// check whether the group is removed from this.tabs
+					this.tabs[i].removeDuplicateTabs(tab, true);
+					if (g != this.tabs[i])
+						i--;
+				}
+			}
+			else if (this.tabs[i] != tab && this.tabs[i].url == tab.url) {
+				if (!tabs.allowListDupes) {
+					this.remove(i, false, false, true);
+					i--;
+				}
+			}
 		}
 	}
 	
@@ -476,6 +495,7 @@ function Tab(info) {
 	
 	this.parent = null;
 	this.info = info || {};
+	this.filtered = false;
 	
 	this.dom = {
 		container: null,
@@ -495,6 +515,7 @@ function Tab(info) {
 	this.__defineSetter__('icon', function(value) {this.info.icon = value});
 	
 	this.__defineGetter__('el', function() {return this.dom.container});
+	this.__defineGetter__('tabsize', function() {return this.filtered ? 0 : 1});
 	
 	this.ondelete = null;
 	
@@ -598,6 +619,16 @@ function Tab(info) {
 		self.dom.icon.src = '../img/reload_anim.png';
 	}
 	
+	this.filter = function() {
+		self.el.addClass('filtered');
+		self.filtered = true;
+	}
+	
+	this.unfilter = function() {
+		self.el.removeClass('filtered');
+		self.filtered = false;
+	}
+	
 	function build() {
 		self.dom.container = dom.make('li', '.tab');
 		self.dom.container.role = 'link';
@@ -673,6 +704,7 @@ function TabGroup(info) {
 	this.parent = null;
 	this.info = info || {};
 	this.tabs = [];
+	this.filtered = false;
 	
 	this.dom = {
 		container: null,
@@ -692,7 +724,21 @@ function TabGroup(info) {
 	this.__defineGetter__('el', function() {return this.dom.container});
 	
 	this.__defineGetter__('expanded', function() {return !this.el.hasClass('collapsed')});
-	this.__defineGetter__('tabsize', function() {return this.expanded ? 1 + this.tabs.length : 1});
+	this.__defineGetter__('tabsize', function() {
+		if (this.filtered)
+			return 0;
+		
+		if (!this.expanded) 
+			return 1;
+		
+		var size = 1;
+		for (var i = 0; i < this.tabs.length; i++) {
+			if (!this.tabs[i].filtered)
+				size++;
+		}
+		
+		return size;
+	});
 	
 	this.ondelete = null;
 	this.ontrash = null;
@@ -717,6 +763,10 @@ function TabGroup(info) {
 	this.add = function(tab) {
 		this.attachTab(tab);
 		storage.tabs.add(tab.info, this.group);
+		
+		if (tab instanceof Tab) {
+			this.removeDuplicateTabs(tab);
+		}
 	}
 	
 	this.swap = function(index1, index2, nodomchange) {
@@ -792,10 +842,20 @@ function TabGroup(info) {
 			self.remove(0, notrash, nodomchange);
 	}
 	
-	this.removeDuplicateTabs = function(tab) {
+	this.removeDuplicateTabs = function(tab, ignoreList) {
+		console.log(!ignoreList, tabs.removeListDupes);
+		if (!ignoreList && tabs.removeListDupes)
+			tabs.removeDuplicateTabs(tab, true);
+		
+		if (tabs.allowGroupDupes)
+			return;
+		
 		for (var i = 0; i < this.tabs.length; i++) {
-			if (this.tabs[i] != tab && this.tabs[i].url == tab.url)
+			if (this.tabs[i] != tab && this.tabs[i].url == tab.url) {
 				this.remove(i, false, false, true);
+				i--;
+			}
+			
 		}
 	}
 	
@@ -948,6 +1008,15 @@ function TabGroup(info) {
 		this._editabletitle.edit();
 	}
 	
+	this.filter = function() {
+		self.el.addClass('filtered');
+		self.filtered = true;
+	}
+	
+	this.unfilter = function() {
+		self.el.removeClass('filtered');
+		self.filtered = false;
+	}
 	
 	function build() {
 		self.dom.container = dom.make('li', '.tabgroup .collapsed');
@@ -1194,4 +1263,172 @@ function EditableTitle(titlespan, callback, triggerarea, startCallback, endCallb
 	}
 	
 	init();
+}
+
+
+
+//TODO: Auto search when typing and no other input selected 
+//      (only works right after opening popup at the moment)
+
+var search = new function Search() {
+	
+	this.openKey = keys.f;
+	this.closeKey = keys.esc;
+	
+	this.isOpen = false;
+	this.height = 23;
+	this.animLength = 200;
+	
+	this.el = null;
+	this.input = null;
+	this.collapsedGroups = [];
+	
+	this.onopen = null;
+	this.onfilter = null;
+	
+	this.init = function() {
+		search.el = $('#search-bar');
+		search.input = $('#search');
+		
+		$('#close-search').addEventListener('click', search.close, false);
+		//search.el.addEventListener('OTransitionEnd', dragdrop.correctListPosition, false);
+		search.input.addEventListener('input', search.oninput, false);
+		search.input.focus();
+	}
+	
+	this.open = function(noclear) {
+		
+		if (!search.isOpen) {
+			if (!noclear)
+				search.input.value = '';
+			
+			search.el.removeClass('hidden');
+			search.delayedUpdate()
+		}
+		
+		
+		search.input.focus();
+		search.input.select();
+		search.isOpen = true;
+		
+		if (search.onopen != null)
+			search.onopen({ open: true });
+	}
+	
+	this.close = function() {
+		if (search.isOpen) {
+			search.delayedUpdate();
+			search.el.addClass('hidden');
+		}
+		
+		search.isOpen = false;
+		search.cancelFilter();
+		
+		if (search.onopen != null)
+			search.onopen({ open: false });
+	}
+	
+	var updateTimer = null;
+	this.delayedUpdate = function() {
+		if (updateTimer)
+			clearTimeout(updateTimer);
+		
+		updateTimer = setTimeout(dragdrop.correctListPosition, search.animLength);
+	}
+	
+	this.oninput = function() {
+		if (!search.isOpen) {
+			search.open(true);
+		}
+		
+		//TODO: set timeout to search when done typing
+		//TODO: immediately search when pressing Enter
+		search.filter(search.input.value);
+	}
+	
+	this.filter = function(text, tablist, parent) {
+		var list = tablist || tabs.tabs;
+		text = text.toLowerCase();
+		
+		if (parent) {
+			parent.el.removeClass('search-expand');
+			parent.unfilter();
+		}
+		
+		var hasResults = false;
+		
+		for (var i = 0; i < list.length; i++) {
+			var tab = list[i];
+			
+			if (tab instanceof TabGroup) {
+				search.filter(text, tab.tabs, tab);
+			}
+			else {
+				if (tab.title.toLowerCase().indexOf(text) != -1 || tab.url.toLowerCase().indexOf(text) != -1) {
+					// If a matching tab is found, show it
+					tab.unfilter();
+					if (parent) {
+						// If it is part of a group, expand that group so we can see it
+						if (!parent.expanded)
+							search.collapsedGroups.push(parent);
+						
+						parent.el.addClass('search-expand');
+						parent.el.removeClass('collapsed');
+						hasResults = true;
+					}
+				}
+				else {
+					tab.filter();
+				}
+			}
+		}
+		
+		if (parent && !hasResults) {
+			parent.filter();
+		}
+		
+		if (list == tabs.tabs && search.onfilter) {
+			search.onfilter();
+		}
+	}
+	
+	this.cancelFilter = function(tablist, parent) {
+		var list = tablist || tabs.tabs;
+		
+		if (parent) {
+			parent.el.removeClass('search-expand');
+			parent.unfilter();
+		}
+		
+		for (var i = 0; i < list.length; i++) {
+			var tab = list[i];
+			if (tab instanceof TabGroup) {
+				search.cancelFilter(tab.tabs, tab);
+			}
+			else {
+				tab.unfilter();
+			}
+		}
+		
+		if (list == tabs.tabs) {
+			for (var i = 0; i < search.collapsedGroups.length; i++) {
+				search.collapsedGroups[i].collapse();
+			}
+			
+			search.collapsedGroups = [];
+			
+			if (search.onfilter)
+				search.onfilter();
+		}
+	}
+	
+	window.addEventListener('keydown', function(e) {
+		if (e.which == search.openKey && e.ctrlKey)
+			search.open();
+		else if (e.which == search.closeKey)
+			search.close();
+		
+	}, false);
+	
+	window.addEventListener('DOMContentLoaded', this.init, false);
 }

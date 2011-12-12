@@ -41,6 +41,7 @@ il8n.strings = {
 	CxReloadIcon: 'Обновить иконку сайта',
 	CxRename: 'Переименовать',
 	CxDelete: 'Удалить',
+        CxCopyUrl: 'Копировать адрес',
 	
 	CxSaveCurrent: 'Сохранить текущую вкладку',
 	CxSaveAsGroup: 'Сохранить вкладку в новую группу',

@@ -10,4 +10,4 @@ mv -f ./locales/en/temp.js ./locales/en/locale-misc.js
 name="TabVault Localization"
 
 rm -f "./$name.zip"
-zip -r "./$name.zip" ./config.xml ./includes/* ./js/* ./locales/* ./img/* ./popup/* ./help/* ./*.html ./*.css ./*.js ./_help\ images/*
+zip -r "./$name.zip" ./config.xml ./includes/* ./js/* ./locales/* ./img/* ./window/* ./help/* ./*.html ./*.css ./*.js ./_help\ images/*

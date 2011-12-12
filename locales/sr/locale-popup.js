@@ -41,6 +41,7 @@ il8n.strings = {
 	CxReloadIcon: 'Освежи иконицу',
 	CxRename: 'Преименуј',
 	CxDelete: 'Избриши',
+	CxCopyUrl: 'Копирај URL адресу стране',
 	
 	CxSaveCurrent: 'Сачувај активну страну',
 	CxSaveAsGroup: 'Сачувај страну у нову групу',

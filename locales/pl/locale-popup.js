@@ -41,6 +41,7 @@ il8n.strings = {
 	CxReloadIcon: 'Odśwież ikonę',
 	CxRename: 'Zmień nazwę',
 	CxDelete: 'Usuń',
+	CxCopyUrl: 'Kopiuj adres',
 	
 	CxSaveCurrent: 'Zapisz bieżącą kartę',
 	CxSaveAsGroup: 'Zapisz kartę w nowej grupie',

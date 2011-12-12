@@ -10,5 +10,5 @@ mv -f ./locales/en/temp.js ./locales/en/locale-misc.js
 name="TabVault"
 
 rm -f ./$name.oex
-zip -r ./$name.zip ./config.xml ./includes/* ./js/* ./locales/* ./img/* ./popup/* ./help/* ./*.html ./*.css ./*.js
+zip -r ./$name.zip ./config.xml ./includes/* ./js/* ./locales/* ./img/* ./window/* ./help/* ./*.html ./*.css ./*.js
 mv ./$name.zip ./$name.oex

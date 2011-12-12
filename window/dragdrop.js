@@ -202,6 +202,10 @@ var dragdrop = new function DragHandler() {
 			dragdrop.onresize();
 	}
 	
+	this.correctListPosition = function() {
+		var temp = dom.position(dragdrop.list);
+		listBounds.y = temp.y - listTopSpace;
+	}
 	
 	function init() {
 		var tb = $('#button-trash');

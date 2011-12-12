@@ -452,11 +452,13 @@ contextmenus.init = function() {
 	contextmenus.callbacks.openAndTrash = function(e) {
 		var tab = tabs.getTabFromNode(e.target);
 		tab.open(false, true);
+		opera.extension.postMessage({ action: 'recount' })
 	}
 	
 	contextmenus.callbacks.openBackgroundAndTrash = function(e) {
 		var tab = tabs.getTabFromNode(e.target);
 		tab.open(true, true);
+		opera.extension.postMessage({ action: 'recount' })
 	}
 	
 	contextmenus.callbacks.trash = function(e) {

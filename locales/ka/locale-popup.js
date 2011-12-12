@@ -41,6 +41,7 @@ il8n.strings = {
 	CxReloadIcon: 'ხატულის გადატვირთვა',
 	CxRename: 'გადარქმევა',
 	CxDelete: 'წაშლა',
+	CxCopyUrl: 'ჩანართის ბმულის დაკოპირება'
 	
 	CxSaveCurrent: 'მიმდინარე ჩანართის შენახვა',
 	CxSaveAsGroup: 'ჩანართის შენახვა ახალ ჯგუფში',

@@ -18,11 +18,11 @@ ul.scroll .tab.trash .title {
 }
 
 .tabgroup input.title {
-	width: <PopupWidth,-60>px;
+	width: <PopupWidth,-60>px !important;
 }
 
 ul.scroll .tabgroup input.title {
-	width: <PopupWidth,-70>px;
+	width: <PopupWidth,-70>px !important;
 }
 
 body.tabs #button-tabs:before {

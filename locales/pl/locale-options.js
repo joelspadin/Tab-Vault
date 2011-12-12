@@ -14,19 +14,27 @@ il8n.strings = {
 	ActionFailed: 'Wystąpił błąd!',				// Status message for errors
 	ActionDone: 'Zakończono!',					// Status message for success
 	
-	
 	Preferences: 'Preferencje',				// Preferences category header
+	VaultSettings: 'Ogólne',			
+	DisplaySettings: 'Wygląd',	
+	OtherSettings: 'Inne',
 	CompactTabs: '<Nieużywane>',
 	Tooltips: 'Pokazuj dymki z podpowiedziami',
 	VerboseTabTips: 'Pokazuj w dymku zarówno tytuł jak i adres strony',
 	TrashOnOpen: 'Po otwarciu karty przenieś ją do kosza',
+	AllowListDuplicates: 'Zezwalaj na duplikaty na głównej liście',
+	AllowGroupDuplicates: 'Zezwalaj na duplikaty w grupach',
+	RemoveListDuplicates: 'Po dodaniu karty do grupy, usuń duplikaty z głównej listy',
+	RemoveGroupDuplicates: 'Po dodaniu karty do głównej listy, usuń duplikaty z grup',
 	DisableAnimation: 'Wyłącz animacje interfejsu użytkownika',
 	SaveToTop: 'Dodawaj nowe karty na górze listy',
 	GroupToTop: 'Przy grupowaniu kart, dodawaj nowe karty na górze',
-	CloseTabOnSave: 'Zamknij kartę po dodaniu do listy',
+	CloseTabOnSave: 'Zamknij kartę po dodaniu jej do listy',
 	CloseOnSave: 'Zamykaj wyskakujące okienko po dodaniu karty',
 	CloseOnPageOpen: 'Zamykaj okienko po upuszczeniu karty na stronie',
+	CloseOnOpen: 'Zamykaj okienko po otwarciu strony w aktywnej karcie',
 	KeepGroupsOpen: 'Pozostaw grupy otwarte po ponownym otwarciu wyskakującego okienka',
+	OpenOneGroup: 'Zwijaj nieaktywne grupy',
 	ShowBadge: 'Pokazuj na przycisku etykietkę z liczbą zapamiętanych kart',
 	BackgroundColor: 'Tło etykietki',
 	BackgroundAlpha: 'Nieprzezroczystość etykietki',
@@ -35,21 +43,29 @@ il8n.strings = {
 	LimitHeight: 'Ogranicz wysokość wyskakującego okienka',
 	MaxHeight: 'Maksymalna wysokość okienka (px)',
 	PopupWidth: 'Szerokość okienka (px)',
+	LimitTrash: 'Ogranicz pojemność Kosza',
+	MaxTrash: 'Maksymalna liczba kart w Koszu',
 	MiddleClick: 'Akcja środkowego przycisku myszy',
 	MiddleClickOpen: 'Otwórz na karcie w tle',
 	MiddleClickClose: 'Usuń kartę',
 	MiddleClickNone: 'Nie rób nic',
 	CxMenuStyle: 'Styl menu kontekstowego',
-	Language: 'Język (zmiana wymaga ponownego uruchomienia)',
+	Language: 'Język (zastosowanie wszystkich zmian wymaga ponownego uruchomienia)',
+	
+	EnableClipboard: 'Aby umożliwić kopiowanie adresów zapamiętanych stron, przejdź do ' +
+				'<a href="http://www.macromedia.com/support/documentation/pl/flashplayer/help/settings_manager04a.html">Menedżera ustawień programu Flash Player</a> ' +
+				'i dodaj adres znajdujący się poniżej do listy zaufanych lokalizacji.',
 	
 	ImportExport: 'Import/Eksport',			// Import/Export category header
 	ImportNote: '<strong>Uwaga:</strong> Import sesji spowoduje chwilowe otwarcie każdej ze stron znajdujących się w niej, w celu załadowania favikonek.',
 	ExportButton: 'Eksportuj sesję',
-	Export: 'Eksportuje zapamiętane strony do pliku sesji',
+	Export: 'Eksportuje zapamiętane strony do pliku sesji (.win)',
+	ExportAdrButton: 'Eksportuj zakładki',
+	ExportAdr: 'Eksportuje zapamiętane strony do pliku zakładek (.adr)',
 	ImportButton: 'Importuj sesję',
-	Import: 'Importuje strony z sesji do listy zapamiętanych stron',
+	Import: 'Importuje plik sesji lub zakładek (.win lub .adr) do listy kart',
 	ImportWorking: 'Importowanie...',
-	ImportPlaceholder: 'Otwórz plik sesji (.win) w edytorze tekstu, skopiuj jego zawartość do tego pola tekstowego, a następnie kliknij przycisk "Importuj sesję"',
+	ImportPlaceholder: 'Otwórz plik (.win lub .adr) w edytorze tekstu, skopiuj jego zawartość do tego pola tekstowego, a następnie kliknij przycisk "Importuj sesję"',
 	
 	
 	Reset: 'Przywracanie ustawień domyślnych',							// Reset category header
@@ -67,6 +83,7 @@ il8n.strings = {
 	SaveTabAction: 'Akcja "Dodaj kartę" - używaj ze skrótami klawiaturowymi i gestami myszy:',
 	SaveTabButton: 'Przycisk "Dodaj kartę" - kliknij, aby zapisać przycisk, a następnie przeciągnij i upuść go na pasek narzędzi:',
 	SaveButtonTitle: 'Dodaj do Tab Vault',
+	CustomButton: 'Inna ikona (wprowadź nazwę ikony ze skórki Opery)',
 	
 	
 	Help: 'Potrzebujesz pomocy?',						// Help category header

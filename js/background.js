@@ -27,7 +27,7 @@ window.addEventListener('load', function() {
 				textContent: '0',
 			},
 			popup: {
-				href: 'popup/index.html',
+				href: 'window/index.html',
 				width: 250,
 				height: 300
 			}
@@ -117,6 +117,11 @@ window.addEventListener('load', function() {
 				// Resets everything to defaults
 				resetAll();
 				e.source.postMessage({ action: 'update' });
+				break;
+				
+			case 'recount':
+				// Update count on badge
+				setTimeout(updateBadge, 200);
 				break;
 				
 			case 'export':
@@ -522,8 +527,6 @@ window.addEventListener('load', function() {
 				updateWidth();
 				break;
 		}
-		
-		console.log(name);
 		
 		// Check if the number of stored tabs changed
 		// Wait a moment in case multiple changes occur at once

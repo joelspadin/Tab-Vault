@@ -235,14 +235,16 @@ section.localizations {
 
 section.localizations ul {
 	list-style-type: none;
+	column-count: 2;
 }
 
 section.localizations li {
-	float: left;
 	margin: 0.25em 0;
-	width: 50%;
 }
 
+section.localizations li:first-child {
+	margin-top: 0;
+}
 
 
 
@@ -302,18 +304,20 @@ fieldset div[data-expandsetting]:last-child {
 }
 
 
+#zeroclipboard_url {
+	box-sizing: border-box;
+	width: 100%;
+}
 
-
-#opera_action {
+#opera_action,
+#custombutton{
 	display: block;
 	box-sizing: border-box;
 	width: 100%;
 	margin: 5px 10px;
 }
 
-#custombutton {
-	margin-left: 10px;
-}
+
 
 #save_buttons {
 	display: block;

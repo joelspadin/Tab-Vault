@@ -22,7 +22,10 @@ il8n.strings = {
 	Tooltips: 'Show help tooltips in the popup',
 	VerboseTabTips: 'Show both title and URL in tab tooltips',
 	TrashOnOpen: 'Send tabs to the trash after opening them',
-	RemoveDuplicates: 'Remove duplicate tabs from the list when saving tabs',
+	AllowListDuplicates: 'Allow duplicate tabs in the main list',
+	AllowGroupDuplicates: 'Allow duplicate tabs in groups',
+	RemoveListDuplicates: 'When a tab is added to a group, remove duplicate tabs from the main list',
+	RemoveGroupDuplicates: 'When a tab is added to the main list, remove duplicate tabs from groups',
 	DisableAnimation: 'Disable UI Animation',
 	SaveToTop: 'Add saved tabs to the top of the list',
 	GroupToTop: 'When grouping tabs, add tabs to the top of the group',
@@ -47,7 +50,7 @@ il8n.strings = {
 	MiddleClickClose: 'Delete tab',
 	MiddleClickNone: 'Do nothing',
 	CxMenuStyle: 'Context menu style',
-	Language: 'Language (requires restart)',
+	Language: 'Language (requires a restart for all changes to take effect)',
 	
 	EnableClipboard: 'To enable copying tab URLs, go to the ' +
 				'<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04a.html">Flash player settings manager</a> ' +
@@ -80,7 +83,7 @@ il8n.strings = {
 	SaveTabAction: 'Save tab action - use with keyboard shortcuts and mouse gestures',
 	SaveTabButton: 'Save tab button - click to save, then drag to a toolbar from the Appearance window',
 	SaveButtonTitle: 'Save to Tab Vault',
-	CustomButton: 'Custom Icon',
+	CustomButton: 'Custom icon (enter the name of an icon from your skin)',
 	
 	
 	Help: 'Need Help?',						// Help category header

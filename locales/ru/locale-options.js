@@ -13,7 +13,29 @@ il8n.strings = {
 	Default: 'По умолчанию',						// Default button text
 	ActionFailed: 'Ошибка!',				// Status message for errors
 	ActionDone: 'Готово!',					// Status message for success
-	
+
+
+        // 2.4 (13.11.2011)
+        VaultSettings: 'Основные настройки',			
+	DisplaySettings: 'Настройки интерфейса',	
+	OtherSettings: 'Дополнительные настройки',
+        AllowListDuplicates: 'Разрешить дубликаты в основной ветке',
+	AllowGroupDuplicates: 'Разрешить дубликаты в группах',
+	RemoveListDuplicates: 'Если закладка добавлена в группу, удалять её из основной ветки',
+	RemoveGroupDuplicates: 'Если закладка добавлена в основную ветку, удалять её из всех групп',
+        CloseOnOpen: 'Закрывать Tab Vault при открытии вкладки в фоне',
+        OpenOneGroup: 'При открытии группы вкладок, сворачивать все остальные',
+	LimitTrash: 'Ограничить размер корзины',
+	MaxTrash: 'Максимальный размер корзины (кол-во вкладок)',
+        EnableClipboard: 'Для того чтобы включить возможность сохранять вкладки из буфера обмена, откройте ' +
+				'<a href="http://www.macromedia.com/support/documentation/ru/flashplayer/help/settings_manager04a.html">Настройки Flash Player</a> ' +
+				'и добавьте URL-адрес ниже в список "Всегда доверять этим местоположениям".',
+	ExportAdrButton: 'Экспорт в .adr файл',
+	ExportAdr: 'Сохраняет все ваши вкладки в файле закладок Opera',
+        CustomButton: 'Другая иконка (введите имя вашей иконки из установленного скина)',
+      
+
+
 	Preferences: 'Опции',				// Preferences category header
 	CompactTabs: '<Unused>',
 	Tooltips: 'Показывать подсказки',
@@ -40,7 +62,7 @@ il8n.strings = {
 	MiddleClickNone: 'Ничего не делает',
 	// 2.3 
 	CxMenuStyle: 'Стиль контекстного меню (меню правой кнопки мыши)', // Translation note. Ужос, а не перевод. Но выбора нет.
-	Language: 'Язык (потребуется перезапуск браузера)',
+	Language: 'Язык (потребуется перезапуск браузера для обновления настроек)', // Updated
 
 	
 	
@@ -49,9 +71,9 @@ il8n.strings = {
 	ExportButton: 'Экспортировать сессию',
 	Export: 'Сохраняет все ваши вкладки в файле сессии',
 	ImportButton: 'Импортировать сессию',
-	Import: 'Импортировать сохраненные вкладки',
+	Import: 'Восстановить ваши вкладки из файлов сессий (*.win) или закладок Opera (*.adr)',
 	ImportWorking: 'Импортирую...',
-	ImportPlaceholder: 'Открой файл сессии с помощью Блокнота (.win), затем скопируйте всё содержимое, вставьте сюда и нажмите "Импортировать сессию"',
+	ImportPlaceholder: 'Откройте файл сессии (*.win) или закладок Opera (*.adr) с помощью Блокнота, затем скопируйте всё содержимое, вставьте сюда и нажмите "Импортировать сессию"',
 	
 	
 	Reset: 'Сброс',							// Reset category header
@@ -94,7 +116,7 @@ il8n.strings = {
 	UpgradeStatus4: 'Восстанавливаю настройки...',
 	UpgradeStatus5: 'Восстанавливаю вкладки...',
 	
-	UpgradeFail1: 'Опаньки! Что-то пошло не так (или у вас очень слабый компьютер)!',
+	UpgradeFail1: 'Опаньки! Что-то пошло не так (или у вас очень слабый компьютер)!', // Translation note. Превед Chrome!
 	UpgradeFail2: 'Вы можете нажать Ctrl+Shift+O что открыть журнал ошибок и ' + 
 			'отправить все информацию из секции "Starting upgrade" в раздел "Reported Issues" на сайте ' +
 			'<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault\'s ' +
