@@ -1,4 +1,4 @@
-﻿// Strings used by options, help, and upgrade pages
+// Strings used by options, help, and upgrade pages
 
 il8n.strings = {
 
@@ -15,24 +15,24 @@ il8n.strings = {
 	ActionDone: 'Готово!',					// Status message for success
 
 
-        // 2.4 (13.11.2011)
-        VaultSettings: 'Основные настройки',			
+   // 2.4 (13.11.2011)
+   VaultSettings: 'Основные настройки',			
 	DisplaySettings: 'Настройки интерфейса',	
 	OtherSettings: 'Дополнительные настройки',
-        AllowListDuplicates: 'Разрешить дубликаты в основной ветке',
+	AllowListDuplicates: 'Разрешить дубликаты в основной ветке',
 	AllowGroupDuplicates: 'Разрешить дубликаты в группах',
 	RemoveListDuplicates: 'Если закладка добавлена в группу, удалять её из основной ветки',
 	RemoveGroupDuplicates: 'Если закладка добавлена в основную ветку, удалять её из всех групп',
-        CloseOnOpen: 'Закрывать Tab Vault при открытии вкладки в фоне',
-        OpenOneGroup: 'При открытии группы вкладок, сворачивать все остальные',
+	CloseOnOpen: 'Закрывать Tab Vault при открытии вкладки в фоне',
+	OpenOneGroup: 'При открытии группы вкладок, сворачивать все остальные',
 	LimitTrash: 'Ограничить размер корзины',
 	MaxTrash: 'Максимальный размер корзины (кол-во вкладок)',
-        EnableClipboard: 'Для того чтобы включить возможность сохранять вкладки из буфера обмена, откройте ' +
+	EnableClipboard: 'Для того чтобы включить возможность сохранять вкладки из буфера обмена, откройте ' +
 				'<a href="http://www.macromedia.com/support/documentation/ru/flashplayer/help/settings_manager04a.html">Настройки Flash Player</a> ' +
 				'и добавьте URL-адрес ниже в список "Всегда доверять этим местоположениям".',
 	ExportAdrButton: 'Экспорт в .adr файл',
 	ExportAdr: 'Сохраняет все ваши вкладки в файле закладок Opera',
-        CustomButton: 'Другая иконка (введите имя вашей иконки из установленного скина)',
+	CustomButton: 'Другая иконка (введите имя вашей иконки из установленного скина)',
       
 
 

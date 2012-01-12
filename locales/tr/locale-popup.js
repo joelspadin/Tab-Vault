@@ -11,6 +11,7 @@ il8n.strings = {
 	Trash: 'Çöp Kutusu',
 	TrashTip: 'Silinen Sekmelerin Listesini Göster',
 	DropToTrash: 'Silmek için Bırakın',
+	/* Translation needed */ Search: 'Search tabs',
 	
 	CannotSave: 'Tab Vault bu sekmeyi kaydedemiyor. Sayfayı yeniden yükleyin ve deneyin.',
 	CannotOpen: 'Tab Vault sekmeyi bu sayfada açamıyor. Sayfayı yeniden yüklemeniz gerekebilir.',
@@ -40,6 +41,7 @@ il8n.strings = {
 	CxReloadIcon: 'Simgeyi Yeniden Yükle',
 	CxRename: 'Yeniden Adlandır',
 	CxDelete: 'Sil',
+	/* Translation needed */ CxCopyUrl: 'Copy Tab URL',
 	
 	CxSaveCurrent: 'Şuanki Sekmeyi Kaydet',
 	CxSaveAsGroup: 'Sekmeyi Yeni Gruba Kaydet',

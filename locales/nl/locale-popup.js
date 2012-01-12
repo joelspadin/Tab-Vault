@@ -1,4 +1,4 @@
-// Strings used by the popup
+﻿// Strings used by the popup
 
 il8n.strings = {
 
@@ -11,6 +11,7 @@ il8n.strings = {
 	Trash: 'Prullenbak',
 	TrashTip: 'Bekijk de lijst van verwijderde tabs',
 	DropToTrash: 'Laat los om te verwijderen',
+	/* Translation needed */ Search: 'Search tabs',
 	
 	CannotSave: 'Tab Vault kan de tab niet opslaan. Herlaad de pagina en probeer het opnieuw.',
 	CannotOpen: 'Tab Vault kan de tab niet openen in de huidige pagina ' +
@@ -19,7 +20,7 @@ il8n.strings = {
 	GroupExpandTip: 'Klik om uit te klappen',
 	GroupCollapseTip: 'Klik om in te klappen',
 	GroupNameTip: 'Hernoem groep',
-	GroupNameTip2: 'Ok�',
+	GroupNameTip2: 'Oké',
 	
 	TabDeleteTip: 'Verwijder tab',
 	
@@ -41,6 +42,7 @@ il8n.strings = {
 	CxReloadIcon: 'Herlaad icoon',
 	CxRename: 'Hernoem',
 	CxDelete: 'Verwijder',
+	/* Translation needed */ CxCopyUrl: 'Copy Tab URL',
 	
 	CxSaveCurrent: 'Bewaar huidige tab',
 	CxSaveAsGroup: 'Bewaar tab in nieuwe groep',

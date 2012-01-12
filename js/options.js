@@ -204,13 +204,11 @@ var access = new function ExternalAccess() {
 	
 	this.makeAction = function(closeOnSave) {
 		var pass = settings.get('password');
-		return 'Go to page,"javascript:window.opera.tabvault.save(\'' + pass + '\')"'
-		+ (closeOnSave ? ' & Delay,100 & Close page' : ''); 
+		return 'Go to page,"javascript:window.opera.tabvault.save' + (closeOnSave ? 'AndClose' : '') + '(\'' + pass + '\')"';
 	}
 	
 	this.makeButton = function(label, icon, closeOnSave) {
-		return access.makeAction() + ',,' + (label ? '"' + label + '"' : '') + ',' + (icon ? '"' + icon + '"' : '')
-		+ (closeOnSave ? ' & Delay,100 & Close page' : '');
+		return access.makeAction(closeOnSave) + ',,' + (label ? '"' + label + '"' : '') + ',' + (icon ? '"' + icon + '"' : '');
 	}
 	
 	this.makeButtonLink = function(label, icon, closeOnSave) {
@@ -252,19 +250,25 @@ var access = new function ExternalAccess() {
 		var label = il8n.get('SaveButtonTitle');
 		var icons = [
 			'Add to bookmarks',
-			'Bookmarks',
 			'New page',
+			'Bookmarks',
 			'Save',
+			'Goto Public Page',
+			'Forward Mail',
+			'Reply',
+			'Get Mail',
+			'Send Mail',
+			'Panel Notes',
 			'16:Bookmark Visited',
 			'16:Bookmark Unvisited',
 			'16:Search Bookmark',
 			'16:Note',
+			'16:Panel Notes Inverted',
 			'16:Note Web',
 			'16:Menu Window',
 			'16:Extensions Panel Button Get More',
 			'16:Menu File',
 			'16:Menu Transfers',
-			'',
 		];
 		
 		if (custom)

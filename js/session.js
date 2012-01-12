@@ -53,7 +53,7 @@ var session = new function SessionExporter() {
 		
 		while (ini.read()) {
 			if (ini.isSection) {
-				//debug('Section: ' + ini.section);
+				//console.log('Section: ' + ini.section);
 				// [#] sections begin new tabs
 				if (ini.section.match(/^\d+$/)) {
 					index = ini.section;
@@ -77,7 +77,7 @@ var session = new function SessionExporter() {
 					mode = modes.none;
 			}
 			else if (mode == modes.groups) {
-				debug('adding group name ' + ini.value);
+				//console.log('adding group name ' + ini.value);
 				groupNames[parseInt(ini.key)] = ini.value;
 			}
 			else if (index > 0) {
@@ -207,45 +207,6 @@ var session = new function SessionExporter() {
 		return tabs;
 	}
 	
-	
-	var polling = {
-		interval: 100,
-		maxTime: 20000,
-		maxTries: 0,
-	}
-	
-	polling.maxTries = polling.maxTime / polling.interval;
-	
-	/**
-	 * Gets the favicon url of a page by opening it, checking until it loads the favicon, then closing it
-	 */ 
-	this.getFavicon = function(tabObj, callback) {
-		var tab = opera.extension.tabs.create({ url: tabObj.url, focused: false });
-		var tries = 0;
-		
-		var check = function() {
-			//debug('checking: try ' + tries);
-			if (tab.faviconUrl) {
-				tab.close();
-				tabObj.icon = tab.faviconUrl;
-				callback(tabObj);
-			}
-			else {
-				tries++;
-				if (tries < polling.maxTries)
-					setTimeout(check, polling.interval);
-				else {
-					tab.close();
-					tabObj.icon = null;
-					callback(tabObj);
-					opera.postError('Tab Vault: Timeout getting favicon for "' + tabObj.url + '"');
-				}
-			}
-		}
-		check();
-	}
-	
-
 	
 	/**
 	 * Writes a session file given a list of tabs and the position/dimensions of the window
@@ -488,7 +449,7 @@ function IniReader(utils) {
 		if (line.indexOf(utils.comment) == 0 || line.match(/^\s*$/))
 			return null;
 		
-		if (line.indexOf(utils.endGroup) == 0) {
+		if (utils.endGroup != '' && line.indexOf(utils.endGroup) == 0) {
 			data.section = utils.endGroup;
 			return data;
 		}

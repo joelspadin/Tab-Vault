@@ -15,17 +15,26 @@ il8n.strings = {
 	ActionDone: 'Fertig!',					// Status message for success
 	
 	Preferences: 'Einstellungen',				// Preferences category header
+	/* Translation needed */ VaultSettings: 'Vault Settings',
+	/* Translation needed */ DisplaySettings: 'Display Settings',	
+	/* Translation needed */ OtherSettings: 'Other Settings',
 	CompactTabs: '<Unbenutzt>',
 	Tooltips: 'Hilfe-Tooltips im Popup anzeigen',
 	VerboseTabTips: 'Sowohl Titel als auch URL im Tab-Tooltip anzeigen',
 	TrashOnOpen: 'Nach öffnen eines Tabs diesen aus der Tabliste entfernen',
+	/* Translation needed */ AllowListDuplicates: 'Allow duplicate tabs in the main list',
+	/* Translation needed */ AllowGroupDuplicates: 'Allow duplicate tabs in groups',
+	/* Translation needed */ RemoveListDuplicates: 'When a tab is added to a group, remove duplicate tabs from the main list',
+	/* Translation needed */ RemoveGroupDuplicates: 'When a tab is added to the main list, remove duplicate tabs from groups',
 	DisableAnimation: 'Animationen abschalten',
 	SaveToTop: 'Hinzugefügte Tabs an den Anfang der Tabliste setzen',
 	GroupToTop: 'Falls gruppiert wird neue Tabs an den Anfang der Gruppe setzen',
 	CloseTabOnSave: 'Aktuellen Tab nach dem Hinzufügen schließen',
 	CloseOnSave: 'Popup schließen, nachdem der aktuelle Tab zur Liste hinzugefügt wurde',
 	CloseOnPageOpen: 'Popup schließen, nachdem ein Tab aus der Liste auf die aktuelle Seite gezogen wurde',
+	/* Translation needed */ CloseOnOpen: 'Close the popup after opening a tab in the foreground',
 	KeepGroupsOpen: 'Erweitert Gruppen errinern',	// unsure about this translation
+	/* Translation needed */ OpenOneGroup: 'Allow only one expanded group',
 	ShowBadge: 'Anzahl der gespeicherten Tabs auf dem Toolbar-Symbol anzeigen',
 	BackgroundColor: 'Hintergrundfarbe des Toolbar-Symbols',
 	BackgroundAlpha: 'Deckkraft des Hintergrundes',
@@ -34,6 +43,8 @@ il8n.strings = {
 	LimitHeight: 'Die Höhe des Popups begrenzen',
 	MaxHeight: 'Maximale Höhe (px)',
 	PopupWidth: 'Breite des Popups (px)',
+	/* Translation needed */ LimitTrash: 'Limit the size of the trash list',
+	/* Translation needed */ MaxTrash: 'Maximum trash size (tabs)',
 	MiddleClick: 'Bei mittlerem Mausklick ...',
 	MiddleClickOpen: 'Tab im Hintergrund öffnen',
 	MiddleClickClose: 'Tab löschen',
@@ -41,14 +52,20 @@ il8n.strings = {
 	CxMenuStyle: 'Kontextmenu Thema',				// is "Thema" correct here? Also not sure about this one
 	Language: 'Sprache (braucht einen Neustart)',
 	
+	/* Translation needed */ EnableClipboard: 'To enable copying tab URLs, go to the ' +
+				'<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04a.html">Flash player settings manager</a> ' +
+				'and add this URL to the list of trusted locations.',
+	
 	ImportExport: 'Import/Export',			// Import/Export category header
 	ImportNote: '<strong>Anmerkung:</strong> Das Importieren einer Sitzung öffnet zwischenzeitlich alle importierten Tabs um deren Favicons zu erhalten.',
 	ExportButton: 'Sitzung exportieren',
 	Export: 'Ihre gespeicherten Tabs als Sitzungsdatei exportieren',
+	/* Translation check needed */ ExportAdrButton: '.adr exportieren',
+	/* Translation check needed */ ExportAdr: 'Ihre gespeicherten Tabs als .adr datei exportieren',
 	ImportButton: 'Sitzung importieren',
 	Import: 'Den Inhalt einer Sitzungsdatei ihrer Tablist hinzufügen',
 	ImportWorking: 'Importiere...',
-	ImportPlaceholder: 'Bevor sie "Importieren" klicken, öffnen Sie die Sitzungsdatei (.win) in einem Texteditor und übertragen sie deren Inhalt hierhin .',
+	ImportPlaceholder: 'Bevor sie "Importieren" klicken, öffnen Sie die Sitzungsdatei (.win oder .adr) in einem Texteditor und übertragen sie deren Inhalt hierhin .',
 	
 	
 	Reset: 'Zurücksetzen',							// Reset category header
@@ -66,6 +83,7 @@ il8n.strings = {
 	SaveTabAction: 'Das wird zum Speichern eines Tabs ausgeführt. Kann für Hotkeys und Mausgesten gesetzt werden',
 	SaveTabButton: 'Buttons zum Speichern eines Tabs. Anklicken um zu speichern, und  dann den neuen Button auf eine Leiste ziehen.',
 	SaveButtonTitle: 'In TabVault speichern',
+	/* Translation needed */ CustomButton: 'Custom icon (enter the name of an icon from your skin)',
 	
 	
 	Help: 'Brauchen Sie Hilfe?',						// Help category header

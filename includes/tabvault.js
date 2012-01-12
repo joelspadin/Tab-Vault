@@ -74,5 +74,16 @@ window.opera.tabvault = {
 			title: title,
 			icon: icon,
 		});
+	},
+	
+	saveAndClose: function(pass, url, title, icon) {
+		opera.extension.postMessage({
+			action: 'external_save',
+			pass: pass,
+			url: url,
+			title: title,
+			icon: icon,
+			close: true,
+		});
 	}
 }

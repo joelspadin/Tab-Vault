@@ -1,4 +1,4 @@
-// Strings used by the popup
+ï»¿// Strings used by the popup
 
 il8n.strings = {
 
@@ -11,9 +11,10 @@ il8n.strings = {
 	Trash: 'Cestino',
 	TrashTip: 'Visualizza la Lista delle Schede Eliminate',
 	DropToTrash: 'Rilascia per Eliminare',
+	/* Translation needed */ Search: 'Search tabs',
 	
-	CannotSave: 'Tab Vault non può salvare questa scheda. Ricarica la pagina e prova di nuovo.',
-	CannotOpen: 'Tab Vault non può aprire la scheda nella pagina corrente. ' +
+	CannotSave: 'Tab Vault non puÃ² salvare questa scheda. Ricarica la pagina e prova di nuovo.',
+	CannotOpen: 'Tab Vault non puÃ² aprire la scheda nella pagina corrente. ' +
 		'Potrebbe essere necessario ricaricare la pagina.',
 	
 	GroupExpandTip: 'Clicca per Espandere',
@@ -41,6 +42,7 @@ il8n.strings = {
 	CxReloadIcon: 'Ricarica Icona',
 	CxRename: 'Rinomina',
 	CxDelete: 'Elimina',
+	/* Translation needed */ CxCopyUrl: 'Copy Tab URL',
 	
 	CxSaveCurrent: 'Salva Scheda Corrente',
 	CxSaveAsGroup: 'Salva Scheda in Nuovo Gruppo',

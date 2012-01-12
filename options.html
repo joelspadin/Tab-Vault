@@ -9,6 +9,7 @@
 	<script src="js/options.js"></script>
 	<script src="js/il8n.js"></script>
 	<script src="js/classList.js"></script>
+	<script src="locales/locales.js"></script>
 	<script src="locale-options.js"></script>
 	<script src="locale-misc.js"></script>
 	<script>
@@ -179,19 +180,7 @@
 			</p>
 			<p>
 				<select name="locale" id="locale">
-					<option value="" data-loc="default_lang">Default</option>
-					<option value="de">Deutsch</option>
-					<option value="el">Ελληνικά</option>
-					<option value="en">English</option>
-					<option value="es">Español</option>
-					<option value="it">Italiano</option>
-					<option value="ka">ქართული </option>
-					<option value="nl">Nederlands</option>
-					<option value="pl">Polski</option>
-					<option value="pt">Portuguẽs</option>
-					<option value="ru">Pусский</option>
-					<option value="sr">Cрпски</option>
-					<option value="tr">Türkçe</option>
+					<!-- locale choices are filled in by options.js -->
 				</select>
 				<label for="locale">Language (requires restart)</label>
 			</p>
@@ -366,7 +355,6 @@ il8n.translatePage([
 	['loc:mc_open', 'MiddleClickOpen'],
 	['loc:mc_close', 'MiddleClickClose'],
 	['loc:mc_none', 'MiddleClickNone'],
-	['loc:default_lang', 'Default'],
 	['lbl:cxmstyle', 'CxMenuStyle'],
 	['lbl:locale', 'Language'],
 	['loc:clipboard', 'EnableClipboard', 'html'],
@@ -713,6 +701,14 @@ addEventListener('DOMContentLoaded', function() {
 	$('#password').addEventListener('change', updateExternalAccess, false);
 	$('#custombutton').addEventListener('change', updateExternalAccess, false);
 	
+	var customButtonTimer = null;
+	$('#custombutton').addEventListener('input', function() {
+		if (customButtonTimer)
+			window.clearTimeout(customButtonTimer);
+		
+		customButtonTimer = window.setTimeout(updateExternalAccess, 250);
+	}, false);
+	
 	$('#new_pass').addEventListener('click', function(e){
 		var pass = access.generatePassword();
 		$('#password').value = pass;
@@ -732,6 +728,28 @@ addEventListener('DOMContentLoaded', function() {
 	$('#zeroclipboard_url').addEventListener('click', function(e) {
 		e.target.select();
 	}, false);
+	
+	
+	// update language selector
+	var select = $('#locale');
+
+	var defaultLang = getLocaleDef(navigator.language);
+	if (defaultLang === null) 
+		defaultLang = getLocaleDef('en');
+	
+	var option = dom.make('option');
+	option.value = '';
+	option.textContent = defaultLang.defaultText + ' (' + defaultLang.language + ')';
+	select.appendChild(option);
+
+	for (var i = 0; i < locales.length; i++) {
+		option = dom.make('option');
+		option.value = locales[i].language;
+		option.textContent = locales[i].name + ' (' + locales[i].language + ')';
+		select.appendChild(option);
+	}
+
+	
 	
 }, false);
 

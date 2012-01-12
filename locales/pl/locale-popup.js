@@ -11,6 +11,7 @@ il8n.strings = {
 	Trash: 'Kosz',
 	TrashTip: 'Wyświetl listę usuniętych kart',
 	DropToTrash: 'Upuść, aby przenieść do kosza',
+	Search: 'Szukaj',
 	
 	CannotSave: 'Nie można zapisać tej karty. Odśwież stronę i spróbuj ponownie.',
 	CannotOpen: 'Nie można otworzyć strony na bieżącej karcie. ' +

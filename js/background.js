@@ -126,6 +126,10 @@ window.addEventListener('load', function() {
 				
 			case 'export':
 				// Exports tabs as a session
+				
+				if (!sessionInit(e))
+					break;
+				
 				var uri;
 				if (e.data.format == 'adr') {
 					uri = session.writeAdr(storage.tabs.getAll());
@@ -144,6 +148,10 @@ window.addEventListener('load', function() {
 				
 			case 'import':
 				// Import tabs from a session
+				
+				if (!sessionInit(e))
+					break;
+					
 				var tabs = [];
 				tabs = session.read(e.data.session);
 				try {
@@ -155,14 +163,14 @@ window.addEventListener('load', function() {
 					});
 				}
 				catch (ex) {
-					opera.postError('Tab Vault: Error occurred while importing:\n' + ex.toString());
+					console.log('Tab Vault: Error occurred while importing:\n' + ex.toString());
 					e.source.postMessage({ action: 'import_error' });
 				}
 				break;
 				
 			case 'reload_icon':
 				var tab = storage.tabs.get(e.data.index, e.data.group);
-				session.getFavicon(tab, function(data) {
+				window.utils.getFavicon(tab, function(data) {
 					debug('test');
 					storage.tabs.set(e.data.index, data, e.data.group);
 					// Popup may be closed now (probably is since Opera likes closing it
@@ -213,6 +221,9 @@ window.addEventListener('load', function() {
 					storage.tabs.move(storage.tabs.count - 1, 0);
 				
 				updateBadge(true);
+				
+				if (e.data.close)
+					tab.close();
 				break;
 				
 			case 'get_all':
@@ -463,7 +474,7 @@ window.addEventListener('load', function() {
 					get(tabs, i + 1, done);
 				}
 				else 
-					session.getFavicon(tabs[i], function() {
+					window.utils.getFavicon(tabs[i], function() {
 						get(tabs, i + 1, done);
 					});
 			}
@@ -581,30 +592,60 @@ var colorutils = new function ColorUtils() {
 	}
 }
 
-
-/*
-function testTabStorage() {
-	
-	var tabs = [];
-	for (var i = 0; i < 7; i++)
-		tabs.push({
-			url: 'http://google.com/#' + i,
-			title: 'Tab ' + i,
-			icon: null
-		});
-	
-	for (var i = 0; i < tabs.length; i++) {
-		storage.tabs.add(tabs[i]);
+var utils = new function() {
+	var polling = {
+		interval: 100,
+		maxTime: 20000,
+		maxTries: 0,
 	}
 	
-	var g = storage.tabs.makeGroup(3, 'Group 3');	
-	storage.tabs.changeGroup(4, 0, g);
-
-	for (var i = 0; i < 3; i++)
-		storage.tabs.add(tabs[i], g);
+	polling.maxTries = polling.maxTime / polling.interval;
 	
-	var g = storage.tabs.makeGroup(4, 'Group 6');
-	storage.tabs.changeGroup(5, 0, g);
-	
+	/**
+	 * Gets the favicon url of a page by opening it, checking until it loads the favicon, then closing it
+	 */ 
+	this.getFavicon = function(tabObj, callback) {
+		var tab = opera.extension.tabs.create({ url: tabObj.url, focused: false });
+		var tries = 0;
+		
+		var check = function() {
+			//debug('checking: try ' + tries);
+			if (tab.faviconUrl) {
+				tab.close();
+				tabObj.icon = tab.faviconUrl;
+				callback(tabObj);
+			}
+			else {
+				tries++;
+				if (tries < polling.maxTries)
+					setTimeout(check, polling.interval);
+				else {
+					tab.close();
+					tabObj.icon = null;
+					callback(tabObj);
+					opera.postError('Tab Vault: Timeout getting favicon for "' + tabObj.url + '"');
+				}
+			}
+		}
+		check();
+	}
 }
-*/
+
+
+var sessionScriptLoaded = false;
+function sessionInit(eventData) {
+	if (sessionScriptLoaded)
+		return true;
+	
+	var script = document.createElement('script');
+	script.src = 'js/session.js';
+	document.head.appendChild(script);
+	sessionScriptLoaded = true;
+	
+	setTimeout(function() {
+		opera.extension.onmessage(eventData);
+	}, 100)
+	return false;
+}
+
+

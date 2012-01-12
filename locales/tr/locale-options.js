@@ -15,16 +15,26 @@ il8n.strings = {
 	ActionDone: 'Tamam!',					// Status message for success
 	
 	Preferences: 'Tercihler',				// Preferences category header
+	/* Translation needed */ VaultSettings: 'Vault Settings',			
+	/* Translation needed */ DisplaySettings: 'Display Settings',	
+	/* Translation needed */ OtherSettings: 'Other Settings',
 	CompactTabs: '<Alışılmamış>',
 	Tooltips: 'Açılır pencerede yardım ipuçlarını göster',
 	VerboseTabTips: 'Sekme ipuçlarında başlık ve URL\'yi de göster',
 	TrashOnOpen: 'Sekmeleri açıldıktan sonra çöp kutusuna gönder',
+	/* Translation needed */ AllowListDuplicates: 'Allow duplicate tabs in the main list',
+	/* Translation needed */ AllowGroupDuplicates: 'Allow duplicate tabs in groups',
+	/* Translation needed */ RemoveListDuplicates: 'When a tab is added to a group, remove duplicate tabs from the main list',
+	/* Translation needed */ RemoveGroupDuplicates: 'When a tab is added to the main list, remove duplicate tabs from groups',
+	DisableAnimation: 'Arabirim animasyonlarını kapat',
 	SaveToTop: 'Kaydedilen sekmeleri listenin en üstüne ekle.',
 	GroupToTop: 'Sekmeleri gruplandırıren, eklenen sekmeleri grubun en üstüne yerleştir',
 	CloseTabOnSave: 'Kaydedildikten sonra sekmeyi kapat',
 	CloseOnSave: 'Kaydedildikten sonra açılır pencereyi kapat',
 	CloseOnPageOpen: 'Listeden sayfaya bir sekme bırakıldığında açılır pencereyi kapat',
+	/* Translation needed */ CloseOnOpen: 'Close the popup after opening a tab in the foreground',
 	KeepGroupsOpen: 'Keep groups expanded when reopening the popup',
+	/* Translation needed */ OpenOneGroup: 'Allow only one expanded group',
 	ShowBadge: 'Araç çubuğu düğmesinde kaydedilen sekmelerin sayısını göster',
 	BackgroundColor: 'Düğme arkaplan rengi',
 	BackgroundAlpha: 'Düğme arkaplan saydamlığı',
@@ -33,6 +43,8 @@ il8n.strings = {
 	LimitHeight: 'Açılır pencerenin yüksekliğini sınırla',
 	MaxHeight: 'Açılır pencerenin olabileceği en fazla yükseklik (px)',
 	PopupWidth: 'Açılır pencere genişliği (px)',
+	/* Translation needed */ LimitTrash: 'Limit the size of the trash list',
+	/* Translation needed */ MaxTrash: 'Maximum trash size (tabs)',
 	MiddleClick: 'Orta-tuş eylemi',
 	MiddleClickOpen: 'Sekmeyi arkaplanda aç',
 	MiddleClickClose: 'Sekmeyi sil',
@@ -40,10 +52,16 @@ il8n.strings = {
 	CxMenuStyle: 'İçerik menüsü stili',
 	Language: 'Dil (yeniden başlatma gerektirir)',
 
+	/* Translation needed */ EnableClipboard: 'To enable copying tab URLs, go to the ' +
+				'<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04a.html">Flash player settings manager</a> ' +
+				'and add this URL to the list of trusted locations.',
+
 	ImportExport: 'Al/Aktar',			// Import/Export category header
 	ImportNote: '<strong>Not:</strong> Oturum alınırken geçici olarak tüm sekmeler, ikonlarını toplamak amacıyla açılacak.',
 	ExportButton: 'Oturumu Aktar',
 	Export: 'Kaydettiğiniz sekmeleri bir oturum dosyası olarak aktarın',
+	/* Translation needed */ ExportAdrButton: 'Export .adr',
+	/* Translation needed */ ExportAdr: 'Export your saved tabs as a bookmarks file',
 	ImportButton: 'Oturumu Al',
 	Import: 'Kaydedilen sekmelerinizi bir oturum dosyası alın.',
 	ImportWorking: 'Alınıyor...',
@@ -65,6 +83,8 @@ il8n.strings = {
 	SaveTabAction: 'Sekmeyi kaydetme eylemi - klavye kısayolları ve fare hareketleri ile kullanılır',
 	SaveTabButton: 'Sekmeyi kaydetme düğmesi - kaydetmek için tıkla, sonrasında Görünüm penceresinden herhangi bir araç çubuğuna taşı',
 	SaveButtonTitle: 'Tab Vault\'a Kaydet',	
+	/* Translation needed */ CustomButton: 'Custom icon (enter the name of an icon from your skin)',
+	
 	
 	Help: 'Yardıma mı ihtiyaç var?',						// Help category header
 	HelpLink: 'Tab Vault\'un ne olduğunu, nasıl çalıştığını ve nasıl kullanacağınız hakkında faha fazla bilgi almak için buraya tıklayın.',
@@ -99,5 +119,5 @@ il8n.strings = {
 			'&copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, ' +
 			'görseller: <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a> ' +
 			've <a href="http://www.opera.com">Opera Software</a>',
-	DisableAnimation: 'Arabirim animasyonlarını kapat',
+	
 }

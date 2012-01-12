@@ -15,17 +15,26 @@ il8n.strings = {
 	ActionDone: '¡Hecho!',					// Status message for success
 	
 	Preferences: 'Preferencias',				// Preferences category header
+	/* Translation needed */ VaultSettings: 'Vault Settings',			
+	/* Translation needed */ DisplaySettings: 'Display Settings',	
+	/* Translation needed */ OtherSettings: 'Other Settings',
 	CompactTabs: '<Unused>',
 	Tooltips: 'Mostrar ayuda en la ventana',
 	VerboseTabTips: 'Mostrar titulo y URL en la ayuda emergente',
 	TrashOnOpen: 'Enviar pestaña a cerradas luego de abrirlas',
+	/* Translation needed */ AllowListDuplicates: 'Allow duplicate tabs in the main list',
+	/* Translation needed */ AllowGroupDuplicates: 'Allow duplicate tabs in groups',
+	/* Translation needed */ RemoveListDuplicates: 'When a tab is added to a group, remove duplicate tabs from the main list',
+	/* Translation needed */ RemoveGroupDuplicates: 'When a tab is added to the main list, remove duplicate tabs from groups',
 	DisableAnimation: 'Deshabilitar animación',
 	SaveToTop: 'Añadir pestañas guardadas al comienzo de la lista',
 	GroupToTop: 'Al agrupar pestañas, añadirlas al comienzo del grupo',
 	CloseTabOnSave: 'Cerrar la pestaña actual al guardarla',
 	CloseOnSave: 'Cerrar ventana al de guardar la pestaña actual',
 	CloseOnPageOpen: 'Cerrar ventana al soltar una pestaña de la lista sobre la pagina',
+	/* Translation needed */ CloseOnOpen: 'Close the popup after opening a tab in the foreground',
 	KeepGroupsOpen: 'Keep groups expanded when reopening the popup',
+	/* Translation needed */ OpenOneGroup: 'Allow only one expanded group',
 	ShowBadge: 'Mostrar el numero de pestañas guardadas en el botón de la barra de herramientas',
 	BackgroundColor: 'Color de fondo del botón',
 	BackgroundAlpha: 'Opacidad del fondo del botón',
@@ -34,17 +43,25 @@ il8n.strings = {
 	LimitHeight: 'Limitar la altura de la ventana',
 	MaxHeight: 'Altura máxima de la ventana (px)',
 	PopupWidth: 'Ancho de la ventana (px)',
-	MiddleClick: 'Middle click action',
-	MiddleClickOpen: 'Open tab in background',
-	MiddleClickClose: 'Delete tab',
-	MiddleClickNone: 'Do nothing',
-	CxMenuStyle: 'Context menu style',
-	Language: 'Language (requires restart)',
+	/* Translation needed */ LimitTrash: 'Limit the size of the trash list',
+	/* Translation needed */ MaxTrash: 'Maximum trash size (tabs)',
+	/* Translation needed */ MiddleClick: 'Middle click action',
+	/* Translation needed */ MiddleClickOpen: 'Open tab in background',
+	/* Translation needed */ MiddleClickClose: 'Delete tab',
+	/* Translation needed */ MiddleClickNone: 'Do nothing',
+	/* Translation needed */ CxMenuStyle: 'Context menu style',
+	/* Translation needed */ Language: 'Language (requires restart)',
+	
+	/* Translation needed */ EnableClipboard: 'To enable copying tab URLs, go to the ' +
+				'<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04a.html">Flash player settings manager</a> ' +
+				'and add this URL to the list of trusted locations.',
 	
 	ImportExport: 'Importar/Exportar',			// Import/Export category header
 	ImportNote: '<strong>Nota:</strong> Importar una sesión abrirá temporalmente cada pestaña guardada para recolectar los iconos.',
 	ExportButton: 'Exportar Sesión',
 	Export: 'Exportar sus pestañas guardadas a un archivo de Sesión',
+	/* Translation needed */ ExportAdrButton: 'Export .adr',
+	/* Translation needed */ ExportAdr: 'Export your saved tabs as a bookmarks file',
 	ImportButton: 'Importar Sesión',
 	Import: 'Importar un archivo de Sesión a sus pestañas guardadas',
 	ImportWorking: 'Importando...',
@@ -66,6 +83,7 @@ il8n.strings = {
 	SaveTabAction: 'Accion guardar pestaña - Utilizar con atajos de teclado o gestos del raton',
 	SaveTabButton: 'Boton guardar pestaña - Clickee para guardar, luego arrastre a una barra de herramientas en la ventana Aspecto',
 	SaveButtonTitle: 'Guardar en Tab Vault',
+	/* Translation needed */ CustomButton: 'Custom icon (enter the name of an icon from your skin)',
 	
 	
 	Help: '¿Necesita Ayuda?',						// Help category header

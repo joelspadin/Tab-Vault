@@ -11,6 +11,7 @@ il8n.strings = {
 	Trash: 'Корпа',
 	TrashTip: 'Преглед листе избрисаних страна',
 	DropToTrash: 'Отпустите да бисте избрисали ставку',
+	/* Translation needed */ Search: 'Search tabs',
 	
 	CannotSave: 'Tab Vault не може да сачува ову страну. Освежите страну и покушајте поново.',
 	CannotOpen: 'Tab Vault не може да отвори страну у тренутном језичку. ' +

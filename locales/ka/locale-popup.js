@@ -11,6 +11,7 @@ il8n.strings = {
 	Trash: 'სანაგვე',
 	TrashTip: 'წაშლილი ჩანართების სია',
 	DropToTrash: 'დააგდეთ რათა წაშალოთ',
+	Search: 'ძებნა',
 	
 	CannotSave: 'Tab Vault-მა ვერ შეძლო ამ ჩანართის შენახვა. გადატვირთეთ გვერდი და ხელახლა ცადეთ.',
 	CannotOpen: 'Tab Vault-ს არ შეუძლია ამ გვერდზე ჩანართის გახსნა. ' +
@@ -41,7 +42,7 @@ il8n.strings = {
 	CxReloadIcon: 'ხატულის გადატვირთვა',
 	CxRename: 'გადარქმევა',
 	CxDelete: 'წაშლა',
-	CxCopyUrl: 'ჩანართის ბმულის დაკოპირება'
+	CxCopyUrl: 'ჩანართის ბმულის დაკოპირება',
 	
 	CxSaveCurrent: 'მიმდინარე ჩანართის შენახვა',
 	CxSaveAsGroup: 'ჩანართის შენახვა ახალ ჯგუფში',

@@ -11,6 +11,7 @@ il8n.strings = {
 	Trash: 'Κλεισμένες Καρτέλες',
 	TrashTip: 'Εμφάνιση Λίστας Κλεισμένων Καρτελών',
 	DropToTrash: 'Αποθέτηση για διαγραφή αντικειμένου',
+	/* Translation needed */ Search: 'Search tabs',
 	
 	CannotSave: 'Το Tab Vault δε μπορεί να αποθηκεύσει την τρέχουσα καρτέλα. Κάντε Επαναφόρτωση στη σελίδα και δοκιμάστε ξανά',
 	CannotOpen: 'Το Tab Vault δε μπορεί να ανοίξει την καρτέλα στην τρέχουσα σελίδα. ' +
@@ -41,6 +42,7 @@ il8n.strings = {
 	CxReloadIcon: 'Ανανέωση Εικόνας',
 	CxRename: 'Μετονομασία',
 	CxDelete: 'Διαγραφή',
+	/* Translation needed */ CxCopyUrl: 'Copy Tab URL',
 	
 	CxSaveCurrent: 'Αποθήκευση Τρέχουσας Καρτέλας',
 	CxSaveAsGroup: 'Αποθήκευση Καρτέλας σε Νέα Ομάδα',

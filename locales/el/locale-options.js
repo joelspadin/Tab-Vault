@@ -15,17 +15,26 @@ il8n.strings = {
 	ActionDone: 'Ολοκληρώθηκε!',					// Status message for success
 	
 	Preferences: 'Προτιμήσεις',				// Preferences category header
+	/* Translation needed */ VaultSettings: 'Vault Settings',			
+	/* Translation needed */ DisplaySettings: 'Display Settings',	
+	/* Translation needed */ OtherSettings: 'Other Settings',
 	CompactTabs: '<Αχρησιμοποίητες>',
 	Tooltips: 'Εμφάνιση σχολίων βοήθειας στο Αναδυόμενο Παράθυρο',
 	VerboseTabTips: 'Εμφάνιση Τίτλου και URL στην καρτέλα σχολίων',
 	TrashOnOpen: 'Αποστολή καρτελών στη λίστα Κλεισμένων Καρτελών μετά το άνοιγμά τους',
+	/* Translation needed */ AllowListDuplicates: 'Allow duplicate tabs in the main list',
+	/* Translation needed */ AllowGroupDuplicates: 'Allow duplicate tabs in groups',
+	/* Translation needed */ RemoveListDuplicates: 'When a tab is added to a group, remove duplicate tabs from the main list',
+	/* Translation needed */ RemoveGroupDuplicates: 'When a tab is added to the main list, remove duplicate tabs from groups',
 	DisableAnimation: 'Απενεργοποίηση εφέ',
 	SaveToTop: 'Προσθήκη αποθηκευμένων καρτελών στην κορυφή της λίστας',
 	GroupToTop: 'Κατά την ομαδοποίηση καρτελών, η προσθήκη καρτέλας θα γίνεται στην κορυφή της ομάδας',
 	CloseTabOnSave: 'Κλείσιμο τρέχουσας καρτέλας μετά την αποθήκευσή της',
 	CloseOnSave: 'Κλείσιμο του αναδυόμενου παραθύρου μετά την αποθήκευση της τρέχουσας καρτέλας',
 	CloseOnPageOpen: 'Κλείσιμο αναδυόμενου παραθύρου μετά τη μεταφορά καρτέλας από τη λίστα στη σελίδα',
+	/* Translation needed */ CloseOnOpen: 'Close the popup after opening a tab in the foreground',
 	KeepGroupsOpen: 'Διατήρηση αναδυόμενης λίστας ομάδας κατά το άνοιγμα του αναδυόμενου παραθύρου',
+	/* Translation needed */ OpenOneGroup: 'Allow only one expanded group',
 	ShowBadge: 'Εμφάνιση αριθμού αποθηκευμένων καρτελών στο κουμπί της μπάρας εργαλείων',
 	BackgroundColor: 'Χρώμα φόντου κουμπιού',
 	BackgroundAlpha: 'Αδιαφάνεια φόντου κουμπιού',
@@ -34,6 +43,8 @@ il8n.strings = {
 	LimitHeight: 'Περιορισμός ύψους αναδυόμενου παραθύρου',
 	MaxHeight: 'Μέγιστο ύψος αναδυόμενου παραθύρου (px)',
 	PopupWidth: 'Πλάτος αναδυόμενου παραθύρου (px)',
+	/* Translation needed */ LimitTrash: 'Limit the size of the trash list',
+	/* Translation needed */ MaxTrash: 'Maximum trash size (tabs)',
 	MiddleClick: 'Λειτουργία μεσαίου κλικ',
 	MiddleClickOpen: 'Άνοιγμα καρτέλας στο παρασκήνιο',
 	MiddleClickClose: 'Διαγραφή καρτέλας',
@@ -41,10 +52,16 @@ il8n.strings = {
 	CxMenuStyle: 'Μορφή πλαισίου μενού',
 	Language: 'Γλώσσα (απαιτεί επανεκκίνηση)',
 	
+	/* Translation needed */ EnableClipboard: 'To enable copying tab URLs, go to the ' +
+				'<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04a.html">Flash player settings manager</a> ' +
+				'and add this URL to the list of trusted locations.',
+	
 	ImportExport: 'Εισαγωγή/Εξαγωγή',			// Import/Export category header
 	ImportNote: '<strong>Note:</strong> Η εισαγωγή συνόδου θα ανοίξει προσωρινά κάθε εισαγόμενη καρτέλα για τη συλλογή favicons.',
 	ExportButton: 'Εξαγωγή συνόδου',
 	Export: 'Εξαγωγή αποθηκευμένων καρτελών ως αρχείο συνόδου',
+	/* Translation needed */ ExportAdrButton: 'Export .adr',
+	/* Translation needed */ ExportAdr: 'Export your saved tabs as a bookmarks file',
 	ImportButton: 'Εισαγωγή συνόδου',
 	Import: 'Εισαγωγή αρχείου συνόδου στις αποθηκευμένες καρτέλες',
 	ImportWorking: 'Εισαγωγή...',
@@ -66,7 +83,8 @@ il8n.strings = {
 	SaveTabAction: 'Λειτουργία Αποθήκευσης Καρτέλας - χρησιμοποίηση με συντομεύσεις πληκτρολογίου και "χειρονομιών"',
 	SaveTabButton: 'Κουμπί Αποθήκευσης Καρτέλας - κάντε κλικ για αποθήκευση, στη συνέχεια σύρετε σε μία γραμμή εργαλειών απο το παράθυρο "Εμφάνιση"',
 	SaveButtonTitle: 'Αποθήκευση στο Tab Vault',
-	
+	/* Translation needed */ CustomButton: 'Custom icon (enter the name of an icon from your skin)',
+
 	
 	Help: 'Χρειάζεστε Βοήθεια;',						// Help category header
 	HelpLink: 'Κάντε κλικ εδώ για να δείτε τη σελίδα βοήθειας για περισσότερες πληροφορίες για το τι είναι το Tab Vault, πως λειτουργεί και πως να το χρησιμοποιήσετε.',

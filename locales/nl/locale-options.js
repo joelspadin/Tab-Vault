@@ -1,4 +1,4 @@
-// Strings used by options, help, and upgrade pages
+ï»¿// Strings used by options, help, and upgrade pages
 
 il8n.strings = {
 
@@ -15,17 +15,26 @@ il8n.strings = {
 	ActionDone: 'Gelukt!',					// Status message for success
 	
 	Preferences: 'Voorkeuren',				// Preferences category header
+	/* Translation needed */ VaultSettings: 'Vault Settings',			
+	/* Translation needed */ DisplaySettings: 'Display Settings',	
+	/* Translation needed */ OtherSettings: 'Other Settings',
 	CompactTabs: '<Unused>',
 	Tooltips: 'Laat tips zien in de popup',
 	VerboseTabTips: 'Laat zowel de titel als de URL zien in de tabs hulplijn',
 	TrashOnOpen: 'Verwijder tabs automatisch naar de prullenbak na het openen',
+	/* Translation needed */ AllowListDuplicates: 'Allow duplicate tabs in the main list',
+	/* Translation needed */ AllowGroupDuplicates: 'Allow duplicate tabs in groups',
+	/* Translation needed */ RemoveListDuplicates: 'When a tab is added to a group, remove duplicate tabs from the main list',
+	/* Translation needed */ RemoveGroupDuplicates: 'When a tab is added to the main list, remove duplicate tabs from groups',
 	DisableAnimation: 'Schakel gebruikersinterface animaties uit',
 	SaveToTop: 'Voeg bewaarde tabs bovenaan de lijst toe',
 	GroupToTop: 'Voeg gegroepeerde tabs bovenaan de lijst toe',
 	CloseTabOnSave: 'Sluit de huidige tab na het bewaren ervan',
 	CloseOnSave: 'Sluit de popup na het bewaren van de huidige tab',
 	CloseOnPageOpen: 'Sluit de popup na het loslaten van een bewaarde tab boven de pagina',
+	/* Translation needed */ CloseOnOpen: 'Close the popup after opening a tab in the foreground',
 	KeepGroupsOpen: 'Houd groepen uitgeklapt tijdens het heropenen van de popup',
+	/* Translation needed */ OpenOneGroup: 'Allow only one expanded group',
 	ShowBadge: 'Toon het aantal bewaarde tabs op een badge op de knop',
 	BackgroundColor: 'Achtergrondkleur badge',
 	BackgroundAlpha: 'Doorzichtigheid achtergrond badge',
@@ -34,6 +43,8 @@ il8n.strings = {
 	LimitHeight: 'Limiteer de hoogte van de popup',
 	MaxHeight: 'Maximum hoogte van de popup (px)',
 	PopupWidth: 'Popup width (px)',
+	/* Translation needed */ LimitTrash: 'Limit the size of the trash list',
+	/* Translation needed */ MaxTrash: 'Maximum trash size (tabs)',
 	MiddleClick: 'Middelklik actie',
 	MiddleClickOpen: 'Open tab in achtergrond',
 	MiddleClickClose: 'Verwijder tab',
@@ -41,14 +52,20 @@ il8n.strings = {
 	CxMenuStyle: 'Context menu stijl',
 	Language: 'Taal (vereist herstart)',
 	
+	/* Translation needed */ EnableClipboard: 'To enable copying tab URLs, go to the ' +
+				'<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04a.html">Flash player settings manager</a> ' +
+				'and add this URL to the list of trusted locations.',
+	
 	ImportExport: 'Import/Export',			// Import/Export category header
-	ImportNote: '<strong>Let op:</strong> Het importeren van een sessie zal elke geïmporteerde tab openen om de favicons te verzamelen',
+	ImportNote: '<strong>Let op:</strong> Het importeren van een sessie zal elke geÃ¯mporteerde tab openen om de favicons te verzamelen',
 	ExportButton: 'Exporteer sessie',
 	Export: 'Exporteer je bewaarde tabs als een sessie-bestand',
+	/* Translation needed */ ExportAdrButton: 'Export .adr',
+	/* Translation needed */ ExportAdr: 'Export your saved tabs as a bookmarks file',
 	ImportButton: 'Importeer sessie',
 	Import: 'Importeer een sessie-bestand naar je bewaarde tabs',
 	ImportWorking: 'Importeren...',
-	ImportPlaceholder: 'Open een sessie-bestand (.win) in een textbewerkingsprogramma en kopiëer en plak de content hier voor het importeren.',
+	ImportPlaceholder: 'Open een sessie-bestand (.win) in een textbewerkingsprogramma en kopiÃ«er en plak de content hier voor het importeren.',
 	
 	
 	Reset: 'Herstel',							// Reset category header
@@ -66,7 +83,8 @@ il8n.strings = {
 	SaveTabAction: 'Bewaar tab actie - voor gebruik met sneltoetsen en muisgebaren',
 	SaveTabButton: 'Bewaar tab actie - klik om op te slaan en sleep hem naar de gewenste werkbalk via het Uiterlijk-scherm',
 	SaveButtonTitle: 'Bewaar met Tab Vault',
-	
+	/* Translation needed */ CustomButton: 'Custom icon (enter the name of an icon from your skin)',
+
 	
 	Help: 'Hulp nodig?',						// Help category header
 	HelpLink: 'Klik hier om de hulppagina te bekijken voor meer informatie over wat Tab Vault is, hoe het werkt en hoe je het kan gebruiken.',

@@ -67,6 +67,7 @@ il8n.strings = {
 	ImportWorking: 'შემოტანა...',
 	ImportPlaceholder: 'გახსენით სესიის ფაილი (.win or .adr) ტექსტურ რედაქტორში, დააკოპირეთ მისი შიგთავსი და ჩასვით აქ, შემდეგ დააწკაპუნეთ ღილაკზე "შემოტანა".',	
 	
+	
 	Reset: 'ჩამოყრა',							// Reset category header
 	ResetSettingsButton: 'პარამეტრების ჩამოყრა',
 	ResetSettings: 'ყველა პარამეტრის ჩამოყრა ძირითად მნიშვნელობებზე',
