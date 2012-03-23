@@ -81,6 +81,7 @@ window.addEventListener('load', function() {
 					focused.update({ url: e.data.url });
 					if (settings.get('close_on_pageopen'))
 						e.source.postMessage({ action: 'close' });
+					e.source.postMessage({ action: 'open_success', url: e.data.url });
 				}
 				else
 					e.source.postMessage({ action: 'open_error' });

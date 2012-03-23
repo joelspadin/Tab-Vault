@@ -565,8 +565,25 @@ function Tab(info) {
 	}
 	
 	this.openCurrent = function(trash) {
-		if (trash)
-			this.trash();
+		if (trash) {
+			var self = this;
+			function handleTrash(e) {
+				console.log(e);
+				switch (e.data.action) {
+					case 'open_success':
+					case 'open_error':
+						if (e.data.url == self.url) {
+							opera.extension.removeEventListener('message', handleTrash);
+							if (e.data.action == 'open_success')
+								self.trash();
+						}
+				}
+				
+			}
+			
+			opera.extension.addEventListener('message', handleTrash);
+			//this.trash();
+		}
 		
 		opera.extension.postMessage({
 			action: 'change_tab',

@@ -47,6 +47,7 @@ il8n.strings = {
 	MaxTrash: 'Maximum trash size (tabs)',
 	MiddleClick: 'Middle click action',
 	MiddleClickOpen: 'Open tab in background',
+	MiddleClickOpenCurrent: 'Open in current tab',
 	MiddleClickClose: 'Delete tab',
 	MiddleClickNone: 'Do nothing',
 	CxMenuStyle: 'Context menu style',

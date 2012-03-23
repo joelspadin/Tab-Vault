@@ -476,7 +476,7 @@ function IniReader(utils) {
 function IniWriter(adr) {
 	this.text = null;
 	adr = adr || false;
-	utils = adr ? AdrUtils : IniUtils;
+	var utils = adr ? AdrUtils : IniUtils;
 
 	this.open = function() {
 		this.text = '';

@@ -19,6 +19,7 @@ var dragdrop = new function DragHandler() {
 	this.dragMaxChecks = 25;		// Maximum number of position changes that can occur in one step
 	this.middleClickClose = settings.get('middle_click') == 'close';
 	this.middleClickOpen = settings.get('middle_click') == 'open';
+	this.middleClickOpenCurrent = settings.get('middle_click') == 'open-current'
 	this.trashOnOpen = settings.get('trash_on_open');
 	this.groupToTop = settings.get('group_to_top');
 	this.list = null;
@@ -263,6 +264,8 @@ function DraggableTab(tab) {
 				self.trash();
 			else if (dragdrop.middleClickOpen) 
 				tab.open(true, dragdrop.trashOnOpen);
+			else if (dragdrop.middleClickOpenCurrent)
+				tab.openCurrent(dragdrop.trashOnOpen);
 			return;
 		}
 		

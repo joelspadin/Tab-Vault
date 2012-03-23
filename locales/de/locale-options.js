@@ -15,26 +15,26 @@ il8n.strings = {
 	ActionDone: 'Fertig!',					// Status message for success
 	
 	Preferences: 'Einstellungen',				// Preferences category header
-	/* Translation needed */ VaultSettings: 'Vault Settings',
-	/* Translation needed */ DisplaySettings: 'Display Settings',	
-	/* Translation needed */ OtherSettings: 'Other Settings',
+	/* Translation needed */ VaultSettings: 'Vault- Einstellungen',
+	/* Translation needed */ DisplaySettings: 'Anzeigeeinstellungen',	
+	/* Translation needed */ OtherSettings: 'Sonstige Einstellungen',
 	CompactTabs: '<Unbenutzt>',
 	Tooltips: 'Hilfe-Tooltips im Popup anzeigen',
 	VerboseTabTips: 'Sowohl Titel als auch URL im Tab-Tooltip anzeigen',
-	TrashOnOpen: 'Nach öffnen eines Tabs diesen aus der Tabliste entfernen',
-	/* Translation needed */ AllowListDuplicates: 'Allow duplicate tabs in the main list',
-	/* Translation needed */ AllowGroupDuplicates: 'Allow duplicate tabs in groups',
-	/* Translation needed */ RemoveListDuplicates: 'When a tab is added to a group, remove duplicate tabs from the main list',
-	/* Translation needed */ RemoveGroupDuplicates: 'When a tab is added to the main list, remove duplicate tabs from groups',
+	TrashOnOpen: 'Nach Öffnen eines Tabs diesen aus der Tabliste entfernen',
+	/* Translation needed */ AllowListDuplicates: 'Doppelte Tabs in der Hauptliste erlauben',
+	/* Translation needed */ AllowGroupDuplicates: 'Doppelte Tabs in Gruppen erlauben',
+	/* Translation needed */ RemoveListDuplicates: 'Tab aus Hauptliste löschen, wenn er zu einer Gruppe hinzugefügt wird',
+	/* Translation needed */ RemoveGroupDuplicates: 'Tab aus Gruppe löschen, wenn er zur Hauptliste hinzugefügt wird',
 	DisableAnimation: 'Animationen abschalten',
 	SaveToTop: 'Hinzugefügte Tabs an den Anfang der Tabliste setzen',
-	GroupToTop: 'Falls gruppiert wird neue Tabs an den Anfang der Gruppe setzen',
+	GroupToTop: 'Falls gruppiert wird, neue Tabs an den Anfang der Gruppe setzen',
 	CloseTabOnSave: 'Aktuellen Tab nach dem Hinzufügen schließen',
 	CloseOnSave: 'Popup schließen, nachdem der aktuelle Tab zur Liste hinzugefügt wurde',
 	CloseOnPageOpen: 'Popup schließen, nachdem ein Tab aus der Liste auf die aktuelle Seite gezogen wurde',
-	/* Translation needed */ CloseOnOpen: 'Close the popup after opening a tab in the foreground',
-	KeepGroupsOpen: 'Erweitert Gruppen errinern',	// unsure about this translation
-	/* Translation needed */ OpenOneGroup: 'Allow only one expanded group',
+	/* Translation needed */ CloseOnOpen: 'Popup schließen, wenn ein Tab im Vordergrund geöffnet wird',
+	KeepGroupsOpen: 'Geöffnete Gruppen speichern',	// unsure about this translation
+	/* Translation needed */ OpenOneGroup: 'Nur eine offene Gruppe erlauben',
 	ShowBadge: 'Anzahl der gespeicherten Tabs auf dem Toolbar-Symbol anzeigen',
 	BackgroundColor: 'Hintergrundfarbe des Toolbar-Symbols',
 	BackgroundAlpha: 'Deckkraft des Hintergrundes',
@@ -43,25 +43,25 @@ il8n.strings = {
 	LimitHeight: 'Die Höhe des Popups begrenzen',
 	MaxHeight: 'Maximale Höhe (px)',
 	PopupWidth: 'Breite des Popups (px)',
-	/* Translation needed */ LimitTrash: 'Limit the size of the trash list',
-	/* Translation needed */ MaxTrash: 'Maximum trash size (tabs)',
+	/* Translation needed */ LimitTrash: 'Größe des Papierkorbs begrenzen',
+	/* Translation needed */ MaxTrash: 'Einträge im Papierkorb (Tabs)',
 	MiddleClick: 'Bei mittlerem Mausklick ...',
 	MiddleClickOpen: 'Tab im Hintergrund öffnen',
 	MiddleClickClose: 'Tab löschen',
 	MiddleClickNone: 'Nichts tun',
-	CxMenuStyle: 'Kontextmenu Thema',				// is "Thema" correct here? Also not sure about this one
-	Language: 'Sprache (braucht einen Neustart)',
+	CxMenuStyle: 'Kontextmenü Theme',				// is "Thema" correct here? Also not sure about this one
+	Language: 'Sprache (Neustart nötig)',
 	
-	/* Translation needed */ EnableClipboard: 'To enable copying tab URLs, go to the ' +
+	/* Translation needed */ EnableClipboard: 'Um das kopieren von Tab- URLs zu erlauben, den ' +
 				'<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04a.html">Flash player settings manager</a> ' +
-				'and add this URL to the list of trusted locations.',
+				'öffnen und folgende URL zur Liste der vertrauenswürdigen Orte hinzufügen:',
 	
 	ImportExport: 'Import/Export',			// Import/Export category header
 	ImportNote: '<strong>Anmerkung:</strong> Das Importieren einer Sitzung öffnet zwischenzeitlich alle importierten Tabs um deren Favicons zu erhalten.',
 	ExportButton: 'Sitzung exportieren',
 	Export: 'Ihre gespeicherten Tabs als Sitzungsdatei exportieren',
 	/* Translation check needed */ ExportAdrButton: '.adr exportieren',
-	/* Translation check needed */ ExportAdr: 'Ihre gespeicherten Tabs als .adr datei exportieren',
+	/* Translation check needed */ ExportAdr: 'Ihre gespeicherten Tabs als .adr Datei exportieren',
 	ImportButton: 'Sitzung importieren',
 	Import: 'Den Inhalt einer Sitzungsdatei ihrer Tablist hinzufügen',
 	ImportWorking: 'Importiere...',
@@ -83,7 +83,7 @@ il8n.strings = {
 	SaveTabAction: 'Das wird zum Speichern eines Tabs ausgeführt. Kann für Hotkeys und Mausgesten gesetzt werden',
 	SaveTabButton: 'Buttons zum Speichern eines Tabs. Anklicken um zu speichern, und  dann den neuen Button auf eine Leiste ziehen.',
 	SaveButtonTitle: 'In TabVault speichern',
-	/* Translation needed */ CustomButton: 'Custom icon (enter the name of an icon from your skin)',
+	/* Translation needed */ CustomButton: 'Benuzerdefiniertes ICON (Name der Skin einfügen)',
 	
 	
 	Help: 'Brauchen Sie Hilfe?',						// Help category header
