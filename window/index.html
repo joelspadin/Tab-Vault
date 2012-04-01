@@ -32,7 +32,7 @@
 		<div id="search-bar" class="hidden">
 			<input type="text" id="search" placeholder="Search"><button id="close-search" class="close"></button>
 		</div>
-		<ul id="tab-list" style="display:none"></ul>
+		<!--<ul id="tab-list" style="display:none"></ul>-->
 	</section>
 	
 	<section id="panel-trash" class="page">
@@ -296,18 +296,12 @@
 		}
 		
 		addEventListener('DOMContentLoaded', function() {
-			var tablist = $('#tab-list');
+			//var tablist = $('#tab-list');
+			var tablist = dom.make('ul', '#tab-list');
 			
 			// Build and fill the tabs and trash lists
 			tabs.init(tablist);
 			trash.init($('#trash-list'));
-
-			// If the tab list takes longer than a second to load, show it
-			// anyways.
-			var showTimer = setTimeout(function() {
-				tablist.style.display = 'block';
-				requestResize('tabs');
-			}, 1000);
 
 			var count = storage.tabs.count;
 			for (var i = 0; i < count; i++) {
@@ -316,17 +310,18 @@
 					// Build a new group item
 					var groupCount = storage.tabs.getCount(info.group);
 					var group = new TabGroup(info);
-					tabs.attachGroup(group);
+					
 					// Attach all the group's tabs'
 					for (var j = 0; j < groupCount; j++)
 						group.attachTab(new Tab(storage.tabs.get(j, info.group)));
+					
+					tabs.attachGroup(group);
 				}
 				else
 					tabs.attachTab(new Tab(storage.tabs.get(i)));
 			}
 			
-			clearTimeout(showTimer);
-			tablist.style.display = 'block';
+			$('#panel-tabs').appendChild(tablist);
 			// delay slightly if keepExpanded is on so groups have time to
 			// expand before the resize takes place
 			requestResize('tabs', tabs.keepExpanded * 100);

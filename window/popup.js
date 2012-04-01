@@ -81,6 +81,9 @@ var dom = new function DomUtils() {
 	
 }
 
+/**
+ * Useful keycodes
+ */
 var keys = {
 	f: 70,
 	enter: 13,
@@ -224,15 +227,29 @@ var tabs = new function TabList() {
 	this.tabs = [];
 	this.el = null;
 	
+	// templates for creating new tabs/groups
+	this.tabTemplate = null;
+	this.groupTemplate = null;
+	
 	this.ontrash = null;
 	this.ongroupexpand = null;
 	
+	/**
+	 * Disables opening tabs for some time
+	 * @param time The length in ms
+	 */
 	this.disableOpen = function(time) {
 		debug('disabling open');
 		this.allowOpen = false;
 		setTimeout(function() {tabs.allowOpen = true}, time || tabs.disableLength);
 	}
 	
+	/**
+	 * Attaches a tab to the tabs list
+	 * @param tab The tab to attach
+	 * @param nodomchange Use true if the tab should not be appended to the DOM
+	 * @param nopush Use true if the tab should not be appended to the tabs array
+	 */
 	this.attachTab = function(tab, nodomchange, nopush) {
 		if (!nopush)
 			this.tabs.push(tab);
@@ -250,6 +267,12 @@ var tabs = new function TabList() {
 			this.el.appendChild(tab.el);
 	}
 	
+	/**
+	 * Attaches a tab group to the tabs list
+	 * @param group The group to attach
+	 * @param nodomchange Use true if the tab should not be appended to the DOM
+	 * @param nopush Use true if the tab should not be appended to the tabs array
+	 */
 	this.attachGroup = function(group, nodomchange, nopush) {
 		this.attachTab(group, nodomchange, nopush);
 		
@@ -268,6 +291,9 @@ var tabs = new function TabList() {
 		}
 	}
 	
+	/**
+	 * Adds a new tab to the list and saves it to storage
+	 */
 	this.add = function(tab) {
 		this.attachTab(tab);
 		storage.tabs.add(tab.info);
@@ -408,6 +434,51 @@ var tabs = new function TabList() {
 	
 	this.init = function(listEl) {
 		this.el = listEl;
+		
+		// Build template for creating tabs
+		var container = dom.make('li', '.tab');
+		container.role = 'link';
+		var icon = dom.make('img', '.icon');
+		var title = dom.make('a', '.title');
+		var url = dom.make('span', '.url');
+		var close = dom.make('button', '.close');
+		
+		if (this.compact) {
+			container.appendChildren([ icon, title, close ]);
+		}
+		else {
+			container.addClass('full');
+			var top = dom.make('span', '.top');
+			var bot = dom.make('span', '.bot');
+			top.appendChildren([ icon, title ]);
+			bot.appendChildren([ url, close ]);
+			container.appendChildren([ top, bot ]);
+		}
+		
+		if (this.tooltips) {
+			close.title = il8n.get('TabDeleteTip');
+		}
+		
+		this.tabTemplate = container;
+		
+		// Build template for creating tab groups
+		
+		var container = dom.make('li', '.tabgroup .collapsed');
+		var title = dom.make('span', '.title');
+		var collapse = dom.make('button', '.collapse');
+		var edit = dom.make('button', '.edit');
+		var children = dom.make('ul');
+		
+		var top = dom.make('a', '.top');
+		top.appendChildren([ collapse, title, edit ]);
+		container.appendChildren([ top, children ]);
+		
+		if (this.tooltips) {
+			top.title = il8n.get('GroupExpandTip');
+			edit.title = il8n.get('GroupNameTip');
+		}
+		
+		this.groupTemplate = container;
 	}
 	
 	
@@ -647,34 +718,12 @@ function Tab(info) {
 	}
 	
 	function build() {
-		self.dom.container = dom.make('li', '.tab');
-		self.dom.container.role = 'link';
-		self.dom.icon = dom.make('img', '.icon');
-		self.dom.title = dom.make('a', '.title');
-		self.dom.url = dom.make('span', '.url');
-		self.dom.close = dom.make('button', '.close');
-		
+		var c = self.dom.container = tabs.tabTemplate.cloneNode(true);
+		self.dom.icon = c.querySelector('.icon');
+		self.dom.title = c.querySelector('.title');
+		self.dom.url = c.querySelector('.url');
+		self.dom.close = c.querySelector('.close');
 		self.dom.icon.addEventListener('error', invalidIcon, false);
-		
-		if (tabs.compact) {
-			self.dom.container.appendChildren([
-				self.dom.icon,
-				self.dom.title,
-				self.dom.close
-			]);
-		}
-		else {
-			self.dom.container.addClass('full');
-			var top = dom.make('span', '.top');
-			var bot = dom.make('span', '.bot');
-			top.appendChildren([ self.dom.icon, self.dom.title ]);
-			bot.appendChildren([ self.dom.url, self.dom.close ]);
-			self.dom.container.appendChildren([ top, bot ]);
-		}
-		
-		if (tabs.tooltips) {
-			self.dom.close.title = il8n.get('TabDeleteTip');
-		}
 		
 		contextmenus.tab.attach(self.dom.container);
 		
@@ -712,6 +761,8 @@ function Tab(info) {
 	
 	init();
 }
+
+
 
 
 function TabGroup(info) {
@@ -1021,43 +1072,37 @@ function TabGroup(info) {
 		this.parent.remove(index);
 	}
 	
+	/**
+	 * Makes the title editable
+	 */
 	this.rename = function() {
 		this._editabletitle.edit();
 	}
 	
+	/**
+	 * Hides the group
+	 */
 	this.filter = function() {
 		self.el.addClass('filtered');
 		self.filtered = true;
 	}
 	
+	/**
+	 * Unhides the group
+	 */
 	this.unfilter = function() {
 		self.el.removeClass('filtered');
 		self.filtered = false;
 	}
 	
 	function build() {
-		self.dom.container = dom.make('li', '.tabgroup .collapsed');
-		self.dom.title = dom.make('span', '.title');
-		self.dom.collapse = dom.make('button', '.collapse');
-		self.dom.edit = dom.make('button', '.edit');
-		self.dom.tabs = dom.make('ul');
+		var c = self.dom.container = tabs.groupTemplate.cloneNode(true);
+		self.dom.title = c.querySelector('.title');
+		self.dom.collapse = c.querySelector('.collapse');
+		self.dom.edit = c.querySelector('.edit');
+		self.dom.tabs = c.querySelector('ul');
+		self.dom.top = c.querySelector('.top');
 		
-		self.dom.top = dom.make('a', '.top');
-		self.dom.top.appendChildren([
-			self.dom.collapse,
-			self.dom.title,
-			self.dom.edit,
-		]);
-
-		self.dom.container.appendChildren([
-			self.dom.top,
-			self.dom.tabs,
-		]);
-		
-		if (tabs.tooltips) {
-			self.dom.top.title = il8n.get('GroupExpandTip');
-			self.dom.edit.title = il8n.get('GroupNameTip');
-		}
 		contextmenus.group.attach(self.dom.top);
 		
 		self.update();

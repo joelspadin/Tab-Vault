@@ -7,6 +7,7 @@ function LocaleDef(langcode, name, defaultText) {
 
 var locales = [
 	new LocaleDef('de', 'Deutsch', 'Default'),
+	new LocaleDef('de-2', 'Deutsch 2', 'Default'),
 	new LocaleDef('el', 'Ελληνικά', 'Προεπιλογή'),
 	new LocaleDef('en', 'English', 'Default'),
 	new LocaleDef('es', 'Español', 'Por defecto'),

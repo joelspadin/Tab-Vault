@@ -314,6 +314,7 @@ contextmenus.init = function() {
 			}
 		],
 		afterShow: showClipboard,
+		beforeHide: hideClipboard,
 	});
 
 
@@ -537,7 +538,9 @@ function showClipboard(e) {
 	}
 }
 
-clipboard.addEventListener('complete', function(client, text) {
+function hideClipboard() {
 	$('#cxmenu_tab').style.display = 'none';
 	clipboard.hide();
-})
+}
+
+clipboard.addEventListener('complete', hideClipboard)

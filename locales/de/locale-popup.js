@@ -11,15 +11,15 @@ il8n.strings = {
 	Trash: 'Papierkorb',
 	TrashTip: 'gelöschte Tabs anzeigen',
 	DropToTrash: 'Hier ablegen um Tab oder Tabgruppe zu löshen',
-	/* Translation needed */ Search: 'Durchsuchen',
+	Search: 'Suche Tabs',
 	
 	CannotSave: 'Der Tab kann nicht gespeichert werden werden. ' +
 		'Laden Sie die Seite erneut und versuchen Sie es nochmal',
 	CannotOpen: 'Tab Vault kann den Tab auf der aktuellen Seite nicht öffnen. ' + 
-		'Vielleicht müsse sie diese neu laden',
+		'Vielleicht müssen Sie diese neu laden',
 	
-	GroupExpandTip: 'Gruppe erweitern',
-	GroupCollapseTip: 'Gruppe verbergen',
+	GroupExpandTip: 'Gruppe aufklappen',
+	GroupCollapseTip: 'Gruppe zuklappen',
 	GroupNameTip: 'Gruppenname ändern',
 	GroupNameTip2: 'Fertigstellen (Gruppenname ändern)',
 	
@@ -30,27 +30,27 @@ il8n.strings = {
 	TrashRestoreTip: 'Tab wiederherstellen',
 	
 	// Context Menus
-	/* Translation needed */ CxOpen: 'In neuem Tab öffnen',
-	/* Translation needed */ CxOpenBackground: 'In Hintergrundtab öffnen',
-	/* Translation needed */ CxOpenAndDelete: 'In neuem Tab öffnen und löschen',
-	/* Translation needed */ CxOpenBkgAndDelete: 'In Hintergundtab öffnen und löschen',
-	/* Translation needed */ CxOpenAll: 'Alle Tabs öffnen',
-	/* Translation needed */ CxOpenAllBackground: 'Alle Tabs im Hintergund öffnen',
+	CxOpen: 'In neuem Tab öffnen',
+	CxOpenBackground: 'Im Hintergrund-Tab öffnen',
+	CxOpenAndDelete: 'In neuem Tab öffnen und dann löschen',
+	CxOpenBkgAndDelete: 'Im Hintergrund öffnen und dann löschen',
+	CxOpenAll: 'Alle Tabs öffnen',
+	CxOpenAllBackground: 'Alle Tabs im Hintergrund öffnen',
 	
-	/* Translation needed */ CxCreateGroup: 'Gruppe erstellen',
-	/* Translation needed */ CxSaveToGroup: 'Aktuellen Tab hier sichern',
-	/* Translation needed */ CxUngroup: 'Ungruppierte Tabs',
-	/* Translation needed */ CxReloadIcon: 'Icon neu laden',
-	/* Translation needed */ CxRename: 'Umbenennen',
-	/* Translation needed */ CxDelete: 'Löschen',
-	/* Translation needed */ CxCopyUrl: 'Tab- URL speichern',
+	CxCreateGroup: 'Gruppe erstellen',
+	CxSaveToGroup: 'Aktuellen Tab hier speichern',
+	CxUngroup: 'Tabs aus Gruppe lösen',
+	CxReloadIcon: 'Icon neuladen',
+	CxRename: 'Umbenennen',
+	CxDelete: 'Löschen',
+	CxCopyUrl: 'Kopiere URL',
 	
-	/* Translation needed */ CxSaveCurrent: 'Aktuellen Tab speichern',
-	/* Translation needed */ CxSaveAsGroup: 'Aktuellen Tab in neue Gruppe speichern',
-	/* Translation needed */ CxSaveAll: 'Alle Tabs speichern',
-	/* Translation needed */ CxSaveWindow: 'Tabs in dieses Fenster speichern',
-	/* Translation needed */ CxSaveDomain: 'Tabs in diese Domain speichern',
+	CxSaveCurrent: 'Aktuellen Tab speichern',
+	CxSaveAsGroup: 'Tab in einer neuen Gruppe speichern',
+	CxSaveAll: 'Alle Tab speichern',
+	CxSaveWindow: 'Tabs dieses Fensters speichern',
+	CxSaveDomain: 'Tabs dieser Domäne speichern',
 	
-	/* Translation needed */ CxRestore: 'Wiederherstellen',
-	/* Translation needed */ CxDeletePerm: 'Entgültig löschen',
+	CxRestore: 'Wiederherstellen',
+	CxDeletePerm: 'Dauerhaft löschen',
 }

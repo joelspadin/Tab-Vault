@@ -10,7 +10,7 @@ var localesettings = {
 	TrashAdjust: 20,
 	
 	// Message on the overlay when dropping a tab onto the current page
-	DropToOpen: 'Hier ablegen, um Seite im aktuellen Tab zu öffnen',
+	DropToOpen: 'Hier ablegen, um im aktuellen Tab zu öffnen',
 	DropToOpenGroup: '',
 	// Added to the end of a group title to show how many tabs are being opened
 	// Format is 'zero tabs | one tab | %s tabs' where '%s' is replaced by the number of tabs

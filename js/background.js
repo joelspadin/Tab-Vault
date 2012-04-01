@@ -16,6 +16,8 @@ window.addEventListener('load', function() {
 	function init() {
 		storage.settings.init();
 
+		loadLocale();
+
 		// Build UI elements
 		UIItemProperties = {
 			disabled: false,
@@ -44,10 +46,12 @@ window.addEventListener('load', function() {
 
 
 	opera.extension.onmessage = function(e) {
+		console.log(e.data.action);
 		switch(e.data.action) {
 			case 'get_tab':
 				// Gets info about the focused tab
 				var tab = opera.extension.tabs.getFocused();
+				console.log(tab);
 				if (tab) 
 					e.source.postMessage({
 						action: 'get_tab',
@@ -231,17 +235,24 @@ window.addEventListener('load', function() {
 				// Gets all tabs
 				var tabs = [];
 				var windows = opera.extension.windows.getAll();
+				console.log(windows);
 				for (var i = 0; i < windows.length; i++) {
 					try {
-						for (var j = 0; j < windows[i].tabs.length; j++) {
+						var allTabs;
+						if (windows[i].tabs.getAll)
+							allTabs = windows[i].tabs.getAll();
+						else
+							allTabs = windows[i].tabs;
 						
-							var t = windows[i].tabs[j];
+						console.log(allTabs);
+						for (var j = 0; j < allTabs.length; j++) {
+							var t = allTabs[j];
 							tabs.push({
 								url: t.url,
 								title: t.title,
 								icon: t.faviconUrl
 							});
-							}	
+						}	
 					}
 					catch (e) {}
 				}
@@ -253,8 +264,15 @@ window.addEventListener('load', function() {
 				// Gets all tabs in the current window
 				var tabs = [];
 				var focused = opera.extension.windows.getFocused();
-				for (var i = 0; i < focused.tabs.length; i++) {
-					var t = focused.tabs[i];
+				
+				var allTabs;
+				if (focused.tabs.getAll)
+					allTabs = focused.tabs.getAll();
+				else
+					allTabs = focused.tabs;
+				
+				for (var i = 0; i < allTabs.length; i++) {
+					var t = allTabs[i];
 					tabs.push({
 						url: t.url,
 						title: t.title,
@@ -279,8 +297,14 @@ window.addEventListener('load', function() {
 				var windows = opera.extension.windows.getAll();
 				for (var i = 0; i < windows.length; i++) {
 					try {
-						for (var j = 0; j < windows[i].tabs.length; j++) {
-							var t = windows[i].tabs[j];
+						var allTabs;
+						if (windows[i].tabs.getAll)
+							allTabs = windows[i].tabs.getAll();
+						else
+							allTabs = windows[i].tabs;
+						
+						for (var j = 0; j < allTabs.length; j++) {
+							var t = allTabs[j];
 							if (getDomain(t.url) == domain)
 								tabs.push({
 									url: t.url,
@@ -475,7 +499,7 @@ window.addEventListener('load', function() {
 					get(tabs, i + 1, done);
 				}
 				else 
-					window.utils.getFavicon(tabs[i], function() {
+					window.utils.getFavicon(tabs[i], function(data) {
 						get(tabs, i + 1, done);
 					});
 			}
@@ -514,6 +538,29 @@ window.addEventListener('load', function() {
 		button.popup.width = popupWidth;
 	}
 	
+	function loadLocale() {
+		var locale = settings.get('locale');
+		if (locale == '') {
+			var def = getLocaleDef(navigator.language);
+			if (def !== null)
+				locale = def.language;
+		}
+		
+		if (locale) {
+			var a = document.getElementsByTagName('script');
+			for (var i = 0; i < a.length; i++) {
+				if (a[i].src.indexOf('locale-misc.js') != -1) {
+					a[i].parentNode.removeChild(a[i]);
+				}
+			}
+			
+			var s = document.createElement('script');
+			s.src = 'locales/' + locale + '/locale-misc.js';
+			document.head.appendChild(s);
+			
+			setTimeout(updateWidth, 500);
+		}
+	}
 	
 	
 	var updateTimeout;
@@ -528,7 +575,10 @@ window.addEventListener('load', function() {
 		switch (name) {
 			case 'show_badge':
 				updateBadge();
-				break
+				break;
+			case 'locale':
+				loadLocale();
+				break;
 			case 'bkg_color':
 			case 'bkg_alpha':
 			case 'text_color':
@@ -548,7 +598,7 @@ window.addEventListener('load', function() {
 			updateTimeout = setTimeout(function() {
 				updateBadge();
 				updateTimeout = null;
-			}, 100);
+			}, 500);
 		}
 			
 	}, false);

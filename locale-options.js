@@ -51,7 +51,7 @@ il8n.strings = {
 	MiddleClickClose: 'Delete tab',
 	MiddleClickNone: 'Do nothing',
 	CxMenuStyle: 'Context menu style',
-	Language: 'Language (requires a restart for all changes to take effect)',
+	Language: 'Language (press F5 for all changes to take effect)',
 	
 	EnableClipboard: 'To enable copying tab URLs, go to the ' +
 				'<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04a.html">Flash player settings manager</a> ' +

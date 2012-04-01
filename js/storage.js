@@ -103,6 +103,7 @@ function TabStorage(prefix) {
 		var index = this.getCount(group);
 		this.set(index, data, group);
 		setCount(index + 1, group);
+		return index;
 	}
 
 	/**
@@ -232,25 +233,31 @@ function TabStorage(prefix) {
 	}
 	
 	this.importTabs = function(tabs) {
+		var items = [];
 		for (var i = 0; i < tabs.length; i++) {
 			if (tabs[i].group) 
-				this.importGroup(tabs[i]);
-			else
-				this.add(tabs[i]);
-			
+				items = items.concat(this.importGroup(tabs[i]));
+			else {
+				var index = this.add(tabs[i]);
+				items.push({ index: index, group: 0 })
+			}
 		}
-		
+		return items;
 	}
 	
 	this.importGroup = function(group) {
+		var items = [];
 		if (!group.tabs || !group.tabs.length)
-			return;
+			return items;
 		
 		var title = group.title || group.tabs[0].title || 'New Group';
 		var index = this.makeGroup(-1, title);
 		
-		for (var i = 0; i < group.tabs.length; i++) 
-			this.add(group.tabs[i], index);
+		for (var i = 0; i < group.tabs.length; i++) {
+			var tabIndex = this.add(group.tabs[i], index);
+			items.push({ index: tabIndex, group: group })
+		}
+		return items;
 	}
 
 	/**

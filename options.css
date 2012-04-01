@@ -236,6 +236,8 @@ section.localizations {
 section.localizations ul {
 	list-style-type: none;
 	column-count: 2;
+	column-gap: 25px;
+	padding: 0;
 }
 
 section.localizations li {

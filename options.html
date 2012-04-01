@@ -288,7 +288,11 @@
 	<section class="localizations">
 		<ul>
 			<li>Dutch localization by <a href="http://my.opera.com/NinovdB/">Nino van den Bosch</a></li>
-			<li>German localization by <a href="http://my.opera.com/FreebirthOne/">FreebirthOne</a></li>
+			<li>
+				German localizations by <a href="http://my.opera.com/FreebirthOne/">FreebirthOne</a>,
+				<a href="http://my.opera.com/philflip/">Philflip</a> 
+				and <a href="http://my.opera.com/myOnno/">myOnno</a>.
+			</li>
 			<li>Greek localization by <a href="http://my.opera.com/andreaspatman/">Andreas Patman</a></li>
 			<li>Georgian localization by <a href="http://my.opera.com/arabuli/">Beqa Arabuli</a></li>
 			<li>Italian localization by <a href="http://my.opera.com/DarkRevenger/">Dark Revenger</a></li>
@@ -734,7 +738,8 @@ addEventListener('DOMContentLoaded', function() {
 	
 	// update language selector
 	var select = $('#locale');
-
+	
+	var currentLang = settings.get('locale');
 	var defaultLang = getLocaleDef(navigator.language);
 	if (defaultLang === null) 
 		defaultLang = getLocaleDef('en');
@@ -749,6 +754,10 @@ addEventListener('DOMContentLoaded', function() {
 		option.value = locales[i].language;
 		option.textContent = locales[i].name + ' (' + locales[i].language + ')';
 		select.appendChild(option);
+		
+		// if this is the current language, select it in the <select> element
+		if (currentLang == locales[i].language)
+			select.selectedIndex = i + 1;
 	}
 
 	
