@@ -40,6 +40,7 @@ il8n.strings = {
 	BackgroundAlpha: 'Button background opacity',
 	TextColor: 'Button text color',
 	TextAlpha: 'Button text opacity',
+	FeatherweightIcon: 'Use featherweight style icon',
 	LimitHeight: 'Limit the height of the popup',
 	MaxHeight: 'Maximum popup height (px)',
 	PopupWidth: 'Popup width (px)',
@@ -76,6 +77,9 @@ il8n.strings = {
 	ResetTabs: 'Remove all saved tabs from the vault',
 	ResetAllButton: 'Reset Everything',
 	ResetAll: 'Reset Tab Vault to its original state',
+	ConfirmResetSettings: 'Reset all settings?',
+	ConfirmResetTabs: 'Delete all saved tabs?',
+	ConfirmResetAll: 'Reset Tab Vault completely? you will lose your settings and all saved tabs.',
 	
 	ExternalAccess: 'Buttons and Shortcuts',
 	EnableAccess: 'Set a password to allow shortcuts to access Tab Vault',
@@ -88,7 +92,7 @@ il8n.strings = {
 	
 	
 	Help: 'Need Help?',						// Help category header
-	HelpLink: 'Click here to view the help page for more information about what Tab Vault is, how it works, and how to use it.',
+	HelpLink: 'Click here to view the help page.',
 
 
 	Upgrading: 'Upgrading Your Settings',	// Upgrade explanation header

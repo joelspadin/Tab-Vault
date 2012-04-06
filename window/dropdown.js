@@ -239,7 +239,7 @@ var tabs = new function TabList() {
 	 * @param time The length in ms
 	 */
 	this.disableOpen = function(time) {
-		debug('disabling open');
+		//debug('disabling open');
 		this.allowOpen = false;
 		setTimeout(function() {tabs.allowOpen = true}, time || tabs.disableLength);
 	}
@@ -259,7 +259,7 @@ var tabs = new function TabList() {
 			var index = tabs.tabs.indexOf(e.source);
 			if (index == -1)
 				throw new Error('Cannot remove tab. Tab is not in list.');
-			debug('removing tab ' + index);
+			//debug('removing tab ' + index);
 			tabs.remove(index);
 		}
 		
@@ -338,11 +338,11 @@ var tabs = new function TabList() {
 		
 		var tab = this.tabs[index];
 		if (tab instanceof TabGroup) {
-			debug('remove tabgroup ' + index);
+			//debug('remove tabgroup ' + index);
 			if (tab.tabs.length > 0)
 				tab.removeSelf(nodomchange);
 			else {
-				debug('group is empty. deleting');
+				//debug('group is empty. deleting');
 				this.tabs.splice(index, 1);
 				this.el.childNodes[index].removeSelf();
 				storage.trashTab(index);
@@ -395,9 +395,9 @@ var tabs = new function TabList() {
 	this.makeGroup = function(index, title) {
 		var g = storage.tabs.makeGroup(index, title);
 		
-		debug('making group ' + index + ' ' + this.tabs[index].constructor.name);
-		if (this.tabs[index].constructor.name == 'TabGroup')
-			debug(this.tabs);
+		//debug('making group ' + index + ' ' + this.tabs[index].constructor.name);
+		//if (this.tabs[index].constructor.name == 'TabGroup')
+		//	debug(this.tabs);
 		
 		var newGroup = new TabGroup(storage.tabs.get(index));
 		newGroup.attachTab(new Tab(storage.tabs.get(0, g)));
@@ -902,7 +902,7 @@ function TabGroup(info) {
 	this.removeSelf = function(notrash, nodomchange) {
 	
 		if (self.tabs.length == 0 && self.ondelete) {
-			debug('removeself');
+			//debug('removeself');
 			self.ondelete({source: self});
 		}
 		

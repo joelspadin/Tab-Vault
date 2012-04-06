@@ -255,7 +255,7 @@ function TabStorage(prefix) {
 		
 		for (var i = 0; i < group.tabs.length; i++) {
 			var tabIndex = this.add(group.tabs[i], index);
-			items.push({ index: tabIndex, group: group })
+			items.push({ index: tabIndex, group: index })
 		}
 		return items;
 	}
@@ -302,125 +302,47 @@ var storage = new function Storage() {
 	this.tabs = new TabStorage('tab');
 	this.trash = new TabStorage('trash');
 
-	this.settings = new function SettingsStorage() {
-		// settings: [name, defaultValue]
-		this.settings = [
-			['show_badge', true],
-			['compact', true],
-			['tooltips', true],
-			['verbose_tab_tips', false],
-			['disable_animation', false],
-			['trash_on_open', false],
-			['allow_list_dupes', true],
-			['allow_group_dupes', true],
-			['remove_list_dupes', false],
-			['remove_group_dupes', false],
-			['close_on_save', false],
-			['close_on_open', true],
-			['close_on_pageopen', true],
-			['close_tab_on_save', false],
-			['keep_groups_open', true],
-			['open_one_group', false],
-			['middle_click', 'open'],
-			['save_to_top', false],
-			['group_to_top', false],
-			['limit_height', false],
-			['max_height', screen.height],
-			['limit_trash', false],
-			['max_trash', 32],
-			['popup_width', 250],
-			
-			['locale', ''],
-			['cxmstyle', platform.mac ? 'mac' : 'dfl'],
-			['password', ''],
+	this.settings = new SettingStorage([
+		['show_badge', true],
+		['compact', true],
+		['tooltips', true],
+		['verbose_tab_tips', false],
+		['disable_animation', false],
+		['trash_on_open', false],
+		['allow_list_dupes', true],
+		['allow_group_dupes', true],
+		['remove_list_dupes', false],
+		['remove_group_dupes', false],
+		['close_on_save', false],
+		['close_on_open', true],
+		['close_on_pageopen', true],
+		['close_tab_on_save', false],
+		['keep_groups_open', true],
+		['open_one_group', false],
+		['middle_click', 'open'],
+		['save_to_top', false],
+		['group_to_top', false],
+		['limit_height', false],
+		['max_height', screen.height],
+		['limit_trash', false],
+		['max_trash', 32],
+		['popup_width', 250],
 
-			['bkg_color', '#fd0000'],
-			['bkg_alpha', 255],
-			['text_color', '#ffffff'],
-			['text_alpha', 255],
-		];
+		['locale', ''],
+		['cxmstyle', platform.mac ? 'mac' : 'dfl'],
+		['password', ''],
+
+		['bkg_color', '#fd0000'],
+		['bkg_alpha', 255],
+		['text_color', '#ffffff'],
+		['text_alpha', 255],
+		['featherweight_icon', false],
 		
-		/**
-		 * Initializes settings
-		 */
-		this.init = function() {
-			if (!this.get('initialized')) {
-				this.resetAll();
-				this.set('initialized', true);
-			}
-			else
-				this.fillDefaults();
-		}
-		
-		/**
-		 * Resets a setting to its default values
-		 */
-		this.reset = function(name) {
-			for (var i = 0; i < this.settings.length; i++) {
-				if (this.settings[i][0] == name) {
-					this.set(name, this.settings[i][1]);
-					return;
-				}
-			}
-		}
-
-		/**
-		 * Resets all settings to their default values
-		 */
-		this.resetAll = function() {
-			for (var i = 0; i < this.settings.length; i++)
-				this.set(this.settings[i][0], this.settings[i][1]);
-		}
-		
-		this.fillDefaults = function() {
-			for (var i = 0; i < this.settings.length; i++) {
-				if (typeof widget.preferences['st_' + this.settings[i][0]] == 'undefined')
-					this.set(this.settings[i][0], this.settings[i][1]);
-			}
-		}
-
-		/**
-		 * Gets the value of a setting
-		 */
-		this.get = function(name) {
-			var data = widget.preferences['st_' + name];
-			if (typeof data == 'undefined')
-				return null;
-			return JSON.parse(data);
-		}
-
-		/**
-		 * Sets the value of a setting
-		 */
-		this.set = function(name, value) {
-			var temp = JSON.stringify(value);
-			try {
-				widget.preferences['st_' + name] = temp;
-			}
-			catch (e) {
-				opera.postError('Failed to save "' + name + '". Exception was:\n' + e.name + '\n' + e.message + 
-					'\nsize of data was ' + temp.length + ' characters.');
-			}
-		}
-
-		/**
-		 * Gets an object with the values of all settings
-		 */
-		this.getAll = function() {
-			var data = {};
-			for (var i = 0; i < this.settings.length; i++) 
-				data[this.settings[i][0]] = this.get(this.settings[i][0]);
-			return data;
-		}
-
-		/**
-		 * Sets all the settings defined in the data object
-		 */
-		this.setAll = function(data) {
-			for (var key in data) 
-				this.set(key, data[key]);
-		}
-	}
+		['opt_topbar', true],
+	], {
+		initSetting: 'initialized',
+		prefix: 'st_',
+	})
 
 	/**
 	 * Sends a tab from main storage to the trash

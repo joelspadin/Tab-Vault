@@ -1,75 +1,60 @@
-
-
 opera.extension.il8n = new function Localization() {
-	
 	this.strings = {};
 	
-	
-	this.get = function(item, defaultValue) {
-		var temp = this.strings[item];
-		if (!temp)
-			opera.postError('Tab Vault Localization: No text for "' + item + '"');
-		return temp || defaultValue || null;
-	}
-	
-	this.queryNode = function(id) {
-		var type = id.substr(0,4);
-		if (type == 'loc:')
-			return document.querySelector('[data-loc="' + id.substr(4) + '"]');
-		else if (type == 'lbl:')
-			return document.querySelector('label[for="' + id.substr(4) + '"]');
-		else
-			return document.getElementById(id);
-	}
-	
-	this.translateNode = function(node, text, dest) {
-		dest = dest || 'text';
-		
-		if (dest == 'text')
-			node.textContent = text;
-		else if (dest == 'html')
-			node.innerHTML = text;
-		else if (dest == 'title')
-			node.title = text;
-		else if (dest == 'placeholder')
-			node.setAttribute('placeholder', text);
-	}
-	
-	this.translate = function(id, item, dest) {
-		var text = this.get(item);
-		if (text === null)
-			return;
-		
-		var node = il8n.queryNode(id);
-		
-		if (!node) {
-			opera.postError('Tab Vault Localization: No node for "' + id + '"');
-			return;
-		}
-		
-		this.translateNode(node, text, dest);		
-	}
-	
-	this.translateAll = function(selector, item, dest) {
-		var text = this.get(item);
-		if (text === null)
-			return;
-		
-		var nodes = document.querySelectorAll(selector);
-		for (var i = 0; i < nodes.length; i++) {
-			this.translateNode(nodes[i], text, dest);
-		}
+	this.get = function(item, nullIfMissing) {
+		return this.strings[item] || (nullIfMissing ? null : this.missingText(item));
 	}
 
-	this.translatePage = function(items, defaultDest) {
-		for (var i = 0; i < items.length; i++) {
-			this.translate(items[i][0], items[i][1], items[i][2] || defaultDest);
+	this.missingText = function(item) {
+		return 'loc:' + item;
+	}
+	
+	this.translate = function(node) {
+		var key = node.getAttribute('data-loc');
+		var title = node.getAttribute('data-loctitle');
+		var placeholder = node.getAttribute('data-locplaceholder');
+		
+		if (key) {
+			var text;
+			if (text = this.get(key, true)) 
+				node.innerHTML = text;
+			else {
+				node.innerHTML = this.missingText(key);
+				node.classList.add('loc-missing');
+			}
+		}
+		
+		if (title) {
+			var text;
+			if (text = this.get(title, true)) 
+				node.title = text;
+			else {
+				node.title = this.missingText(title);
+				node.classList.add('loc-missing');
+			}
+		}
+		
+		if (placeholder) {
+			var text;
+			if (text = this.get(placeholder, true))
+				node.setAttribute('placeholder', text);
+			else {
+				node.setAttribute('placholder', this.missingText(placeholder));
+				node.classList.add('loc-missing');
+			}
 		}
 	}
 	
-	
+	this.translatePage = function(noTitle) {
+		var sel = '[data-loc], [data-locplaceholder]' + (noTitle ? '' : ', [data-loctitle]');
+		var nodes = document.querySelectorAll(sel);
+		for (var i = 0; i < nodes.length; i++)
+			this.translate(nodes[i]);
+	}
+
+
 	this.loadLocaleScript = function(file) {
-		var locale = settings.get('locale');
+		var locale = settings.locale;
 		if (!locale)
 			return;
 		
@@ -79,7 +64,7 @@ opera.extension.il8n = new function Localization() {
 	}
 
 	this.loadLocaleStyle = function(file) {
-		var locale = settings.get('locale');
+		var locale = settings.locale;
 		if (!locale)
 			return;
 		
@@ -90,7 +75,7 @@ opera.extension.il8n = new function Localization() {
 	}
 	
 	this.getLocalePath = function(path, loc) {
-		var locale = loc || settings.get('locale');
+		var locale = loc || settings.locale;
 		if (!locale)
 			return path;
 		else {
@@ -101,23 +86,19 @@ opera.extension.il8n = new function Localization() {
 		}
 	}
 
-	this.localizeLinks = function(links) {
+	this.localizeLinks = function(selector) {
 		var locale = settings.get('locale');
 		if (!locale)
 			return;
 		
-		if (links.length === undefined)
-			links = [ links ];
+		var links = document.querySelector(selector);
 		
 		for (var i = 0; i < links.length; i++) {
-			var a = links[i];
-			if (!(a instanceof HTMLElement))
-				a = il8n.queryNode(a)
-			a.href = il8n.getLocalePath(a.href, locale);
+			links[i].href = il8n.getLocalePath(links[i].href, locale);
 		}
 	}
+	
 }
-
 
 
 window.il8n = opera.extension.il8n;

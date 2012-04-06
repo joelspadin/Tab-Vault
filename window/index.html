@@ -2,41 +2,41 @@
 <html>
 <head>
 	<title>Tab Vault</title>
-	<link rel="stylesheet" href="popup.css">
-	<script src="../js/debug.js"></script>
+	<link rel="stylesheet" href="dropdown.css">
+	<script src="../js/SettingStorage.js"></script>
 	<script src="../js/storage.js"></script>
 	<script src="../js/il8n.js"></script>
 	<script src="../js/classList.js"></script>
-	<script src="../locale-popup.js"></script>
+	<script src="../locale-dropdown.js"></script>
 	<script src="../locale-misc.js"></script>
 	<script src="ZeroClipboard.js"></script>
 	<script src="context.js"></script>
-	<script src="popup.js"></script>
+	<script src="dropdown.js"></script>
 	<script src="dragdrop.js"></script>
 	<script>
-		il8n.loadLocaleScript('locale-popup.js');
+		il8n.loadLocaleScript('locale-dropdown.js');
 		il8n.loadLocaleScript('locale-misc.js');
 	</script>
 </head>
 <body class="tabs">
 	<header>
-		<a id="save-tab">Save Tab</a>
+		<a id="save-tab" data-loc="SaveTab" data-loctitle="SaveTabTip"></a>
 		<nav>
-			<a id="button-options" href="../options.html" target="_blank">Options</a>
-			<a id="button-tabs">Tabs</a>
-			<a id="button-trash">Trash</a>
+			<a id="button-options" href="../options.html" target="_blank" data-loc="Options" data-loctitle="OptionsTip"></a>
+			<a id="button-tabs" data-loc="Tabs" data-loctitle="TabsTip"></a>
+			<a id="button-trash" data-loc="Trash" data-loctitle="TrashTip"></a>
 		</nav>
 	</header>
 	
 	<section id="panel-tabs" class="page">
 		<div id="search-bar" class="hidden">
-			<input type="text" id="search" placeholder="Search"><button id="close-search" class="close"></button>
+			<input type="text" id="search" data-locplaceholder="Search"><button id="close-search" class="close"></button>
 		</div>
 		<!--<ul id="tab-list" style="display:none"></ul>-->
 	</section>
 	
 	<section id="panel-trash" class="page">
-		<a id="clear-trash">Clear List of Closed Tabs</a>
+		<a id="clear-trash" data-loc="ClearTrash" data-loctitle="ClearTrashTip"></a>
 		<ul id="trash-list"></ul>
 	</section>
 	
@@ -45,7 +45,7 @@
 	
 	<div id="drag-shim" style="display: none" class="hidden">
 		<div id="tab-shim" class="tab"></div>
-		<div id="trash-shim">Drop to Delete Item</div>
+		<div id="trash-shim" data-loc="DropToTrash"></div>
 	</div>
 	
 	<script>
@@ -54,25 +54,7 @@
 		contextmenus.init();
 		
 		// Locale stuff
-		il8n.translatePage([
-			['save-tab', 'SaveTab'],
-			['button-options', 'Options'],
-			['button-tabs', 'Tabs'],
-			['button-trash', 'Trash'],
-			['clear-trash', 'ClearTrash'],
-			['trash-shim', 'DropToTrash'],
-			['search', 'Search', 'placeholder'],
-		]);
-		
-		if (tabs.tooltips) {
-			il8n.translatePage([
-				['save-tab', 'SaveTabTip'],
-				['button-options', 'OptionsTip'],
-				['button-tabs', 'TabsTip'],
-				['button-trash', 'TrashTip'],
-				['clear-trash', 'ClearTrashTip'],
-			], 'title');
-		}
+		il8n.translatePage(!tabs.tooltips);
 		
 		// Get popup width and load variable stylesheet
 		localesettings.PopupWidth = Math.max(
@@ -107,7 +89,7 @@
 			if (storage.trash.count == 0) {
 				$('#button-trash').addClass('disabled');
 				if (document.body.className == 'trash') {
-					debug('trash disabled');
+					//debug('trash disabled');
 					document.body.className = 'tabs';
 					requestResize('tabs');
 				}

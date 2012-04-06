@@ -1,29 +1,37 @@
 
-
-window.addEventListener('load', function() {
-	// Initialization
-	//debug('clearing');
-	//widget.preferences.clear();
-	//testTabStorage();
+var ui = new function UI() {
+	this.properties = null;
+	/**
+	 * Reference to extension button
+	 */
+	this.button = null;
+	/**
+	 * Reference to ui.button.badge
+	 */
+	this.badge = null;
+	/**
+	 * Reference to ui.button.popup
+	 */
+	this.popup = null;
 	
-	checkVersion();
+	/**
+	 * Properties for badge notifications
+	 */
+	this.notification = {
+		length: 3000,
+		timer: null,
+	}
 	
-	var UIItemProperties, button, resizeTimeout;
-	var popupWidth;
-	var notificationLength = 3000;
-	var notificationTimer;
-	
-	function init() {
-		storage.settings.init();
-
-		loadLocale();
-
-		// Build UI elements
-		UIItemProperties = {
+	/**
+	 * Creates the extension button and initializes the popup
+	 */
+	this.init = function() {
+		
+		ui.properties = {
 			disabled: false,
 			title: 'Tab Vault',
-			icon: 'img/icon_18.png',
-			onclick: buttonClicked,
+			icon: ui.getIcon(),
+			onclick: this.onButtonClicked,
 			badge: {
 				display: 'none',
 				textContent: '0',
@@ -31,323 +39,351 @@ window.addEventListener('load', function() {
 			popup: {
 				href: 'window/index.html',
 				width: 250,
-				height: 300
+				height: 300,
 			}
-		};
+		}
 		
-		button = opera.contexts.toolbar.createItem(UIItemProperties);
-		opera.contexts.toolbar.addItem(button);
+		ui.button = opera.contexts.toolbar.createItem(ui.properties);
+		opera.contexts.toolbar.addItem(ui.button);
 		
-		updateBadgeColors();
-		updateBadge();
-		updateWidth();
+		ui.badge = ui.button.badge;
+		ui.popup = ui.button.popup;
+		
+		ui.updateBadgeColors();
+		ui.updateBadge();
+		ui.updateIcon();
+		ui.updatePopupWidth();
 	}
-	init();
+	
 
-
-	opera.extension.onmessage = function(e) {
-		console.log(e.data.action);
-		switch(e.data.action) {
-			case 'get_tab':
-				// Gets info about the focused tab
-				var tab = opera.extension.tabs.getFocused();
-				console.log(tab);
-				if (tab) 
-					e.source.postMessage({
-						action: 'get_tab',
-						url: tab.url,
-						title: tab.title,
-						icon: tab.faviconUrl
-					});
-				else
-					e.source.postMessage({ action: 'get_error' });
-				break;
-				
-			case 'open_tab':
-				// Opens a tab
-				opera.extension.tabs.create({
-					url: e.data.url,
-					focused: e.data.focused || false
-				});
-				break;
-				
-			case 'close_tab':
-				// Closes the focused tab
-				var focused = opera.extension.tabs.getFocused();
-				if (focused) 
-					focused.close();
-				break;
-				
-			case 'change_tab':
-				// Navigates the focused tab to a new URL
-				var focused = opera.extension.tabs.getFocused();
-				if (focused) {
-					focused.update({ url: e.data.url });
-					if (settings.get('close_on_pageopen'))
-						e.source.postMessage({ action: 'close' });
-					e.source.postMessage({ action: 'open_success', url: e.data.url });
-				}
-				else
-					e.source.postMessage({ action: 'open_error' });
-				break;
-				
-			case 'resize':
-				// Resize the popup to fit its tabs
-				function resize() {
-					resizePopup(e.data.page, e.data.size);
-					e.source.postMessage({action: 'resize_done'});
-					resizeTimeout = null;
-				}
-				// If timeout is already going, cancel it
-				if (resizeTimeout)
-					clearTimeout(resizeTimeout);
+	
+	/**
+	 * Updates the colors of the button's badge
+	 */
+	this.updateBadgeColors = function() {
+		colorutils.getIndicatorColors(ui.badge);
+	}
+	
+	
+	/**
+	 * Updates the number of tabs shown on the extension button
+	 */
+	this.updateBadge = function(plusone) {
+		var text = storage.tabs.getTotalCount();
+		if (settings.show_badge && text > 0) {
+			// handle +1 notification for saving tabs
+			if (plusone) {
+				text = (text - 1) + '+1';
+				if (ui.notification.timer)
+					clearTimeout(ui.notification.timer);
+				ui.notification.timer = setTimeout(ui.updateBadge, ui.notification.length);
+			}
 			
-				if (e.data.delay)
-					resizeTimeout = setTimeout(resize, e.data.delay);
-				else
-					resize();
-				break;
-				
-			case 'enter_page':
-				// Called when dragging a tab over the page
-				showDropMessage(e.data.title, e.data.group, e.data.tabs);
-				break;
-				
-			case 'leave_page':
-				// Called when dragging a tab away from the page
-				hideDropMessage();
-				break;
-				
-			case 'reset_all':
-				// Resets everything to defaults
-				resetAll();
-				e.source.postMessage({ action: 'update' });
-				break;
-				
-			case 'recount':
-				// Update count on badge
-				setTimeout(updateBadge, 200);
-				break;
-				
-			case 'export':
-				// Exports tabs as a session
-				
-				if (!sessionInit(e))
-					break;
-				
-				var uri;
-				if (e.data.format == 'adr') {
-					uri = session.writeAdr(storage.tabs.getAll());
-				}
-				else {
-					var wind = {
-						x: screen.width * 0.1,
-						y: screen.height * 0.1,
-						width: screen.width * 0.75,
-						height: screen.height * 0.75
-					}
-					uri = session.write(storage.tabs.getAll(), wind);
-				}
-				opera.extension.tabs.create({ url: uri, focused: e.data.focused || false });
-				break;
-				
-			case 'import':
-				// Import tabs from a session
-				
-				if (!sessionInit(e))
-					break;
-					
-				var tabs = [];
-				tabs = session.read(e.data.session);
-				try {
-					//tabs = session.read(e.data.session);
-					getFavicons(tabs, function() {
-						storage.tabs.importTabs(tabs);
-						e.source.postMessage({ action: 'import_done' });
-						updateBadge();
-					});
-				}
-				catch (ex) {
-					console.log('Tab Vault: Error occurred while importing:\n' + ex.toString());
-					e.source.postMessage({ action: 'import_error' });
-				}
-				break;
-				
-			case 'reload_icon':
-				var tab = storage.tabs.get(e.data.index, e.data.group);
-				window.utils.getFavicon(tab, function(data) {
-					debug('test');
-					storage.tabs.set(e.data.index, data, e.data.group);
-					// Popup may be closed now (probably is since Opera likes closing it
-					// for no good reason) so ignore any errors this generates
-					try {
-						e.source.postMessage({
-							action: 'reload_icon_done',
-							index: e.data.index,
-							group: e.data.group,
-							icon: data.icon
-						});
-					}
-					catch (e) {}
-				});
-				break;
-				
-			case 'external_save':
-				// Page asks to save itself or another page
-				//var pass = settings.get('password');
-				//if (!pass || e.data.pass != pass) {
-				if (!checkPassword(e.data.pass)) {
-					opera.postError('Tab Vault: Cannot save page. Invalid password.');
-					return;
-				}
-				
-				// If no URL provided, get info from focused tab
-				if (!e.data.url) {
-					var tab = opera.extension.tabs.getFocused();
-					if (tab) {
-						e.data.url = tab.url;
-						e.data.title = tab.title;
-						// Don't know why, but this fails when called from a button or shortcut
-						e.data.icon = tab.faviconUrl;
-					}
-					else {
-						externalSaveError();
-						break;
-					}
-				}
-
-				storage.tabs.add({
-					url: e.data.url,
-					title: e.data.title,
-					icon: e.data.icon,
-				});
-				
-				if (settings.get('save_to_top')) 
-					storage.tabs.move(storage.tabs.count - 1, 0);
-				
-				updateBadge(true);
-				
-				if (e.data.close)
-					tab.close();
-				break;
-				
-			case 'get_all':
-				// Gets all tabs
-				var tabs = [];
-				var windows = opera.extension.windows.getAll();
-				console.log(windows);
-				for (var i = 0; i < windows.length; i++) {
-					try {
-						var allTabs;
-						if (windows[i].tabs.getAll)
-							allTabs = windows[i].tabs.getAll();
-						else
-							allTabs = windows[i].tabs;
-						
-						console.log(allTabs);
-						for (var j = 0; j < allTabs.length; j++) {
-							var t = allTabs[j];
-							tabs.push({
-								url: t.url,
-								title: t.title,
-								icon: t.faviconUrl
-							});
-						}	
-					}
-					catch (e) {}
-				}
-				
-				sendGroupMsg(e.source, tabs);
-				break;
-				
-			case 'get_window':
-				// Gets all tabs in the current window
-				var tabs = [];
-				var focused = opera.extension.windows.getFocused();
-				
-				var allTabs;
-				if (focused.tabs.getAll)
-					allTabs = focused.tabs.getAll();
-				else
-					allTabs = focused.tabs;
-				
-				for (var i = 0; i < allTabs.length; i++) {
-					var t = allTabs[i];
-					tabs.push({
-						url: t.url,
-						title: t.title,
-						icon: t.faviconUrl
-					});
-				}
-				
-				sendGroupMsg(e.source, tabs);
-				break;
-				
-			case 'get_domain':
-				// Gets all tabs on the same domain as the focused tab
-				var tabs = [];
-				var focused = opera.extension.tabs.getFocused();
-				
-				if (!focused) {
-					e.source.postMessage({ action: 'get_error' });
-					break;
-				}
-				
-				var domain = getDomain(focused.url);
-				var windows = opera.extension.windows.getAll();
-				for (var i = 0; i < windows.length; i++) {
-					try {
-						var allTabs;
-						if (windows[i].tabs.getAll)
-							allTabs = windows[i].tabs.getAll();
-						else
-							allTabs = windows[i].tabs;
-						
-						for (var j = 0; j < allTabs.length; j++) {
-							var t = allTabs[j];
-							if (getDomain(t.url) == domain)
-								tabs.push({
-									url: t.url,
-									title: t.title,
-									icon: t.faviconUrl
-								});
-						}
-					}
-					catch (e) {}
-				}
-				
-				sendGroupMsg(e.source, tabs, domain);
-				break;
-				
+			// set badge text
+			ui.badge.display = 'block';
+			ui.badge.textContent = text;
+		}
+		else 
+			ui.badge.display = 'none';
+	}
+	
+	/**
+	 * Returns the path to the extension button icon
+	 */
+	this.getIcon = function() {
+		if (settings.featherweight_icon)
+			return 'img/icon_18b.png';
+		else
+			return 'img/icon_18.png';
+	}
+	
+	/**
+	 * Updates the extension button icon
+	 */
+	this.updateIcon = function() {
+		ui.button.icon = ui.getIcon();
+	}
+	
+	/**
+	 * Displays "err" in the button badge
+	 */
+	this.externalSaveError = function() {
+		ui.badge.display = 'block';
+		ui.badge.textContent = 'err';
+		if (ui.notification.timer)
+			clearTimeout(ui.notification.timer);
+		ui.notification.timer = setTimeout(updateBadge, ui.notification.length);
+	}
+	
+	
+	/**
+	 * Resizes the popup to fit its contents
+	 * @param page The page to update for. One of "tabs", "trash"
+	 * @param size Overrides the calculation of the # of tabs to account for
+	 */
+	this.resizePopup = function(page, size) {
+		var numTabs = size || 0;
+		var minTabs = 6;
+		var tabHeight = 26;
+		var padding = 48;
+		
+		// if no size given, calculate assuming all groups are collapsed
+		if (!size) {
+			if (page == 'tabs') 
+				numTabs = storage.tabs.count;
+			else if (page == 'trash') {
+				numTabs = storage.trash.count;
+				padding += 28;
+			}
+			else
+				numTabs = Math.max(storage.tabs.count, storage.trash.count);
+		}
+		
+		// resize the popup
+		numTabs = (numTabs < minTabs) ? minTabs : numTabs;
+		var height = padding + (numTabs + 1) * tabHeight
+		ui.popup.height = settings.limit_height ? Math.min(height, settings.max_height) : height; 
+	}
+	
+	/**
+	 * Updates the width of the popup using the user's preference and the 
+	 * locale's minimum width.
+	 */
+	this.updatePopupWidth = function() {
+		ui.popup.width = Math.max(localesettings.PopupWidth, settings.popup_width);
+	}
+	
+	
+	/**
+	 * Shows an indicator that a tab is being dragged over the current page
+	 */
+	this.showDropMessage = function(title, group, list) {
+		var focused = tabs.focused();
+		if (focused) {
+			if (group)
+				title += ' ' + utils.formatNumber(localesettings.TabCount, list);
 			
+			focused.postMessage({ 
+				action: 'show', 
+				title: title,
+				msg: group ? localesettings.DropToOpenGroup : localesettings.DropToOpen,
+				anim: !settings.disable_animation,
+				right: ui.popup.width,
+			});
 		}
 	}
 	
-	opera.extension.tabs.onfocus = hideDropMessage;
+	/**
+	 * Hides the indicator
+	 */
+	this.hideDropMessage = function() {
+		var focused = tabs.focused();
+		if (focused)
+			focused.postMessage({action: 'hide'});
+	}
 	
 	
-	function sendGroupMsg(source, tabs, title) {
-		if (tabs.length > 0)
+	/**
+	 * Occurs when the extension button is clicked
+	 */
+	this.onButtonClicked = function() {
+		ui.resizePopup('tabs');	
+	}
+	
+	this.onRecount = function() {
+		// Update count on badge
+		setTimeout(ui.updateBadge, 200);
+	}
+	
+	var resizeTimeout = null;
+	this.onResize = function(e) {
+		
+		function doResize() {
+			ui.resizePopup(e.data.page, e.data.size);
+			e.source.postMessage({ action: 'resize_done' });
+			resizeTimeout = null;
+		}
+		// If timeout is already going, cancel it
+		if (resizeTimeout)
+			clearTimeout(resizeTimeout);
+
+		if (e.data.delay)
+			resizeTimeout = setTimeout(doResize, e.data.delay);
+		else
+			doResize();
+	}
+	
+	
+	this.onEnterPage = function(e) {
+		ui.showDropMessage(e.data.title, e.data.group, e.data.tabs);
+	}
+	
+}
+
+
+
+
+
+var tabs = new function Tabs() {
+
+	this.sendTab = function(source, tab) {
+		if (tab)
 			source.postMessage({
-				action: 'get_group',
-				title: title || tabs[0].title,
-				tabs: tabs
+				action: 'get_tab',
+				url: tab.url,
+				title: tab.title,
+				icon: tab.faviconUrl	
 			});
 		else
-			source.postMessage({ action: 'get_error' });
+			tabs.sendGetError(source);
+	}
+	
+	this.sendGroup = function(source, list, title) {
+		if (list && list.length > 0)
+			source.postMessage({
+				action: 'get_group',
+				title: title || list[0].title,
+				tabs: list 
+			});
+		else
+			tabs.sendGetError(source);
+	}
+	
+	this.sendGetError = function(source) {
+		source.postMessage({action: 'get_error'});
+	}
+
+	this.sendOpenError = function(source) {
+		source.postMessage({action: 'open_error'});
+	}
+	
+	this.open = function(url, focused) {
+		return opera.extension.tabs.create({
+			url: url,
+			focused: focused || false
+		});
+	}
+	
+	this.close = function(tab) {
+		if (tab)
+			tab.close();
+	}
+	
+	this.update = function(tab, params) {
+		if (tab)
+			tab.update(params);
+	}
+	
+	this.openGroup = function(list, focused) {
+		//TODO: implement this
 	}
 	
 	
-	function checkPassword(pass) {
-		var temp = settings.get('password');
-		return temp && pass == temp
+	
+	this.focused = function() {
+		return opera.extension.tabs.getFocused();
+		
 	}
 	
-	function getDomain(url) {
+	this.inGroup = function(group) {
+		return [];
+	}
+	
+	this.all = function() {
+		// Gets all tabs
+		var list = [];
+		var windows = opera.extension.windows.getAll();
+		
+		for (var i = 0; i < windows.length; i++)
+			list = list.concat(tabs.inWindow(windows[i]));
+		
+		return list;
+	}
+	
+	this.inWindow = function(window) {
+		return window.tabs.getAll ? window.tabs.getAll() : window.tabs;
+	}
+	
+	this.inDomain = function(domain) {
+		
+		return this.all().filter(function(elem) {
+			return utils.getDomain(elem.url) == domain;
+		});
+	}
+	
+	
+	this.onGetTab = function(e) {
+		tabs.sendTab(e.source, tabs.focused());
+	}
+	
+	this.onGetGroup = function(e) {
+		var focused = tabs.focused();
+		if (!focused || !focused.tabGroup)
+			tabs.sendGetError(e.source);
+		
+		tabs.sendGroup(e.source, tabs.inGroup(focused.tabGroup));
+	}
+	
+	this.onGetAll = function(e) {
+		tabs.sendGroup(e.source, tabs.all());
+	}
+	
+	this.onGetWindow = function(e) {
+		var focused = opera.extension.windows.getFocused();
+		if (!focused)
+			tabs.sendGetError(e.source);
+		
+		tabs.sendGroup(e.source, tabs.inWindow(focused));
+	}
+	
+	this.onGetDomain = function(e) {
+		var focused = tabs.focused();
+		if (!focused)
+			tabs.sendGetError(e.source);
+		
+		var domain = utils.getDomain(focused.url);
+		tabs.sendGroup(e.source, tabs.inDomain(domain));
+	}
+	
+	this.onOpenTab = function(e) {
+		tabs.open(e.data.url, e.data.focused);
+	}
+	
+	this.onOpenGroup = function(e) {
+		tabs.openGroup(e.data.tabs, e.data.focused);
+	}
+	
+	this.onCloseTab = function(e) {
+		tabs.close(tabs.focused());
+	}
+	
+	this.onChangeTab = function(e) {
+		var focused = tabs.focused();
+		if (focused) {
+			tabs.update(focused, {url: e.data.url});
+			if (settings.close_on_pageopen);
+				e.source.postMessage({ action: 'close' });
+			e.source.postMessage({ action: 'open_success', url: e.data.url });
+		}
+		else
+			tabs.sendOpenError(source);
+	}
+}
+
+
+var utils = function Utils() {
+	
+	this.getDomain = function(url) {
 		return url.match(/:\/\/(www\.)?(.[^/:]+)/)[2];
 	}
 	
-	function formatNumber(text, value) {
+	this.checkPassword = function(pass) {
+		var actual = settings.password;
+		return actual && pass == actual
+	}
+	
+	
+	this.formatNumber = function(text, value) {
 		var parts = text.split('|');
 		
 		var i = Math.min(parts.length - 1, Math.floor(value));
@@ -357,255 +393,200 @@ window.addEventListener('load', function() {
 		
 		return parts[i].replace('%s', value);
 	}
-	
-	
-	/**
-	 * Shows an indicator that a tab is being dragged over the current page
-	 */
-	function showDropMessage(title, group, tabs) {
-		var focused = opera.extension.tabs.getFocused();
-		if (focused) {
-			if (group)
-				title += ' ' + formatNumber(localesettings.TabCount, tabs);
-			
-			focused.postMessage({ 
-				action: 'show', 
-				title: title,
-				msg: group ? localesettings.DropToOpenGroup : localesettings.DropToOpen,
-				anim: !settings.get('disable_animation'),
-				right: popupWidth,
-			});
-		}
-	}
-	
-	/**
-	 * Hides the indicator
-	 */
-	function hideDropMessage() {
-		var focused = opera.extension.tabs.getFocused();
-		if (focused)
-			focused.postMessage({ action: 'hide' });
-	}
 
-	/**
-	 * Occurs when the extension button is clicked
-	 */
-	function buttonClicked() {
-		resizePopup('tabs');	
+
+	
+}
+
+var tabutils = new function TabUtils() {
+	
+	this.toAdr = function(list) {
+		list = list || storage.tabs.getAll();
+		return session.writeAdr(list);
+	}
+	
+	this.toSession = function(list) {
+		list = list || storage.tabs.getAll();
+		return session.write(list, {
+			x: screen.width * 0.1,
+			y: screen.height * 0.1,
+			width: screen.width * 0.75,
+			height: screen.height * 0.75,
+		});
 	}
 	
 	/**
-	 * Resizes the popup to fit its contents
-	 * page = tabs | trash
-	 * size overrides the calculation of the # of tabs to account for
+	 * Reloads the favicon url of an already saved tab
 	 */
-	function resizePopup(page, size) {
-		var tabs = size || 0;
-		var minTabs = 6;
-		var tabHeight = 26;
-		var padding = 48;
+	this.reloadFavicon = function(index, group, callback) {
+		var tab = storage.tabs.get(index, group);
+		tabutils.getFavicon(tab, function(data) {
+			storage.tabs.set(index, data, group);
+			if (callback)
+				callback(data);
+		});
+	}
+	
+	/**
+	 * Gets the favicon url of a page by opening it, checking until it loads the favicon, then closing it
+	 */ 
+	this.getFavicon = function(tabObj, callback) {
+		var polling = {
+			interval: 100,
+			maxTries: 15000 / 100,
+		}
 		
-		if (!size) {
-			if (page == 'tabs') 
-				tabs = storage.tabs.count;
-			else if (page == 'trash') {
-				tabs = storage.trash.count;
-				padding += 28;
+		var tab = tabs.open(tabObj.url, false);
+		var tries = 0;
+		
+		var check = function() {
+			//debug('checking: try ' + tries);
+			if (tab.faviconUrl) {
+				tab.close();
+				tabObj.icon = tab.faviconUrl;
+				callback(tabObj);
 			}
-			else
-				tabs = Math.max(storage.tabs.count, storage.trash.count);
-		}
-		
-		//debug('resizing to ' + tabs + ' tabs');
-		tabs = (tabs < minTabs) ? minTabs : tabs;
-		var height = padding + (tabs + 1) * tabHeight
-		button.popup.height = settings.get('limit_height') ? Math.min(height, settings.get('max_height')) : height; 
-	}
-	
-	/**
-	 * Updates the number of tabs shown on the extension button
-	 */
-	function updateBadge(plusone) {
-		var tabs = storage.tabs.getTotalCount();
-		if (settings.get('show_badge') && tabs > 0) {
-			if (plusone) {
-				tabs -= 1;
-				tabs += '+1';
-				if (notificationTimer)
-					clearTimeout(notificationTimer);
-				notificationTimer = setTimeout(updateBadge, notificationLength);
-			}
-			
-			button.badge.display = 'block';
-			button.badge.textContent = tabs;
-		}
-		else 
-			button.badge.display = 'none';
-	}
-	
-	function externalSaveError() {
-		button.badge.display = 'block';
-		button.badge.textContent = 'err';
-		if (notificationTimer)
-			clearTimeout(notificationTimer);
-		notificationTimer = setTimeout(updateBadge, notificationLength);
-	}
-	
-	/**
-	 * Updates the colors of the button's badge
-	 */
-	function updateBadgeColors() {
-		colorutils.getIndicatorColors(button.badge);
-	}
-	
-	/**
-	 * Checks for upgrading from version 1.x to 2
-	 */
-	function checkVersion() {
-		var version = settings.get('version');
-		var initialized = settings.get('initialized');
-		
-		if (initialized) {
-			if (!version || version < 2) {
-				// Attempt upgrade here
-				debug('upgrading');
-				opera.extension.tabs.create({ url: 'upgrade.html', focused: true });
-			}
-		}
-		else {
-			settings.set('version', 2);
-			opera.extension.tabs.create({ url: 'help.html#first', focused: true });
-		}
-			
-	}
-	
-	/**
-	 * Imports favicons by opening each tab, waiting for the favicon to load,
-	 * saving its location, and closing the tab
-	 * 
-	 * By the way, this is a candidate for the most horrendous function I've ever written
-	 */
-	function getFavicons(array, callback) {
-		var groups = [];
-		
-		// get() calls itself for next tab until all tabs finished, then calls done() 
-		function get(tabs, i, done) {
-			debug('get ' + i);
-			if (i == tabs.length) 
-				done();
 			else {
-				if (tabs[i].group) {
-					groups.push(tabs[i].tabs);
-					get(tabs, i + 1, done);
-				}
-				else 
-					window.utils.getFavicon(tabs[i], function(data) {
-						get(tabs, i + 1, done);
-					});
-			}
-		}
-		
-		function getAllGroups() {
-			debug('get all groups (' + groups.length + ')');
-			// getGroup() calls get() for its tabs. When get() is finished, it calls
-			// getGroup() for the next group until all groups finished, then calls callback()
-			function getGroup(j) {
-				debug('get group ' + j);
-				if (j == groups.length) 
-					callback(array);
-				else 
-					get(groups[j], 0, function() {
-						getGroup(j + 1);
-					});
-			}
-			
-			getGroup(0);
-		}
-		
-		get(array, 0, getAllGroups);
-	}
-	
-	
-	function resetAll() {
-		widget.preferences.clear();
-		opera.contexts.toolbar.removeItem(button);
-		checkVersion();
-		init();
-	}
-	
-	function updateWidth() {
-		popupWidth = Math.max(localesettings.PopupWidth, settings.get('popup_width'));
-		button.popup.width = popupWidth;
-	}
-	
-	function loadLocale() {
-		var locale = settings.get('locale');
-		if (locale == '') {
-			var def = getLocaleDef(navigator.language);
-			if (def !== null)
-				locale = def.language;
-		}
-		
-		if (locale) {
-			var a = document.getElementsByTagName('script');
-			for (var i = 0; i < a.length; i++) {
-				if (a[i].src.indexOf('locale-misc.js') != -1) {
-					a[i].parentNode.removeChild(a[i]);
+				tries++;
+				if (tries < polling.maxTries)
+					setTimeout(check, polling.interval);
+				else {
+					tab.close();
+					tabObj.icon = null;
+					callback(tabObj);
+					console.log('Tab Vault: Timeout getting favicon for "' + tabObj.url + '"');
 				}
 			}
-			
-			var s = document.createElement('script');
-			s.src = 'locales/' + locale + '/locale-misc.js';
-			document.head.appendChild(s);
-			
-			setTimeout(updateWidth, 500);
 		}
+		check();
+	}
+	
+	/**
+	 * Gets the favicon urls of a series of already saved tabs using reloadFavicon()
+	 * @param indices An array of tab indices in the format { index: #, group: # } 
+	 */
+	this.getFavicons = function(indices, callback) {
+		
+		var i = -1;
+		function getNext() {
+			i++;
+			if (i < indices.length) {
+				tabutils.reloadFavicon(indices[i].index, indices[i].group, getNext);
+			}
+			else if (callback) {
+				callback();
+			}
+		}
+		getNext();
 	}
 	
 	
-	var updateTimeout;
-	
-	window.addEventListener('storage', function(e) {
-		if (!e)
+	this.importTabs = function(fileText, callback, onerror) {
+		if (!sessionInit(recall(this, arguments)))
 			return;
 		
-		var name = e.key.replace(/^st_/, '');
-		//var value = settings.get(name);
-
-		switch (name) {
-			case 'show_badge':
-				updateBadge();
-				break;
-			case 'locale':
-				loadLocale();
-				break;
-			case 'bkg_color':
-			case 'bkg_alpha':
-			case 'text_color':
-			case 'text_alpha':
-				updateBadgeColors();
-				break;
-			case 'popup_width':
-				updateWidth();
-				break;
+		var list = session.read(fileText);
+		try {
+			var added = storage.tabs.importTabs(list);
+			ui.updateBadge();
+			tabutils.getFavicons(added, callback)
+		} catch (ex) {
+			console.error(ex.toString(), ex);
+			if (onerror)
+				onerror(ex);
 		}
+	}
+	
+	this.exportTabs = function(format, focused, list) {
+		if (!sessionInit(recall(this, arguments)))
+			return;
 		
-		// Check if the number of stored tabs changed
-		// Wait a moment in case multiple changes occur at once
-		if (name.match(/_count/)) {
-			if (updateTimeout)
-				clearTimeout(updateTimeout);
-			updateTimeout = setTimeout(function() {
-				updateBadge();
-				updateTimeout = null;
-			}, 500);
+		var uri;
+		if (format == 'adr')
+			uri = tabutils.toAdr(list);
+		else
+			uri = tabutils.toSession(list);
+		
+		tabs.open(uri, focused || false);
+	}
+	
+	
+	this.onReloadIcon = function(e) {
+		tabutils.reloadFavicon(e.data.index, e.data.group, function(data) {
+			e.source.postMessage({
+				action: 'reload_icon_done',
+				index: e.data.index,
+				group: e.data.group,
+				icon: data.icon
+			});
+		})
+	}
+	
+	this.onExport = function(e) {	
+		tabutils.exportTabs(e.data.format, e.data.focused);
+	}
+	
+	this.onImport = function(e) {
+		tabutils.importTabs(e.data.session, function() {
+			e.source.postMessage({ action: 'import_done' })
+		}, function(ex) {
+			console.log('Tab Vault: Error occurred while importing:\n' + ex.toString());
+			e.source.postMessage({ action: 'import_error' });
+		})
+	}
+	
+	this.onExternalSave = function(e) {
+		// Page asks to save itself or another page
+		if (!utils.checkPassword(e.data.pass)) {
+			opera.postError('Tab Vault: Cannot save page. Invalid password.');
+			return;
 		}
-			
-	}, false);
-   
-}, false);
+				
+		// If no URL provided, get info from focused tab
+		if (!e.data.url) {
+			var tab = tabs.focused();
+			if (tab) {
+				e.data.url = tab.url;
+				e.data.title = tab.title;
+				// Don't know why, but this fails when called from a button or shortcut
+				e.data.icon = tab.faviconUrl;
+			}
+			else {
+				ui.externalSaveError();
+				return;
+			}
+		}
 
+		storage.tabs.add({
+			url: e.data.url,
+			title: e.data.title,
+			icon: e.data.icon,
+		});
 
+		if (settings.save_to_top) 
+			storage.tabs.move(storage.tabs.count - 1, 0);
+
+		ui.updateBadge(true);
+
+		if (e.data.close)
+			tab.close();
+	}
+	
+	this.onReloadIcon = function(e) {
+		tabutils.reloadFavicon(e.data.index, e.data.group, function(data) {
+			// Popup may be closed now (probably is since Opera likes closing it
+			// for no good reason) so ignore any errors this generates
+			try {
+				e.source.postMessage({
+					action: 'reload_icon_done',
+					index: index,
+					group: group,
+					icon: data.icon
+				});
+			} catch (ex) {}
+		});
+	}
+}
 
 var colorutils = new function ColorUtils() {
 	
@@ -616,11 +597,11 @@ var colorutils = new function ColorUtils() {
 		data = data || {};
 		var alphaScale = 0.5;
 		data.backgroundColor = colorutils.rgba(
-			settings.get('bkg_color'), 
-			settings.get('bkg_alpha') * alphaScale);
+			settings.bkg_color, 
+			settings.bkg_alpha * alphaScale);
 		data.color = colorutils.rgba(
-			settings.get('text_color'), 
-			settings.get('text_alpha') * alphaScale);
+			settings.text_color, 
+			settings.text_alpha * alphaScale);
 		return data;
 	}
 	
@@ -643,48 +624,162 @@ var colorutils = new function ColorUtils() {
 	}
 }
 
-var utils = new function() {
-	var polling = {
-		interval: 100,
-		maxTime: 20000,
-		maxTries: 0,
-	}
+
+
+
+
+function init() {
+	storage.settings.init();
 	
-	polling.maxTries = polling.maxTime / polling.interval;
+	loadLocale();
 	
-	/**
-	 * Gets the favicon url of a page by opening it, checking until it loads the favicon, then closing it
-	 */ 
-	this.getFavicon = function(tabObj, callback) {
-		var tab = opera.extension.tabs.create({ url: tabObj.url, focused: false });
-		var tries = 0;
-		
-		var check = function() {
-			//debug('checking: try ' + tries);
-			if (tab.faviconUrl) {
-				tab.close();
-				tabObj.icon = tab.faviconUrl;
-				callback(tabObj);
-			}
-			else {
-				tries++;
-				if (tries < polling.maxTries)
-					setTimeout(check, polling.interval);
-				else {
-					tab.close();
-					tabObj.icon = null;
-					callback(tabObj);
-					opera.postError('Tab Vault: Timeout getting favicon for "' + tabObj.url + '"');
-				}
-			}
-		}
-		check();
-	}
+	ui.init();
 }
 
 
+
+var messageHandlers = {
+	get_tab: tabs.onGetTab,
+	get_group: tabs.onGetGroup,
+	get_all: tabs.onGetAll,
+	get_window: tabs.onGetWindow,
+	get_domain: tabs.onGetDomain,
+	
+	open_tab: tabs.onOpenTab,
+	open_group: tabs.onOpenGroup,
+	close_tab: tabs.onCloseTab,
+	change_tab: tabs.onChangeTab,
+	
+	recount: ui.onRecount,
+	resize: ui.onResize,
+	reload_icon: tabutils.onReloadIcon,
+	
+	enter_page: ui.onEnterPage,
+	leave_page: ui.hideDropMessage,
+	
+	'export': tabutils.onExport,
+	'import': tabutils.onImport,
+	external_save: tabutils.onExternalSave,
+}
+
+
+window.addEventListener('load', checkVersion, false);
+window.addEventListener('load', init, false);
+
+opera.extension.tabs.onfocus = ui.hideDropMessage;
+opera.extension.onmessage = function(e) {
+	var handler = messageHandlers[e.data.action];
+	if (handler)
+		messageHandlers[e.data.action](e);
+	else 
+		console.log('Tab Vault: Unknown action "' + e.data.action + '"');
+}
+
+
+	
+	
+/**
+* Checks for upgrading from version 1.x to 2
+*/
+function checkVersion() {
+	var version = settings.get('version');
+	var initialized = settings.get('initialized');
+
+	if (initialized) {
+		if (!version || version < 2) {
+			// Attempt upgrade here
+			debug('Tab Vault: Upgrading settings');
+			tabs.open('upgrade.html', true);
+		}
+	}
+	else {
+		settings.set('version', 2);
+		tabs.open('help.html#first', true);
+	}	
+}
+
+
+function resetAll() {
+	widget.preferences.clear();
+	opera.contexts.toolbar.removeItem(button);
+	checkVersion();
+	init();
+}
+	
+	
+	
+function loadLocale() {
+	var locale = settings.locale;
+	if (locale == '') {
+		var def = getLocaleDef(navigator.language);
+		if (def !== null)
+			locale = def.language;
+	}
+
+	if (locale) {
+		var a = document.getElementsByTagName('script');
+		for (var i = 0; i < a.length; i++) {
+			if (a[i].src.indexOf('locale-misc.js') != -1) {
+				a[i].parentNode.removeChild(a[i]);
+			}
+		}
+
+		var s = document.createElement('script');
+		s.src = 'locales/' + locale + '/locale-misc.js';
+		document.head.appendChild(s);
+
+		setTimeout(ui.updatePopupWidth, 500);
+	}
+}
+	
+	
+var updateTimeout;
+
+window.addEventListener('storage', function(e) {
+	if (!e)
+		return;
+
+	var name = e.key.replace(/^st_/, '');
+
+	switch (name) {
+		case 'show_badge':
+			ui.updateBadge();
+			break;
+		case 'locale':
+			loadLocale();
+			break;
+		case 'bkg_color':
+		case 'bkg_alpha':
+		case 'text_color':
+		case 'text_alpha':
+			ui.updateBadgeColors();
+			break;
+		case 'featherweight_icon':
+			ui.updateIcon();
+			break;
+		case 'popup_width':
+			ui.updatePopupWidth();
+			break;
+	}
+
+	// Check if the number of stored tabs changed
+	// Wait a moment in case multiple changes occur at once
+	if (name.match(/_count/)) {
+		if (updateTimeout)
+			clearTimeout(updateTimeout);
+		updateTimeout = setTimeout(function() {
+			ui.updateBadge();
+			updateTimeout = null;
+		}, 200);
+	}
+
+}, false);
+
+
+
+
 var sessionScriptLoaded = false;
-function sessionInit(eventData) {
+function sessionInit(callback) {
 	if (sessionScriptLoaded)
 		return true;
 	
@@ -694,9 +789,13 @@ function sessionInit(eventData) {
 	sessionScriptLoaded = true;
 	
 	setTimeout(function() {
-		opera.extension.onmessage(eventData);
+		if (callback)
+			callback();
 	}, 100)
 	return false;
 }
 
-
+function recall(thisArg, args) {
+	return Function.prototype.apply.apply.bind(args.callee, 
+		thisArg, Array.prototype.slice.call(args, 0));
+}

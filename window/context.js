@@ -156,7 +156,7 @@ function ContextMenu(options) {
 		if (e.button != mb.right)
 				return;
 		self.show(e);
-		debug('show cx menu');
+		//debug('show cx menu');
 	}
 
 	var clickEventShim = new RightClickShim(clickEvent);
@@ -166,7 +166,7 @@ function ContextMenu(options) {
 			return;
 		
 		if (self.container.style.display != 'none') {
-			debug('hide cx menu');
+			//debug('hide cx menu');
 			self.options.beforeHide(e);
 			self.container.style.display = 'none';
 			stopEvent(e);
@@ -367,8 +367,7 @@ contextmenus.init = function() {
 			{
 				name: _('CxSaveCurrent'),
 				className: 'save',
-				callback: function(e) {debug('yes');
-					contextmenus.callbacks.save(e)}
+				callback: function(e) {contextmenus.callbacks.save(e)}
 			},
 			{
 				name: _('CxSaveAsGroup'),

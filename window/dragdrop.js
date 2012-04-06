@@ -74,7 +74,7 @@ var dragdrop = new function DragHandler() {
 		if (dragdrop.list.hasClass('scroll')) {
 			groupBounds.x -= 14;
 			tabShim.addClass('scroll');
-			debug(tabShim.id + ' ' + tabShim.className);
+			//debug(tabShim.id + ' ' + tabShim.className);
 		}
 		
 		if (hideTimer) {
@@ -99,7 +99,7 @@ var dragdrop = new function DragHandler() {
 	}
 	
 	this.changeTarget = function(oldTarget, newTarget, tab) {
-		debug(oldTarget + '-> ' + newTarget);
+		//debug(oldTarget + '-> ' + newTarget);
 		
 		// Can't drop groups on page
 		//if (tab instanceof TabGroup && newTarget == 'page')
@@ -595,8 +595,8 @@ function DraggableTab(tab) {
 		var startIndex = tab.parent.tabs.indexOf(tab);
 		
 		var list = (startParent instanceof TabGroup) ? startParent.dom.tabs : startParent.el;
-		debug(list);
-		debug(startIndex);
+		//debug(list);
+		//debug(startIndex);
 		
 		tab.el.removeSelf();
 		list.insertBefore(
@@ -628,7 +628,7 @@ function DraggableTab(tab) {
 			}
 		}
 		else {
-			debug('performing grouping');
+			//debug('performing grouping');
 			// If dropping performs grouping...
 			if (dropGroup.tabInfo instanceof TabGroup) {
 				// dropping item onto group
@@ -652,12 +652,12 @@ function DraggableTab(tab) {
 			}
 			else {
 				// dropping item onto tab
-				debug('making new group');
+				//debug('making new group');
 				makeGroup = true;
 			}
 		}
 		
-		debug(startGroup + ':' + startIndex + ' -> ' + endGroup + ':' + endIndex);
+		//debug(startGroup + ':' + startIndex + ' -> ' + endGroup + ':' + endIndex);
 		
 		// Move tab into correct group
 		if (startGroup != endGroup) {
@@ -676,7 +676,7 @@ function DraggableTab(tab) {
 		
 		// If start group is now empty, remove it
 		if (startGroup != 0 && startParent.tabs.length == 0) {
-			debug('startgroup is empty');
+			//debug('startgroup is empty');
 			startParent.removeSelf();
 			dragdrop.callResize();
 		}
@@ -690,7 +690,7 @@ function DraggableTab(tab) {
 	
 	this.buildGroup = function(parent, parentIndex, item, itemIndex) {
 		var groupName = parent.info.title;
-		debug('make group ' + itemIndex + ' -> ' + parentIndex + ' ' + groupName);
+		//debug('make group ' + itemIndex + ' -> ' + parentIndex + ' ' + groupName);
 		// turn parent tab into group
 		var g = tabs.makeGroup(parentIndex, groupName);
 		
