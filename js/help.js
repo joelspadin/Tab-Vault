@@ -1,58 +1,48 @@
 
-function $(sel) {
-	return document.querySelector(sel);
+var bg = opera.extension.bgProcess;
+
+function setText(items) {
+	for (var i = 0; i < items.length; i++)
+		$(items[i][0]).text(items[i][1]);
 }
-	
-addEventListener('DOMContentLoaded', function() {
-	
-	il8n.translatePage([
-		['title', 'TitleHelp'],
-		['loc:by', 'By'],
-		['loc:help', 'TitleHelp2'],
-		['loc:footer', 'Footer', 'html'],
-	]);
-	
-	// attach special stuff to HTML elements
-	dom.fixPlaceholders();
-	
-	var expanders = document.querySelectorAll('.expander');
-	for (var i = 0; i < expanders.length; i++) 
-		new Expander(expanders[i]);
-	
-	var internalLinks = document.querySelectorAll('a[href^="opera:"]');
-	for (var i = 0; i < internalLinks.length; i++) {
-		internalLinks[i].addEventListener('click', function(e) {
-			opera.extension.postMessage({
-				action: 'open_tab',
-				url: e.target.href, 
-				focused: true });
-		}, false);
-	}
-	
-	
-	// set the textContent of an element
-	function setText(id, txt) {
-		var e = document.getElementById(id);
-		if(e) 
-			e.textContent = txt;
-	}
 
 
-	// populate the title, name, author, ...
-	setText('widget-name', widget.name);
-	setText('widget-author', widget.author);
-	setText('widget-version', widget.version);
+$(document).ready(function() {
+	setText([
+		['#widget-name', widget.name],
+		['#widget-version', widget.version],
+		['#widget-author', widget.author],
+	])
 	
-  
-	if (window.location.hash != '#first')
-		$('#first-time').style.display = 'none';
+	if (storage.opt_topbar)
+		$(document.body).addClass('nobar');
 	
-	$('#close').addEventListener('click', function(e) {
-		window.close();
-	}, false);
+	//updateFavicon();
 	
+	il8n.translatePage();
+	disableAnimation();
 	
+	// Set event listeners
 	
-}, false);
+	$('#opt_topbar').change(function(e) {
+		if ($(this).is(':checked'))
+			$(document.body).addClass('nobar');
+		else
+			$(document.body).removeClass('nobar');
+	})
+	
+	$('a[href^="opera:"]').click(function() {
+		bg.tabs.open(this.href, true);
+	})
+});
+
+function disableAnimation() {
+	if (settings.disable_animation) {
+		var style = $('<style>');
+		style.text('*{-o-transition-property:none !important}');
+		$(document.head).append(style);
+	}
+}
+
 
 

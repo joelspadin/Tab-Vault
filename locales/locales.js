@@ -11,6 +11,7 @@ var locales = [
 	new LocaleDef('el', 'Ελληνικά', 'Προεπιλογή'),
 	new LocaleDef('en', 'English', 'Default'),
 	new LocaleDef('es', 'Español', 'Por defecto'),
+	new LocaleDef('fr', 'Français', 'Par Défaut'),
 	new LocaleDef('it', 'Italiano', 'Default'),
 	new LocaleDef('ka', 'ქართული', 'ნაგულისხმევი'),
 	new LocaleDef('nl', 'Nederlands', 'Standaard'),

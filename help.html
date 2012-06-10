@@ -5,6 +5,8 @@
 	<link rel="stylesheet" href="/options.css">
 	<link rel="stylesheet" href="/help/help.css">
 	<link rel="stylesheet" href="/locale-help.css">
+	<script src="/js/jquery.js"></script>
+	<script src="/js/SettingStorage.js"></script>
 	<script src="/js/storage.js"></script>
 	<script src="/js/options.js"></script>
 	<script src="/js/help.js"></script>
@@ -19,229 +21,220 @@
 	<title id="title">Tab Vault Help</title>
 </head>
 <body>
-	<header>
-		<img src="/img/icon.png" alt="Vault Icon">
-		<div class="right">
-			<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="help">Help</span></h1>
-			<h2><span data-loc="by">By</span> <span id="widget-author">Joel Spadin</span></h2>
-		</div>
-		<div class="clear"></div>
-	</header>
+<div id="viewport">
+	<div id="topbar"></div>
+	<div id="wrap">
+		<header>
+			<img src="/img/icon.png" alt="Vault Icon">
+			<div class="right">
+				<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="TitleHelp2">Help</span></h1>
+			</div>
+			<div class="clear"></div>
+		</header>
 
-	<!-- Start Translating Here -->
-	
-	<section>
-		<div id="first-time">
-			<h1>New to Tab Vault?</h1>
-			<p>
-				If you aren't sure what Tab Vault is or how to use it, just read on.
-				If you only read the manuals as a last resort, these links might 
-				interest you:
-			</p>
-			<ul>
-				<li><a href="/options.html">Change your preferences</a></li>
-				<li><a href="#" id="close">Get back to browsing!</a></li>
-			</ul>
-		</div>
+		<!-- Start Translating Here -->
+
+		<h2>What is Tab Vault?</h2>
 		
-		<h2 class="expander">What is Tab Vault?</h2>
-		<div>
-			<p>
-				Tab Vault is a place to store the tabs you want to get to later 
-				without leaving them loaded in memory and on your tab bar.
-				
-				Just like with Opera's tab bar, you can reorder and group tabs and
-				restore deleted tabs from Tab Vault's trash list.
-				
-				Tab Vault also shows you the number of tabs you have stored to 
-				remind you to get back to them.
-			</p>
-		</div>
+		<p>
+			Tab Vault is a place to store the tabs you want to get to later 
+			without leaving them loaded in memory and on your tab bar.
+
+			Just like with Opera's tab bar, you can reorder and group tabs and
+			restore deleted tabs from Tab Vault's trash list.
+
+			Tab Vault also shows you the number of tabs you have stored to 
+			remind you to get back to them.
+		</p>
 		
-		<h2 class="expander collapsed">How do I use Tab Vault?</h2>
-		<div>
-			<p>
-				Click the extension button to open Tab Vault. Tab Vault shows the
-				number of tabs it has on this button. This (and many other things)
-				can be changed from the 
-				<a href="/options.html" target="_blank">options page</a>.
-			</p>
-			<figure>
-				<img src="/help/open.png">
-				<figcaption>Tab Vault's extension button</figcaption>
-			</figure>
-			
-			<h3>The Tab Vault Interface</h3>
-			<p>
-				Tab Vault has two lists: Tabs and Trash. Tabs holds your saved tabs.
-				Trash keeps deleted tabs in case you want to restore them. Click the
-				<code>Tabs</code> and <code>Trash</code> links at the top of the 
-				pop-up to change between the lists. 
-				(The trash list is disabled if it is empty)
-			</p>
-			<figure>
-				<img src="/help/popup.png">
-				<figcaption>The Tab Vault pop-up</figcaption>
-			</figure>
-			
-			<h3>The Tabs List <span class="sub">Managing and Opening Tabs</span></h3>
-			<p>
-				Click <code>Save Tab</code> to save the current tab. Click and drag
-				tabs to reorder them. Click a tab's <code>X</code> button to delete it. 
-				You can also delete a tab by dragging it to <code>Trash</code> at the top.
-				The tabs list only shows tab titles, but you can see a tab's URL by
-				hovering your mouse over the tab.
-			</p>
-			<p>
-				There are four ways to open a tab. Simply click a tab to open it
-				in a new page. Hold <code>Ctrl</code> while clicking a tab to open 
-				it in a background page. 
-				Drag a tab from the popup and drop it on the web page to open it in 
-				the current page. Entire tab groups can be opened like this too.
-				Right click a tab or group for even more options.
-			</p>
-			
-			<h3>The Trash List <span class="sub">Restoring Deleted Tabs</span></h3>
-			<p>
-				When you delete a tab, it goes here. Click on a trashed tab to
-				restore it to the tabs list. Click <code>Clear List of Closed Tabs</code> 
-				to permanently delete all the trashed tabs. 
-				You cannot reorder trashed tabs.
-			</p>
-			<figure>
-				<img src="/help/trash.png">
-				<figcaption>The trash list</figcaption>
-			</figure>
-			
-			<h3>Tab Groups</h3>
-			<p>
-				Tab Vault supports tab groups. Groups have an expander arrow
-				in place of a favicon and they don't have a <code>X</code> button.
-				
-				To create a group, start dragging a tab and move your cursor over the 
-				arrow on the right of the tab. Now, drag the tab 
-				over another tab so that the other tab darkens. Finally, drop the tab 
-				to group the two tabs together. 
-				
-				<em>Note that the cursor must be over the right side of the tab to 
-				activate grouping. This grouping area is boxed in red below.</em>
-			</p>
-			<figure>
-				<img src="/help/grouping.png">
-				<figcaption>Grouping two tabs (Grouping area boxed in red)</figcaption>
-			</figure>
-			<p>
-				Click on the title of a tab group to expand or collapse it. To edit
-				a group's name, click the pen icon to the right of the title. 
-				Tab groups can be dragged and moved just like tabs, and you can drag 
-				tabs in and out of expanded groups.
-				
-				A group will disappear when the last tab in the group is deleted or 
-				moved outside the group. You can also delete an entire group by 
-				dragging it to <code>Trash</code> at the top.
-			</p>
-			<figure>
-				<img src="/help/groups.png">
-				<figcaption>Left: an expanded tab group. Right: editing a group's name</figcaption>
-			</figure>
-			<p>
-				Tab Vault's tab group implementation is designed to be very similar
-				to Opera's tab stacking. Dropping a group onto a tab will merge the
-				group into a new group under the tab. Dropping a group onto another
-				collapsed group will merge the first into the second. Dropping a tab
-				onto a collapsed group will add the tab to the group.
-			</p>
-			
-		</div>
+
+		<h2>How do I use Tab Vault?</h2>
 		
-		<h2 class="expander collapsed">Extra Features</h2>
-		<div>
-			<h3>Sessions</h3>
-			<p>
-				Tab Vault can import and export Opera session and bookmarks files from the
-				Import/Export section of the 
-				<a href="/options.html" target="_blank">options page</a>.
-			</p>
-			<p>
-				To export your vault's tabs as a session file, click <code>Export Session</code>.
-				Opera will open a new tab. Use <code>Menu > Page > Save As...</code> 
-				(or Ctrl+S) to save this tab as a .win file. You can also export as
-				an Opera bookmarks file with the <code>Export .adr</code> button.
-			</p>
-			<p>
-				To import a session or bookmarks file, use the file picker to select 
-				the .win or .adr file, then click "Import Session".
-			</p>
-			<p>
-				You can find where Opera keeps your session files by going to
-				<a href="opera:about">opera:about</a> and reading
-				next to "Saved session". If you want your exported sessions to appear
-				in Opera's session list, save them to this location.
-			</p>
-			<p>
-				I have received reports where a problem with Opera caused it to
-				lose all of Tab Vault's saved data. While this is very rare, 
-				I recommend you periodically export your tabs for 
-				safekeeping, just in case something does go wrong.
-			</p>
-			
-			<h3>Buttons and Shortcuts</h3>
-			<p>
-				Tab Vault exposes JavaScript functions so that it can be controlled 
-				from web pages or other parts of Opera. This means you can set up
-				a keyboard shortcut or a button to quickly save the current tab.
-			</p>
-			<p>
-				To enable this, go to the Buttons and Shortcuts section of the
-				<a href="/options.html" target="_blank">options page</a> and set a 
-				password. This password keeps malicious sites from saving things to
-				your vault. You don't have to remember it, so just click the 
-				"Generate" button to create a random password.
-				<em>This password does not secure the vault. It only prevents web sites
-				from interacting with the vault.</em>
-			</p>
-			<p>
-				To make a button to save the current tab, just click the button with
-				the icon you want. It will be added to the "My Buttons" section of
-				the appearance window, from which you can drag it to any toolbar.
-				(A bug in Opera currently makes this button bigger than normal, so
-				use one of the smaller buttons.)
-			</p>
-			<p>
-				To make a keyboard shortcut or mouse gesture, copy the text shown
-				under "Save tab action", then go to <code>Menu > Settings > Preferences
-				> Advanced > Shortcuts</code>, edit your mouse or keyboard setup,
-				and create a new shortcut using the copied text as the action.
-			</p>
-			<p>
-				To save a tab from JavaScript, use the function
-				<code class="nowrap">window.opera.tabvault.save(pass, url, title, icon)</code>
-				where "pass" is your password, "url" is the URL of the tab, "title" is
-				the tab's title, and "icon" is the URL of the tab's favicon. Omit
-				everything after "pass" to save the current tab.
-			</p>
-			<p>
-				Note: A bug in Opera currently prevents Tab Vault from detecting a
-				tab's favicon when saved with a button or shortcut.
-			</p>
-		</div>
+		<p>
+			Click the extension button to open Tab Vault. The button also shows
+			how many tabs are stored. You can customize this and many other things 
+			from the <a href="/options.html" target="_blank">options page</a>.
+		</p>
+		<figure>
+			<img src="/help/open.png">
+			<figcaption>Tab Vault's extension button</figcaption>
+		</figure>
+
+		<h3>The Interface</h3>
+		<p>
+			All your saved tabs are kept here. Deleted tabs can be accessed by
+			clicking the <em>Trash</em> button.
+		</p>
+		<figure>
+			<img src="/help/popup.png">
+			<figcaption>The Tab Vault pop-up</figcaption>
+		</figure>
+
+		<h3>Saving Tabs</h3>
+		<p>
+			Click <em>Save Tab</em> to save the current tab. 
+
+			Right-click the <em>Save Tab</em> button to open a context menu with
+			more options. You can also right-click a tab group and choose
+			<em>Save Current Tab Here</em> to save a tab directly to a group.
+		</p>
+
+		<h3>The Tabs List</h3>
+		<p>
+			Click and drag tabs to reorder them.
+
+			To delete a tab, click the <em>X</em> button next to it or drag it
+			to the <em>Trash</em> button at the top.
+		</p>
+
+		<p>
+			To open a tab, click it. To open a tab in the background, middle
+			click it or hold <em>Ctrl</em> while clicking it. To open a tab
+			in the current page, drag it from the pop-up to the web page.
+
+			You can also right-click a tab for more options.
+		</p>
+
+		<h3>Tab Groups</h3>
+		<p>
+			Tab groups work much like they do on Opera's tab bar. They can hold
+			any number of tabs and will disappear if they become empty.
+		</p>
 		
+		<p>
+			To create a group, start dragging a tab and move the cursor to the right
+			so that the tab's border darkens. Next, drag the tab over another tab
+			so that the other tab darkens. Finally, drop the tab and the two tabs
+			will be grouped.
+		</p>
+		<figure>
+			<img src="/help/grouping.png">
+			<figcaption>Grouping two tabs (grouping area boxed in red)</figcaption>
+		</figure>
+		<p>
+			To expand or collapse a group, click its title. You can also rename a
+			group by hovering your mouse over the group, then clicking the pen 
+			icon on the right.
+		</p>
+		
+		<p>
+			Tab groups can be dragged and moved just like tabs. You can drag tabs 
+			in and out of expanded groups. Grouping a group with another group
+			will merge the groups.
+			
+			The group will disappear if all of its 
+			tabs are removed. You can also delete an entire group at once by 
+			dragging it to the <em>Trash</em> button at the top.
+		</p>
+		
+		<figure>
+			<img src="/help/groups.png">
+			<figcaption>Left: an expanded tab group. Right: editing a group's name</figcaption>
+		</figure>
+		
+
+		<h3>The Trash List</h3>
+		<p>
+			When you delete a tab, it goes to the trash list.
+
+			Click on a trashed tab to restore it to the tabs list.
+			Click <em>Clear List of Closed Tabs</em> to permanently delete all
+			trashed tabs.
+		</p>
+		<figure>
+			<img src="/help/trash.png">
+			<figcaption>The trash list</figcaption>
+		</figure>
+
+
+		<h2>Extra Features</h2>
+		
+		<h3>Sessions</h3>
+		<p>
+			Tab Vault can import and export Opera session and bookmarks files from the
+			Import/Export section of the 
+			<a href="/options.html" target="_blank">options page</a>.
+		</p>
+		<p>
+			To export your vault's tabs as a session file, click <code>Export Session</code>.
+			Opera will open a new tab. Use <code>Menu > Page > Save As...</code> 
+			(or Ctrl+S) to save this tab as a .win file. You can also export as
+			an Opera bookmarks file with the <code>Export .adr</code> button.
+		</p>
+		<p>
+			To import a session or bookmarks file, use the file picker to select 
+			the .win or .adr file, then click "Import Session".
+		</p>
+		<p>
+			You can find where Opera keeps your session files by going to
+			<a href="opera:about">opera:about</a> and reading
+			next to "Saved session". If you want your exported sessions to appear
+			in Opera's session list, save them to this location.
+		</p>
+		<p>
+			I have received reports where a problem with Opera caused it to
+			lose all of Tab Vault's saved data. While this is very rare, 
+			I recommend you periodically export your tabs for 
+			safekeeping, just in case something does go wrong.
+		</p>
+
+		<h3>Buttons and Shortcuts</h3>
+		<p>
+			Tab Vault exposes JavaScript functions so that it can be controlled 
+			from web pages or other parts of Opera. This means you can set up
+			a keyboard shortcut or a button to quickly save the current tab.
+		</p>
+		<p>
+			To enable this, go to the Buttons and Shortcuts section of the
+			<a href="/options.html" target="_blank">options page</a> and set a 
+			password. This password keeps malicious sites from saving things to
+			your vault. You don't have to remember it, so just click the 
+			"Generate" button to create a random password.
+			<em>This password does not secure the vault. It only prevents web sites
+			from interacting with the vault.</em>
+		</p>
+		<p>
+			To make a button to save the current tab, just click the button with
+			the icon you want. It will be added to the "My Buttons" section of
+			the appearance window, from which you can drag it to any toolbar.
+			(A bug in Opera currently makes this button bigger than normal, so
+			use one of the smaller buttons.)
+		</p>
+		<p>
+			To make a keyboard shortcut or mouse gesture, copy the text shown
+			under "Save tab action", then go to <code>Menu > Settings > Preferences
+			> Advanced > Shortcuts</code>, edit your mouse or keyboard setup,
+			and create a new shortcut using the copied text as the action.
+		</p>
+		<p>
+			To save a tab from JavaScript, use the function
+			<code class="nowrap">window.opera.tabvault.save(pass, url, title, icon)</code>
+			where "pass" is your password, "url" is the URL of the tab, "title" is
+			the tab's title, and "icon" is the URL of the tab's favicon. Omit
+			everything after "pass" to save the current tab.
+		</p>
+		<p>
+			Note: A bug in Opera currently prevents Tab Vault from detecting a
+			tab's favicon when saved with a button or shortcut.
+		</p>
+		
+
 		<h3>Still Confused?</h3>
 		<p><a href="http://my.opera.com/spadija/blog/tab-vault">Click here to go to
 		Tab Vault's support page, where you can ask me questions.</a></p>
-		
-	</section>
-	
-	<!-- Stop Translating Here -->
-	
-	<footer>
-		<p data-loc="footer">
-			<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
-			is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, 
-			images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
-			and <a href="http://www.opera.com">Opera Software</a>
-		</p>
-	</footer>
-	
+
+
+		<!-- Stop Translating Here -->
+
+		<footer>
+			<p data-loc="Footer">
+				<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
+				is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, 
+				images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
+				and <a href="http://www.opera.com">Opera Software</a>
+			</p>
+		</footer>
+	<div>
+</div>
 </body>
 </html>

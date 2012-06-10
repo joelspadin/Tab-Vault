@@ -1,4 +1,8 @@
 
+var features = {
+	groups: !!opera.extension.tabGroups,
+}
+
 var ui = new function UI() {
 	this.properties = null;
 	/**
@@ -159,7 +163,7 @@ var ui = new function UI() {
 	 */
 	this.showDropMessage = function(title, group, list) {
 		var focused = tabs.focused();
-		if (focused) {
+		if (tabs.isAccessible(focused)) {
 			if (group)
 				title += ' ' + utils.formatNumber(localesettings.TabCount, list);
 			
@@ -178,7 +182,7 @@ var ui = new function UI() {
 	 */
 	this.hideDropMessage = function() {
 		var focused = tabs.focused();
-		if (focused)
+		if (tabs.isAccessible(focused))
 			focused.postMessage({action: 'hide'});
 	}
 	
@@ -200,7 +204,7 @@ var ui = new function UI() {
 		
 		function doResize() {
 			ui.resizePopup(e.data.page, e.data.size);
-			e.source.postMessage({ action: 'resize_done' });
+			e.source.postMessage({action: 'resize_done'});
 			resizeTimeout = null;
 		}
 		// If timeout is already going, cancel it
@@ -225,9 +229,10 @@ var ui = new function UI() {
 
 
 var tabs = new function Tabs() {
-
+	
 	this.sendTab = function(source, tab) {
-		if (tab)
+		console.log(tab);
+		if (tabs.isSavable(tab))
 			source.postMessage({
 				action: 'get_tab',
 				url: tab.url,
@@ -239,12 +244,22 @@ var tabs = new function Tabs() {
 	}
 	
 	this.sendGroup = function(source, list, title) {
-		if (list && list.length > 0)
+		list = tabs.removeUnsavable(list);
+		if (list && list.length > 0) {
+			var newList = [];
+			for (var i = 0; i < list.length; i++)
+				newList.push({
+					url: list[i].url,
+					title: list[i].title,
+					icon: list[i].faviconUrl
+				});
+			//console.log(newList);
 			source.postMessage({
 				action: 'get_group',
-				title: title || list[0].title,
-				tabs: list 
+				title: title || newList[0].title,
+				tabs: newList 
 			});
+		}
 		else
 			tabs.sendGetError(source);
 	}
@@ -257,10 +272,41 @@ var tabs = new function Tabs() {
 		source.postMessage({action: 'open_error'});
 	}
 	
+	this.isAccessible = function(tab) {
+		return !!tab && tab.port !== null;
+	}
+
+	this.isSavable = function(tab) {
+		return !!tab && tab.closed !== true && !!tab.url;
+	}
+
+	this.removeUnsavable = function(list) {
+		var newList = [];
+		for (var i = 0; i < list.length; i++)
+			if (tabs.isSavable(list[i]))
+				newList.push(list[i]);
+		
+		return newList;
+	}
+	
 	this.open = function(url, focused) {
 		return opera.extension.tabs.create({
 			url: url,
 			focused: focused || false
+		});
+	}
+	
+	this.openGroup = function(urls, focused) {
+		var list = [];
+		for (var i = 0; i < urls.length; i++)
+			list.push(tabs.open(urls[i], false));
+		
+		if (!features.groups)
+			return null;
+		
+		return opera.extension.tabGroups.create(list, {
+			focused: focused || false,
+			collapsed: true,
 		});
 	}
 	
@@ -274,15 +320,10 @@ var tabs = new function Tabs() {
 			tab.update(params);
 	}
 	
-	this.openGroup = function(list, focused) {
-		//TODO: implement this
-	}
-	
 	
 	
 	this.focused = function() {
 		return opera.extension.tabs.getFocused();
-		
 	}
 	
 	this.inGroup = function(group) {
@@ -291,6 +332,9 @@ var tabs = new function Tabs() {
 	
 	this.all = function() {
 		// Gets all tabs
+		if (opera.extension.tabs.getAll)
+			return opera.extension.tabs.getAll();
+		
 		var list = [];
 		var windows = opera.extension.windows.getAll();
 		
@@ -306,7 +350,7 @@ var tabs = new function Tabs() {
 	
 	this.inDomain = function(domain) {
 		
-		return this.all().filter(function(elem) {
+		return tabs.all().filter(function(elem) {
 			return utils.getDomain(elem.url) == domain;
 		});
 	}
@@ -362,8 +406,8 @@ var tabs = new function Tabs() {
 		if (focused) {
 			tabs.update(focused, {url: e.data.url});
 			if (settings.close_on_pageopen);
-				e.source.postMessage({ action: 'close' });
-			e.source.postMessage({ action: 'open_success', url: e.data.url });
+				e.source.postMessage({action: 'close'});
+			e.source.postMessage({action: 'open_success', url: e.data.url});
 		}
 		else
 			tabs.sendOpenError(source);
@@ -528,10 +572,10 @@ var tabutils = new function TabUtils() {
 	
 	this.onImport = function(e) {
 		tabutils.importTabs(e.data.session, function() {
-			e.source.postMessage({ action: 'import_done' })
+			e.source.postMessage({action: 'import_done'})
 		}, function(ex) {
 			console.log('Tab Vault: Error occurred while importing:\n' + ex.toString());
-			e.source.postMessage({ action: 'import_error' });
+			e.source.postMessage({action: 'import_error'});
 		})
 	}
 	

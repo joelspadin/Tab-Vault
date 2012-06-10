@@ -1,0 +1,8 @@
+
+.expander:after {
+	content: '(cliquez pour masquer)';
+}
+
+.expander.collapsed:after {
+	content: '(cliquez pour afficher)';
+}

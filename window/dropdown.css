@@ -2,14 +2,14 @@
 
 body {
 	font: 13px/18px 
-		'Segoe UI', "helvetica neue",
+		'Segoe UI', "Helvetica Neue",
 		Frutiger, 'Frutiger Linotype',
 		'DejaVu Sans', Helvetica,
-		FreeSans, 'Gargi_1.7',
-		Arial, sans-serif;
+		FreeSans, Arial, sans-serif;
 	
 	overflow: hidden;
 	background-color: #f4f4f5;
+	color: #000;
 }
 
 

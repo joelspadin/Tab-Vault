@@ -6,6 +6,7 @@ opera.extension.il8n = new function Localization() {
 	}
 
 	this.missingText = function(item) {
+		console.log('Tab Vault: Translation is missing for item: ' + item);
 		return 'loc:' + item;
 	}
 	
