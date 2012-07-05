@@ -45,6 +45,7 @@ il8n.strings = {
 	CxCopyUrl: 'Copy Tab URL',
 	
 	CxSaveCurrent: 'Save Current Tab',
+	CxSaveGroup: 'Save Tab Group',
 	CxSaveAsGroup: 'Save Tab to New Group',
 	CxSaveAll: 'Save All Tabs',
 	CxSaveWindow: 'Save Tabs in This Window',

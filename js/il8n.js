@@ -60,6 +60,7 @@ opera.extension.il8n = new function Localization() {
 			return;
 		
 		var s = document.createElement('script');
+		//s.charset = 'utf-8';
 		s.src = '/locales/' + locale + '/' + file;
 		document.head.appendChild(s);
 	}
@@ -92,7 +93,7 @@ opera.extension.il8n = new function Localization() {
 		if (!locale)
 			return;
 		
-		var links = document.querySelector(selector);
+		var links = document.querySelectorAll(selector);
 		
 		for (var i = 0; i < links.length; i++) {
 			links[i].href = il8n.getLocalePath(links[i].href, locale);

@@ -2,241 +2,225 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="options.css">
-	<link rel="stylesheet" href="help/help.css">
-	<link rel="stylesheet" href="locale-help.css">
-	<script src="js/debug.js"></script>
-	<script src="js/storage.js"></script>
-	<script src="js/options.js"></script>
-	<script src="js/il8n.js"></script>
-	<script src="locale-options.js"></script>
-	<script src="js/help.js"></script>
+	<link rel="stylesheet" href="/options.css">
+	<link rel="stylesheet" href="/help/help.css">
+	<link rel="stylesheet" href="/locale-help.css">
+	<script src="/js/jquery.js"></script>
+	<script src="/js/SettingStorage.js"></script>
+	<script src="/js/storage.js"></script>
+	<script src="/js/options.js"></script>
+	<script src="/js/il8n.js"></script>
+	<script src="/js/classList.js"></script>
+	<script src="/locale-options.js"></script>
+	<script>
+		il8n.loadLocaleScript('locale-options.js');
+		il8n.loadLocaleStyle('locale-help.css');
+	</script>
+	<link rel="icon" type="image/png" href="img/icon_16.png">
 	<title id="title">Tab Vault Help</title>
 </head>
 <body>
-	<header>
-		<img src="img/icon.png">
-		<div class="right">
-			<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="help">Help</span></h1>
-			<h2><span data-loc="by">By</span> <span id="widget-author">Joel Spadin</span></h2>
-		</div>
-		<div class="clear"></div>
-	</header>
+<div id="viewport">
+	<div id="topbar"></div>
+	<div id="wrap">
+		<header>
+			<img src="img/icon.png">
+			<div class="right">
+				<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="TitleHelp2">Help</span></h1>
+			</div>
+		</header>
 
 	<!-- Start Translating Here -->
-	
-	<section>
-		<div id="first-time">
-			<h1>Nie znasz jeszcze Tab Vault?</h1>
-			<p>
-				Jeśli nie wiesz czym jest Tab Vault lub jak go używać, ten poradnik jest dla Ciebie.
-				Jeśli jesteś osobą, która czyta instrukcje tylko w ostateczności, te odnośniki mogą 
-				Cię zainteresować:
-			</p>
-			<ul>
-				<li><a href="options.html">Zmień ustawienia</a></li>
-				<li><a href="#" id="close">Powróć do przeglądania stron!</a></li>
-			</ul>
-		</div>
+
+		<h2>Czym jest Tab Vault?</h2>
+		<p>
+			Tab Vault to miejsce w którym możesz przechowywać karty do których chcesz 
+			powrócić później, a nie chcesz, aby zajmowały one miejsce w pamięci komputera
+			lub na pasku kart.
+				
+			Podobnie do paska kart w Operze, możesz zmieniać kolejność kart, grupować je,
+			a nawet przywracać usunięte karty z kosza.
+				
+			Tab Vault wyświetla także na przycisku liczbę zapamiętanych stron, abyś 
+			nie zapomniał(a), do nich powrócić.
+		</p>
 		
-		<h2 class="expander">Czym jest Tab Vault?</h2>
-		<div>
-			<p>
-				Tab Vault to miejsce w którym możesz przechowywać karty do których chcesz 
-				powrócić później, a nie chcesz, aby zajmowały one miejsce w pamięci komputera
-				lub na pasku kart.
-				
-				Podobnie do paska kart w Operze, możesz zmieniać kolejność kart, grupować je,
-				a nawet przywracać usunięte karty z kosza.
-				
-				Tab Vault wyświetla także na przycisku liczbę zapamiętanych stron, abyś 
-				nie zapomniał(a), do nich powrócić.
-			</p>
-		</div>
-		
-		<h2 class="expander collapsed">Jak używać Tab Vault?</h2>
-		<div>
-			<p>
-				Kliknij ikonę rozszerzenia, aby otworzyć Tab Vault. Na przycisku wyświetlana jest 
-				liczba zapamiętanych stron. To zachowanie, a także wiele innych, 
-				może być zmienione na <a href="options.html" target="_blank">stronie preferencji</a>.
-			</p>
-			<figure>
-				<img src="help/open.png">
-				<figcaption>Przycisk rozszerzenia Tab Vault</figcaption>
-			</figure>
+		<h2>Jak używać Tab Vault?</h2>
+		<p>
+			Kliknij ikonę rozszerzenia, aby otworzyć Tab Vault. Na przycisku wyświetlana jest 
+			liczba zapamiętanych stron. To zachowanie, a także wiele innych, 
+			może być zmienione na <a href="options.html" target="_blank">stronie preferencji</a>.
+		</p>
+		<figure>
+			<img src="help/open.png">
+			<figcaption>Przycisk rozszerzenia Tab Vault</figcaption>
+		</figure>
 			
-			<h3>Interfejs Tab Vault</h3>
-			<p>
-				Tab Vault przechowuje dwie listy stron: Karty i Kosz. Karty zawierają zapamiętane
-				strony. Kosz przechowuje usunięte karty na wypadek gdyby zaistniała potrzeba 
-				przywrócenia ich. Klikaj <code>Karty</code> i <code>Kosz</code> na górze 
-				wyskakującego okienka, aby przełączać się między listami.
-				(Kosz nie jest dostępny, gdy jest pusty.)
-			</p>
-			<figure>
-				<img src="help/popup.png">
-				<figcaption>Wyskakujące okienko Tab Vault</figcaption>
-			</figure>
+		<h3>Interfejs Tab Vault</h3>
+		<p>
+			Tab Vault przechowuje dwie listy stron: Karty i Kosz. Karty zawierają zapamiętane
+			strony. Kosz przechowuje usunięte karty na wypadek gdyby zaistniała potrzeba 
+			przywrócenia ich. Klikaj <code>Karty</code> i <code>Kosz</code> na górze 
+			wyskakującego okienka, aby przełączać się między listami.
+			(Kosz nie jest dostępny, gdy jest pusty.)
+		</p>
+		<figure>
+			<img src="help/popup.png">
+			<figcaption>Wyskakujące okienko Tab Vault</figcaption>
+		</figure>
 			
-			<h3>Lista Kart <span class="sub">Zarządzanie kartami i otwieranie ich</span></h3>
-			<p>
-				Kliknij <code>Dodaj</code> aby zapamiętać aktualnie otwartą stronę. Używaj metody
-				przeciągnij i upuść, aby zmienić kolejność kart. Kliknij przycisk <code>X</code>
-				obok karty, aby usunąć ją. 
-				Możesz również usunąć kartę, poprzez przeciągnięcie jej na listę <code>Kosz</code>. 
-				Lista kart pokazuje tylko tytuły stron, jednak po najechaniu na kartę, 
-				pojawia się dymek z adresem strony.
-			</p>
-			<p>
-				Są trzy sposoby otwarcia karty. Kliknij stronę na liście, aby otworzyć ją na nowej
-				karcie. Przytrzymaj <code>Ctrl</code> podczas kliknięcia, aby otworzyć stronę 
-				na nowej karcie w tle.
-				Przeciągnij kartę z listy i upuść ją na stronie, aby otworzyć ją na bieżącej karcie.
-			</p>
+		<h3>Lista Kart <span class="sub">Zarządzanie kartami i otwieranie ich</span></h3>
+		<p>
+			Kliknij <code>Dodaj</code> aby zapamiętać aktualnie otwartą stronę. Używaj metody
+			przeciągnij i upuść, aby zmienić kolejność kart. Kliknij przycisk <code>X</code>
+			obok karty, aby usunąć ją. 
+			Możesz również usunąć kartę, poprzez przeciągnięcie jej na listę <code>Kosz</code>. 
+			Lista kart pokazuje tylko tytuły stron, jednak po najechaniu na kartę, 
+			pojawia się dymek z adresem strony.
+		</p>
+		<p>
+			Są trzy sposoby otwarcia karty. Kliknij stronę na liście, aby otworzyć ją na nowej
+			karcie. Przytrzymaj <code>Ctrl</code> podczas kliknięcia, aby otworzyć stronę 
+			na nowej karcie w tle.
+			Przeciągnij kartę z listy i upuść ją na stronie, aby otworzyć ją na bieżącej karcie.
+		</p>
 			
-			<h3>Kosz<span class="sub">Przywracanie usuniętych kart</span></h3>
-			<p>
-				Kiedy usuniesz kartę, pojawia się ona w <code>Koszu</code>. Kliknij na usuniętą kartę, 
-				aby przywrócić ją na listę <code>Karty</code>. Kliknij <code>Opróżnij kosz</code>
-				aby bezpowrotnie usunąć całą zawartość kosza.
-				Kolejności kart w koszu nie można zmieniać.
-			</p>
-			<figure>
-				<img src="help/trash.png">
-				<figcaption>Zawartość kosza</figcaption>
-			</figure>
+		<h3>Kosz<span class="sub">Przywracanie usuniętych kart</span></h3>
+		<p>
+			Kiedy usuniesz kartę, pojawia się ona w <code>Koszu</code>. Kliknij na usuniętą kartę, 
+			aby przywrócić ją na listę <code>Karty</code>. Kliknij <code>Opróżnij kosz</code>
+			aby bezpowrotnie usunąć całą zawartość kosza.
+			Kolejności kart w koszu nie można zmieniać.
+		</p>
+		<figure>
+			<img src="help/trash.png">
+			<figcaption>Zawartość kosza</figcaption>
+		</figure>
 			
-			<h3>Grupy kart</h3>
-			<p>
-				Tab Vault wspiera grupowanie kart. Grupy posiadają strzałkę zwijania/rozwijania 
-				w miejscu favikonki i nie mają przycisku zamykania.
+		<h3>Grupy kart</h3>
+		<p>
+			Tab Vault wspiera grupowanie kart. Grupy posiadają strzałkę zwijania/rozwijania 
+			w miejscu favikonki i nie mają przycisku zamykania.
 				
-				Aby stworzyć grupę, zacznij przeciągać kartę ponad strzałkę pojawiającą się 
-				po prawej stronie innej karty. Gdy karta podświetli się, upuść przeciąganą kartę, 
-				aby pogrupować je.
+			Aby stworzyć grupę, zacznij przeciągać kartę ponad strzałkę pojawiającą się 
+			po prawej stronie innej karty. Gdy karta podświetli się, upuść przeciąganą kartę, 
+			aby pogrupować je.
 				
-				<em>Zauważ, że kursor musi się znaleźć ponad prawą krawędzią karty, aby uaktywnić 
-				możliwość grupowania. Obszar ten jest zaznaczony na obrazku czerwoną ramką.</em>
-			</p>
-			<figure>
-				<img src="help/grouping.png">
-				<figcaption>Grupowanie dwóch kart (obszar grupowania zaznaczony na czerwono)</figcaption>
-			</figure>
-			<p>
-				Kliknij na nazwę grupy, aby zwinąć ją lub rozwinąć. Aby zmienić nazwę grupy, 
-				kliknij ikonę długopisu pojawiającą się po prawej stronie. Grupy kart mogą być 
-				przeciągane w ten sam sposób co karty. Można też przeciągać karty na zewnątrz grupy.
+			<em>Zauważ, że kursor musi się znaleźć ponad prawą krawędzią karty, aby uaktywnić 
+			możliwość grupowania. Obszar ten jest zaznaczony na obrazku czerwoną ramką.</em>
+		</p>
+		<figure>
+			<img src="help/grouping.png">
+			<figcaption>Grupowanie dwóch kart (obszar grupowania zaznaczony na czerwono)</figcaption>
+		</figure>
+		<p>
+			Kliknij na nazwę grupy, aby zwinąć ją lub rozwinąć. Aby zmienić nazwę grupy, 
+			kliknij ikonę długopisu pojawiającą się po prawej stronie. Grupy kart mogą być 
+			przeciągane w ten sam sposób co karty. Można też przeciągać karty na zewnątrz grupy.
 				
-				Grupa zniknie, gdy usuniesz z niej ostatnią kartę lub przeciągniesz ją poza grupę.
-				Możesz też usunąć wszystkie karty z grupy, przeciągając ją do <code>Kosza</code>.
-			</p>
-			<figure>
-				<img src="help/groups.png">
-				<figcaption>Po lewej: rozwinięta grupa kart. Po prawej: edycja nazwy grupy.</figcaption>
-			</figure>
-			<p>
-				Implementacja grupowania kart w Tab Vault została wykonana na podobieństwo 
-				grupowania kart w Operze. Upuszczenie grupy na kartę, stworzy grupę o nazwie takiej 
-				jak nazwa karty. 
-				Upuszczenie grupy na inną, zwiniętą grupę, połączy je w grupę o nazwie drugiej z nich. 
-				Upuszczenie karty na zwiniętą grupę, doda tę kartę do grupy.
-			</p>
-			
-		</div>
-		
-		<h2 class="expander collapsed">Dodatkowe funkcje</h2>
-		<div>
-			<h3>Sesje</h3>
-			<p>
-				Tab Vault posiada możliwość importowania i eksportowania plików sesji Opery 
-				w sekcji Import/Eksport na stronie 
-				<a href="options.html" target="_blank">preferencji</a>
-			</p>
-			<p>
-				Aby wyeksportować zapamiętane karty w postaci pliku sesji, kliknij "Eksportuj sesję". 
-				Opera otworzy nową kartę. Użyj <code>Menu &gt; Strona &gt; Zapisz jako...</code> 
-				(lub wciśnij Ctrl+S), aby zapisać zawartość jako plik <code>.win</code>.
-			</p>
-			<p>
-				Aby zaimportować plik sesji, otwórz plik z rozszerzeniem .win w edytorze tekstu 
-				i skopiuj zawartość pliku do pola tekstowego na stronie preferencji, a następnie 
-				kliknij "Importuj sesję".
-			</p>
-			<p>
-				Możesz odnaleźć położenie plików sesji zapisywanych przez Operę, otwierając
-				<a href="opera:about">opera:about</a> i sprawdzając ścieżkę dostępu "Zapisana sesja". 
-				Jeśli chcesz, aby eksportowane przez Ciebie sesje były dostępne z menu Opery, 
-				musisz zapisywać je w tej lokalizacji.
-			</p>
-			<p>
-				Rozszerzenie Tab Vault zostało zaprojektowane tak, aby możliwe błędy nie powodowały 
-				utraty informacji. Zdarzają się jednak (bardzo rzadkie) przypadki całkowitej utraty 
-				kart zapamiętanych przez Tab Vault.
-				Mogą być one efektem utraty danych przechowywanych przez rozszerzenie podczas awarii 
-				Opery, błędu Tab Vault który nie został jeszcze wykryty, albo czegoś zupełnie innego. 
-				W każdym przypadku, zalecane jest okresowe tworzenie kopii zapasowych listy kart, 
-				w razie gdyby coś poszło nie tak.
-			</p>
+			Grupa zniknie, gdy usuniesz z niej ostatnią kartę lub przeciągniesz ją poza grupę.
+			Możesz też usunąć wszystkie karty z grupy, przeciągając ją do <code>Kosza</code>.
+		</p>
+		<figure>
+			<img src="help/groups.png">
+			<figcaption>Po lewej: rozwinięta grupa kart. Po prawej: edycja nazwy grupy.</figcaption>
+		</figure>
+		<p>
+			Implementacja grupowania kart w Tab Vault została wykonana na podobieństwo 
+			grupowania kart w Operze. Upuszczenie grupy na kartę, stworzy grupę o nazwie takiej 
+			jak nazwa karty. 
+			Upuszczenie grupy na inną, zwiniętą grupę, połączy je w grupę o nazwie drugiej z nich. 
+			Upuszczenie karty na zwiniętą grupę, doda tę kartę do grupy.
+		</p>
+
+		<h2>Dodatkowe funkcje</h2>
+		<h3>Sesje</h3>
+		<p>
+			Tab Vault posiada możliwość importowania i eksportowania plików sesji Opery 
+			w sekcji Import/Eksport na stronie 
+			<a href="options.html" target="_blank">preferencji</a>
+		</p>
+		<p>
+			Aby wyeksportować zapamiętane karty w postaci pliku sesji, kliknij "Eksportuj sesję". 
+			Opera otworzy nową kartę. Użyj <code>Menu &gt; Strona &gt; Zapisz jako...</code> 
+			(lub wciśnij Ctrl+S), aby zapisać zawartość jako plik <code>.win</code>.
+		</p>
+		<p>
+			Aby zaimportować plik sesji, otwórz plik z rozszerzeniem .win w edytorze tekstu 
+			i skopiuj zawartość pliku do pola tekstowego na stronie preferencji, a następnie 
+			kliknij "Importuj sesję".
+		</p>
+		<p>
+			Możesz odnaleźć położenie plików sesji zapisywanych przez Operę, otwierając
+			<a href="opera:about">opera:about</a> i sprawdzając ścieżkę dostępu "Zapisana sesja". 
+			Jeśli chcesz, aby eksportowane przez Ciebie sesje były dostępne z menu Opery, 
+			musisz zapisywać je w tej lokalizacji.
+		</p>
+		<p>
+			Rozszerzenie Tab Vault zostało zaprojektowane tak, aby możliwe błędy nie powodowały 
+			utraty informacji. Zdarzają się jednak (bardzo rzadkie) przypadki całkowitej utraty 
+			kart zapamiętanych przez Tab Vault.
+			Mogą być one efektem utraty danych przechowywanych przez rozszerzenie podczas awarii 
+			Opery, błędu Tab Vault który nie został jeszcze wykryty, albo czegoś zupełnie innego. 
+			W każdym przypadku, zalecane jest okresowe tworzenie kopii zapasowych listy kart, 
+			w razie gdyby coś poszło nie tak.
+		</p>
 				
-            <h3>Przyciski i skróty</h3>
-			<p>
-				Tab Vault udostępnia funkcje JavaScript, które umożliwiają kontrolowanie go z poziomu 
-                stron internetowych i innych miejsc w Operze. To oznacza, że możesz stworzyć 
-                własny skrót klawiaturowy lub przycisk, aby szybko zapisać aktywną kartę.
-			</p>
-			<p>
-                Aby aktywować tę funkcję, przejdź do sekcji <code>Przyciski i skróty</code> 
-                na <a href="options.html" target="_blank">stronie preferencji</a> i ustaw hasło. 
-                Hasło ma na celu zabezpieczenie się przed złośliwymi stronami, aby nie mogły 
-                zapisywać danych do twojej listy Tab Vault. Nie musisz pamiętać tego hasła, możesz 
-                po prostu kliknąć przycisk <code>Losowe</code>, aby ustawić losowe hasło.
-			</p>
-			<p>
-                Aby stworzyć przycisk zapisujący aktywną kartę, kliknij przycisk z ikoną, 
-                którą chcesz ustawić. Przycisk zostanie dodany do sekcji "Moje przyciski" w oknie 
-                Wygląd. Stamtąd możesz przeciągnąć go na dowolny, prócz paska zakładek/osobistego, 
-                pasek narzędzi.
-                (Błąd w Operze powoduje, że niektóre z przycisków są większe niż powinny, więc 
-                lepiej wybrać przycisk z mniejszą ikoną.)
-			</p>
-			<p>
-                Aby stworzyć skrót klawiaturowy, albo gest myszy, skopiuj tekst pojawiający się 
-                w polu tekstowym pod <i>Akcja "Dodaj kartę"</i>, a następnie przejdź do
-                <code>Menu &gt; Ustawienia &gt; Preferencje &gt; Zaawansowane &gt; Mysz i klawiatura</code>,
-                edytuj konfigurację myszy lub klawiatury i dodaj nowy skrót używając skopiowanego 
-                tekstu jako <i>Polecenia</i>.
-			</p>
-			<p>
-                Aby dodać kartę używając JavaScriptu, użyj funkcji
-                <code class="nowrap">window.opera.tabvault.save(hasło, url, tytuł, ikona)</code>,
-                gdzie "hasło" jest twoim hasłem, "url" to adres URL strony do zapamiętania, 
-                "tytuł" to tytuł jaki ma mieć zapamiętywana strona, a "ikona" to adres URL favikonki 
-                strony. Pomiń wszystkie parametry po "hasło", aby zapamiętać bieżącą kartę.
-			</p>
-			<p>
-                Uwaga: Błąd w Operze uniemożliwia Tab Vault wykrycie favikonki strony, gdy karta 
-                jest zapamiętywana za pomocą przycisku lub skrótu.
-			</p>
-		</div>
-		</div>
+         <h3>Przyciski i skróty</h3>
+		<p>
+			Tab Vault udostępnia funkcje JavaScript, które umożliwiają kontrolowanie go z poziomu 
+               stron internetowych i innych miejsc w Operze. To oznacza, że możesz stworzyć 
+               własny skrót klawiaturowy lub przycisk, aby szybko zapisać aktywną kartę.
+		</p>
+		<p>
+               Aby aktywować tę funkcję, przejdź do sekcji <code>Przyciski i skróty</code> 
+               na <a href="options.html" target="_blank">stronie preferencji</a> i ustaw hasło. 
+               Hasło ma na celu zabezpieczenie się przed złośliwymi stronami, aby nie mogły 
+               zapisywać danych do twojej listy Tab Vault. Nie musisz pamiętać tego hasła, możesz 
+               po prostu kliknąć przycisk <code>Losowe</code>, aby ustawić losowe hasło.
+		</p>
+		<p>
+               Aby stworzyć przycisk zapisujący aktywną kartę, kliknij przycisk z ikoną, 
+               którą chcesz ustawić. Przycisk zostanie dodany do sekcji "Moje przyciski" w oknie 
+               Wygląd. Stamtąd możesz przeciągnąć go na dowolny, prócz paska zakładek/osobistego, 
+               pasek narzędzi.
+               (Błąd w Operze powoduje, że niektóre z przycisków są większe niż powinny, więc 
+               lepiej wybrać przycisk z mniejszą ikoną.)
+		</p>
+		<p>
+               Aby stworzyć skrót klawiaturowy, albo gest myszy, skopiuj tekst pojawiający się 
+               w polu tekstowym pod <i>Akcja "Dodaj kartę"</i>, a następnie przejdź do
+               <code>Menu &gt; Ustawienia &gt; Preferencje &gt; Zaawansowane &gt; Mysz i klawiatura</code>,
+               edytuj konfigurację myszy lub klawiatury i dodaj nowy skrót używając skopiowanego 
+               tekstu jako <i>Polecenia</i>.
+		</p>
+		<p>
+               Aby dodać kartę używając JavaScriptu, użyj funkcji
+               <code class="nowrap">window.opera.tabvault.save(hasło, url, tytuł, ikona)</code>,
+               gdzie "hasło" jest twoim hasłem, "url" to adres URL strony do zapamiętania, 
+               "tytuł" to tytuł jaki ma mieć zapamiętywana strona, a "ikona" to adres URL favikonki 
+               strony. Pomiń wszystkie parametry po "hasło", aby zapamiętać bieżącą kartę.
+		</p>
+		<p>
+               Uwaga: Błąd w Operze uniemożliwia Tab Vault wykrycie favikonki strony, gdy karta 
+               jest zapamiętywana za pomocą przycisku lub skrótu.
+		</p>
 		
 		<h3>Ciągle zakłopotany/a?</h3>
 		<p><a href="http://my.opera.com/spadija/blog/tab-vault">Kliknij tutaj, aby przejść na stronę 
         wsparcia Tab Vault i zadać dodatkowe pytania.</a></p>
-		
-	</section>
 	
 	<!-- Stop Translating Here -->
 	
-	<footer>
-		<p data-loc="footer">
-			<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
-			is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, 
-			images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
-			and <a href="http://www.opera.com">Opera Software</a>
-		</p>
-	</footer>
-	
+		<footer>
+			<p data-loc="Footer">
+				<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
+				is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, 
+				images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
+				and <a href="http://www.opera.com">Opera Software</a>
+			</p>
+		</footer>
+	</div>
+</div>
 </body>
 </html>

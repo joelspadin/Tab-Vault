@@ -45,6 +45,7 @@ il8n.strings = {
 	CxCopyUrl: 'Копировать адрес',
 	
 	CxSaveCurrent: 'Сохранить текущую вкладку',
+	/* Translation needed */ CxSaveGroup: 'Save Tab Group',
 	CxSaveAsGroup: 'Сохранить вкладку в новую группу',
 	CxSaveAll: 'Сохранить все открытые вкладки',
 	CxSaveWindow: 'Сохранить все вкладки из этого окна',

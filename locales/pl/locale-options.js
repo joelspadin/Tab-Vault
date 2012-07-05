@@ -21,6 +21,7 @@ il8n.strings = {
 	CompactTabs: '<Nieużywane>',
 	Tooltips: 'Pokazuj dymki z podpowiedziami',
 	VerboseTabTips: 'Pokazuj w dymku zarówno tytuł jak i adres strony',
+	OpenNextToActive: 'Otwieraj nowe karty obok karty aktywnej',
 	TrashOnOpen: 'Po otwarciu karty przenieś ją do kosza',
 	AllowListDuplicates: 'Zezwalaj na duplikaty na głównej liście',
 	AllowGroupDuplicates: 'Zezwalaj na duplikaty w grupach',
@@ -40,6 +41,7 @@ il8n.strings = {
 	BackgroundAlpha: 'Nieprzezroczystość etykietki',
 	TextColor: 'Kolor tekstu etykietki',
 	TextAlpha: 'Nieprzezroczystość tekstu etykietki',
+	FeatherweightIcon: 'Używaj szarej ikony rozszerzenia',
 	LimitHeight: 'Ogranicz wysokość wyskakującego okienka',
 	MaxHeight: 'Maksymalna wysokość okienka (px)',
 	PopupWidth: 'Szerokość okienka (px)',
@@ -47,10 +49,11 @@ il8n.strings = {
 	MaxTrash: 'Maksymalna liczba kart w Koszu',
 	MiddleClick: 'Akcja środkowego przycisku myszy',
 	MiddleClickOpen: 'Otwórz na karcie w tle',
+	MiddleClickOpenCurrent: 'Otwórz na bieżącej karcie',
 	MiddleClickClose: 'Usuń kartę',
 	MiddleClickNone: 'Nie rób nic',
 	CxMenuStyle: 'Styl menu kontekstowego',
-	Language: 'Język (zastosowanie wszystkich zmian wymaga ponownego uruchomienia)',
+	Language: 'Język (naciśnij F5, aby zastosować zmiany)',
 	
 	EnableClipboard: 'Aby umożliwić kopiowanie adresów zapamiętanych stron, przejdź do ' +
 				'<a href="http://www.macromedia.com/support/documentation/pl/flashplayer/help/settings_manager04a.html">Menedżera ustawień programu Flash Player</a> ' +
@@ -65,7 +68,7 @@ il8n.strings = {
 	ImportButton: 'Importuj sesję',
 	Import: 'Importuje plik sesji lub zakładek (.win lub .adr) do listy kart',
 	ImportWorking: 'Importowanie...',
-	ImportPlaceholder: 'Otwórz plik (.win lub .adr) w edytorze tekstu, skopiuj jego zawartość do tego pola tekstowego, a następnie kliknij przycisk "Importuj sesję"',
+	ImportPlaceholder: 'Otwórz plik (.win lub .adr) w edytorze tekstu, skopiuj jego zawartość do tego pola tekstowego, a następnie kliknij przycisk „Importuj sesję”',
 	
 	
 	Reset: 'Przywracanie ustawień domyślnych',							// Reset category header
@@ -75,19 +78,22 @@ il8n.strings = {
 	ResetTabs: 'Całkowicie i bezpowrotnie usuwa wszystkie zapamiętane karty',
 	ResetAllButton: 'Wszystko',
 	ResetAll: 'Resetuje Tab Vault do stanu po instalacji',
+	ConfirmResetSettings: 'Czy na pewno chcesz przywrócić ustawienia domyślne?',
+	ConfirmResetTabs: 'Czy na pewno chcesz usunąć wszystkie zapamiętane karty?',
+	ConfirmResetAll: 'Czy na pewno chcesz zresetować TabVault?\n Stracisz wszystkie zapisane karty i własne ustawienia.',
 	
 	ExternalAccess: 'Przyciski i skróty',
 	EnableAccess: 'Ustaw hasło dostępu aby umożliwić skrótom komunikację z Tab Vault',
 	Password: 'Hasło:',
 	NewPassword: 'Losowe',
-	SaveTabAction: 'Akcja "Dodaj kartę" - używaj ze skrótami klawiaturowymi i gestami myszy:',
-	SaveTabButton: 'Przycisk "Dodaj kartę" - kliknij, aby zapisać przycisk, a następnie przeciągnij i upuść go na pasek narzędzi:',
+	SaveTabAction: 'Akcja „Dodaj kartę” - używaj ze skrótami klawiaturowymi i gestami myszy:',
+	SaveTabButton: 'Przycisk „Dodaj kartę” - kliknij, aby zapisać przycisk, a następnie przeciągnij i upuść go na pasek narzędzi:',
 	SaveButtonTitle: 'Dodaj do Tab Vault',
 	CustomButton: 'Inna ikona (wprowadź nazwę ikony ze skórki Opery)',
 	
 	
 	Help: 'Potrzebujesz pomocy?',						// Help category header
-	HelpLink: 'Kliknij tutaj, aby wyświetlić stronę pomocy i uzyskać informacje: czym jest rozszerzenie Tab Vault, jak działa i jak go używać.',
+	HelpLink: 'Kliknij tutaj, aby wyświetlić stronę z pomocą.',
 
 
 	Upgrading: 'Zaktualizuj swoje ustawienia',	// Upgrade explanation header
@@ -110,9 +116,10 @@ il8n.strings = {
 	UpgradeStatus5: 'Przywracanie kart...',
 	
 	UpgradeFail1: 'Ups! Coś poszło nie tak (albo masz naprawdę wolny komputer).',
-	UpgradeFail2: 'Możesz pomoć w rozwiązaniu problemu, wciskając Ctrl+Shift+O aby wyświetlić Konsolę Błędów ' + 
-			'i umieszczając błędy które wystąpiły po "Starting upgrade", w sekcji "Reported issues" na ' +
+	UpgradeFail2: 'Możesz pomoć w rozwiązaniu problemu, wciskając Ctrl+Shift+O, aby wyświetlić Konsolę Błędów, ' + 
+			'i umieszczając błędy które wystąpiły po „Starting upgrade”, w sekcji „Zgłoszone problemy” na ' +
 			'<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">stronie rozszerzenia Tab Vault</a>. Dzięki!',
+			
 
 	Footer: '<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a> ' +
 			'is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, ' +

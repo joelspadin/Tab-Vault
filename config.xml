@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" version="2.5-dev" defaultlocale="en" id="extensions:tabvault">
-	<name>Tab Vault</name>
-	<description xml:lang="en">
-		Store tabs for later without wasting space or memory. 
-		Warning: Uninstalling Tab Vault will delete all saved tabs! Export a backup from the options page first!
-	</description>
-	<author href="http://chaosinacan.com/">Joel Spadin</author>
-	<icon src="img/icon.png" />
-	<access origin="*" />
+<widget xmlns="http://www.w3.org/ns/widgets" version="2.5" defaultlocale="en" id="extensions:tabvault">
+  <name>Tab Vault</name>
+  <description xml:lang="en">
+	  Store tabs for later without wasting space or memory. 
+	  Warning: Uninstalling Tab Vault will delete all saved tabs! Export a backup from the options page first!
+  </description>
+  <author href="http://chaosinacan.com/">Joel Spadin</author>
+  <icon src="img/icon.png" />
+  <access origin="*" />
 </widget>

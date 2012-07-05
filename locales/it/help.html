@@ -5,9 +5,9 @@
 	<link rel="stylesheet" href="/options.css">
 	<link rel="stylesheet" href="/help/help.css">
 	<link rel="stylesheet" href="/locale-help.css">
-	<script src="/js/debug.js"></script>
+	<script src="/js/jquery.js"></script>
+	<script src="/js/SettingStorage.js"></script>
 	<script src="/js/storage.js"></script>
-	<script src="/js/options.js"></script>
 	<script src="/js/help.js"></script>
 	<script src="/js/il8n.js"></script>
 	<script src="/js/classList.js"></script>
@@ -16,186 +16,172 @@
 		il8n.loadLocaleScript('locale-options.js');
 		il8n.loadLocaleStyle('locale-help.css');
 	</script>
+	<link rel="icon" type="image/png" href="img/icon_16.png">
 	<title id="title">Tab Vault Help</title>
 </head>
 <body>
-	<header>
-		<img src="/img/icon.png">
-		<div class="right">
-			<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="help">Help</span></h1>
-			<h2><span data-loc="by">By</span> <span id="widget-author">Joel Spadin</span></h2>
-		</div>
-		<div class="clear"></div>
-	</header>
+<div id="viewport">
+	<div id="topbar"></div>
+	<div id="wrap">
+		<header>
+			<img src="/img/icon.png">
+			<div class="right">
+				<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="TitleHelp2">Help</span></h1>
+			</div>
+			<div class="clear"></div>
+		</header>
 
-	<!-- Start Translating Here -->
+		<!-- Start Translating Here -->
 	
-	<section>
-		<div id="first-time">
-			<h1>Prima volta che usi Tab Vault?</h1>
-			<p>
-				Se non sei sicuro di cosa sia Tab Vault o come si usi, continua a leggere.
-				Se sei il tipo che legge i manuali solo come ultima risorsa, questi link potrebbero fare al caso tuo:
-			</p>
-			<ul>
-				<li><a href="/options.html">Modifica Preferenze</a></li>
-				<li><a href="#" id="close">Torna alla navigazione!</a></li>
-			</ul>
-		</div>
 		
-		<h2 class="expander">Cos'è Tab Vault?</h2>
-		<div>
-			<p>
-				Tab Vault è un posto dove depositare le schede che vuoi aprire più tardi, senza tenerle caricate in memoria e sulla barra delle schede.
-				
-				Come per la barra delle schede di Opera, puoi riordinare e raggruppare le schede e ripristinare quelle eliminate dal cestino di Tab Vault.
-				
-				Tab Vault mostra inoltre il numero di schede che hai depositato per ricordarti di ritirarle.
-			</p>
-		</div>
 		
-		<h2 class="expander collapsed">Come si usa Tab Vault?</h2>
-		<div>
-			<p>
-				Clicca sul pulsante dell'estensione per aprire Tab Vault. Qui viene mostrato il numero di schede depositate in Tab Vault. Puoi modificare questa funzionalità (e molte altre)
-				nella
-				<a href="/options.html" target="_blank">pagina delle opzioni</a>.
-			</p>
-			<figure>
-				<img src="/help/open.png">
-				<figcaption>Pulsante dell'estensione Tab Vault</figcaption>
-			</figure>
-			
-			<h3>L'interfaccia di Tab Vault</h3>
-			<p>
-				Tab Vault ha due liste: Schede e Cestino. Schede contiene le tue schede salvate.
-				Cestino conserva le schede eliminate in caso le si voglia ripristinare. Clicca sui link 
-				<code>Schede</code> e <code>Cestino</code> nella parte alta del popup per cambiare lista.
-				(La lista Cestino sarà disabilitata se vuota)
-			</p>
-			<figure>
-				<img src="/help/popup.png">
-				<figcaption>Il popup di Tab Vault</figcaption>
-			</figure>
-			
-			<h3>La Lista Schede <span class="sub">Organizzare e Aprire le Schede</span></h3>
-			<p>
-				Clicca <code>Salva Scheda</code> per salvare la scheda corrente. Clicca e trascina le schede per riordinarle. Clicca il pulsante <code>X</code> di fianco ad una scheda per eliminarla. 
-				Puoi anche eliminare una scheda trascinandola nel <code>Cestino</code> in alto.
-				La lista Schede mostra solo i titoli delle schede, ma è possibile visualizzare l'URL passando col mouse sulla scheda.
-			</p>
-			<p>
-				Ci sono tre modi per aprire una scheda. Cliccaci sopra per aprirla in una nuova pagina. Tieni premuto <code>Ctrl</code> mentre clicchi per aprirla in una pagina in background. 
-				Trascina una scheda dal popup alla pagina web per aprirla nella pagina corrente. Nello stesso modo puoi aprire interi gruppi di schede.
-			</p>
-			
-			<h3>La Lista Cestino <span class="sub">Ripristinare Schede Eliminate</span></h3>
-			<p>
-				Quando elimini una scheda, questa finisce qui. Clicca su di una scheda cestinata per ripristinarla nella lista Schede. Clicca <code>Svuota Lista Schede Chiuse</code> 
-				per eliminare definitivamente tutte le schede cestinate. 
-				Non è possibile riordinare le schede cestinate.
-			</p>
-			<figure>
-				<img src="/help/trash.png">
-				<figcaption>La Lista Cestino</figcaption>
-			</figure>
-			
-			<h3>Gruppi di Schede</h3>
-			<p>
-				Tab Vault ora supporta anche gruppi di schede. I gruppi hanno una freccetta al posto della favicon e non hanno il pulsante <code>X</code>.
+		<h2>Cos'è Tab Vault?</h2>
+		<p>
+			Tab Vault è un posto dove depositare le schede che vuoi aprire più tardi, senza tenerle caricate in memoria e sulla barra delle schede.
 				
-				Per creare un gruppo, trascina una scheda e muovi il cursore sulla freccetta sulla destra. Ora, trascina la scheda sopra un'altra scheda in modo che l'altra diventi più scura. Infine, rilascia la scheda per raggruppare le due schede assieme. 
+			Come per la barra delle schede di Opera, puoi riordinare e raggruppare le schede e ripristinare quelle eliminate dal cestino di Tab Vault.
 				
-				<em>Nota che il cursore deve essere sopra il lato destro della scheda per attivare il raggruppamento. Questa area di raggruppamento è evidenziata in rosso qui sotto.</em>
-			</p>
-			<figure>
-				<img src="/help/grouping.png">
-				<figcaption>Raggruppare due schede (area di raggruppamento in rosso)</figcaption>
-			</figure>
-			<p>
-				Clicca sul titolo di un gruppo di schede per espanderlo o ridurlo. Per modificare il nome di un gruppo, clicca sull'icona della penna a destra del titolo.
-				I gruppi possono essere trascinati e spostati come le schede, ed è possibile trascinare le schede dentro o fuori gruppi espansi.
-				
-				Un gruppo scompare quando l'ultima scheda rimasta viene eliminata o spostata all'infuori del gruppo. E' possibile eliminare un intero gruppo trascinandolo nel <code>Cestino</code> in alto.
-			</p>
-			<figure>
-				<img src="/help/groups.png">
-				<figcaption>A sinistra: un gruppo di schede espanso. A destra: modifica del nome di un gruppo</figcaption>
-			</figure>
-			<p>
-				L'implementazione dei gruppi di schede in Tab Vault è stata pensata per essere molto simile a quella di Opera. Rilasciare un gruppo su di una scheda unirà il gruppo in un nuovo gruppo sotto la scheda. Rilasciare un gruppo su di un altro gruppo ridotto unirà il primo al secondo. Rilasciare una scheda su di un gruppo ridotto aggiungerà la scheda al gruppo.
-			</p>
-			
-		</div>
+			Tab Vault mostra inoltre il numero di schede che hai depositato per ricordarti di ritirarle.
+		</p>
 		
-		<h2 class="expander collapsed">Funzionalità Aggiuntive</h2>
-		<div>
-			<h3>Sessioni</h3>
-			<p>
-				Tab Vault può importare ed esportare file di sessione di Opera dalla sezione Importa/Esporta della 
-				<a href="/options.html" target="_blank">pagina delle opzioni</a>.
-			</p>
-			<p>
-				Per esportare le tue schede depositate come file di sessione, clicca su "Esporta Sessione". 
-				Opera aprirà una nuova scheda. Usa <code>Menu > Pagina > Salva con nome...</code> 
-				(o Ctrl+S) per salvare questa scheda come file .win.
-			</p>
-			<p>
-				Per importare un file di sessione, seleziona il file .win da <code>Sfoglia</code>  
-				e clicca su "Importa Sessione". 
-			</p>
-			<p>
-				Puoi trovare dove Opera conserva i tuoi file di sessione andando su
-				<a href="opera:about">opera:about</a> e leggendo di fianco a "Sessione salvata". Se vuoi che le tue sessioni esportate compaiano nella lista delle sessioni di Opera, salvale qui.
-			</p>
-			<p>
-				Nonostante abbia programmato Tab Vault in modo che fosse molto difficile per un bug causare una perdita di dati, mi sono arrivate segnalazioni (molto rare) di persone alle quali sono completamente scomparse le schede da Tab Vault. 
-				Cioò potrebbe essere dovuto al fatto che Opera abbia perso i dati di Tab Vault dopo un crash, un bug di Tab Vault non ancora scoperto o qualunque altra cosa.
-				In ogni caso raccomando di esportare periodicamente le schede in un luogo sicuro, giusto in caso qualcosa vada storto.
+		<h2>Come si usa Tab Vault?</h2>
+		<p>
+			Clicca sul pulsante dell'estensione per aprire Tab Vault. Qui viene mostrato il numero di schede depositate in Tab Vault. Puoi modificare questa funzionalità (e molte altre)
+			nella
+			<a href="/options.html" target="_blank">pagina delle opzioni</a>.
+		</p>
+		<figure>
+			<img src="/help/open.png">
+			<figcaption>Pulsante dell'estensione Tab Vault</figcaption>
+		</figure>
 			
-			<h3>Pulsanti e Scorciatoie</h3>
-			<p>
-				Tab Vault contiene funzioni JavaScript in modo che possa essere controllato da pagine web o altre parti di Opera. Questo significa che è possibile creare scorciatoie da tastiera o un pulsante per salvare rapidamente la scheda corrente.
-			</p>
-			<p>
-				Per attivare questa funzione, vai nella sezione Pulsanti e Scorciatoie della
-				<a href="/options.html" target="_blank">pagina delle opzioni</a> e crea una password. La password evita che siti malevoli interagiscano con Tab Vault. Non devi ricordarla, clicca semplicemente il pulsante "Genera" per creare una password casuale.
-			</p>
-			<p>
-				Per creare un pulsante per salvare la scheda corrente, clicca sul pulsante con l'icona che preferisci. Sarà aggiunto alla sezione "I miei Pulsanti" della finestra Aspetto, dalla quale puoi trascinarlo in qualunque toolbar.
-				(Attualmente un bug di Opera rende il pulsante più grande del normale, perciò cerca di usare quelli più piccoli)
-			</p>
-			<p>
-				Per creare una scorciatoia da tastiera o un gesto del mouse, copia il testo mostrato in "Salva azione scheda", quindi vai in <code>Menu > Impostazioni > Preferenze
-				> Avanzate > Scorciatoie</code>, modifica la configurazione del tuo mouse o tastiera e
-				crea una nuova scorciatoia usando il testo copiato come azione.
-			</p>
-			<p>
-				Per salvare una scheda con JavaScript, usa la funzione
-				<code class="nowrap">window.opera.tabvault.save(pass, url, title, icon)</code>
-				dove "pass" è la tua password, "url" è l'URL della scheda, "title" è il titolo della scheda, e "icon" è l'URL della favicon della scheda. Tralascia tutto ciò dopo "pass" per salvare la scheda corrente.
+		<h3>L'interfaccia di Tab Vault</h3>
+		<p>
+			Tab Vault ha due liste: Schede e Cestino. Schede contiene le tue schede salvate.
+			Cestino conserva le schede eliminate in caso le si voglia ripristinare. Clicca sui link 
+			<code>Schede</code> e <code>Cestino</code> nella parte alta del popup per cambiare lista.
+			(La lista Cestino sarà disabilitata se vuota)
+		</p>
+		<figure>
+			<img src="/help/popup.png">
+			<figcaption>Il popup di Tab Vault</figcaption>
+		</figure>
+			
+		<h3>La Lista Schede <span class="sub">Organizzare e Aprire le Schede</span></h3>
+		<p>
+			Clicca <code>Salva Scheda</code> per salvare la scheda corrente. Clicca e trascina le schede per riordinarle. Clicca il pulsante <code>X</code> di fianco ad una scheda per eliminarla. 
+			Puoi anche eliminare una scheda trascinandola nel <code>Cestino</code> in alto.
+			La lista Schede mostra solo i titoli delle schede, ma è possibile visualizzare l'URL passando col mouse sulla scheda.
+		</p>
+		<p>
+			Ci sono tre modi per aprire una scheda. Cliccaci sopra per aprirla in una nuova pagina. Tieni premuto <code>Ctrl</code> mentre clicchi per aprirla in una pagina in background. 
+			Trascina una scheda dal popup alla pagina web per aprirla nella pagina corrente. Nello stesso modo puoi aprire interi gruppi di schede.
+		</p>
+			
+		<h3>La Lista Cestino <span class="sub">Ripristinare Schede Eliminate</span></h3>
+		<p>
+			Quando elimini una scheda, questa finisce qui. Clicca su di una scheda cestinata per ripristinarla nella lista Schede. Clicca <code>Svuota Lista Schede Chiuse</code> 
+			per eliminare definitivamente tutte le schede cestinate. 
+			Non è possibile riordinare le schede cestinate.
+		</p>
+		<figure>
+			<img src="/help/trash.png">
+			<figcaption>La Lista Cestino</figcaption>
+		</figure>
+			
+		<h3>Gruppi di Schede</h3>
+		<p>
+			Tab Vault ora supporta anche gruppi di schede. I gruppi hanno una freccetta al posto della favicon e non hanno il pulsante <code>X</code>.
 				
-			</p>
-			<p>
-				Nota: Attualmente un bug di Opera non permette a Tab Vault di rilevare la favicon di una scheda quando viene salvata con un pulsante o una scorciatoia.
-			</p>
-		</div>
+			Per creare un gruppo, trascina una scheda e muovi il cursore sulla freccetta sulla destra. Ora, trascina la scheda sopra un'altra scheda in modo che l'altra diventi più scura. Infine, rilascia la scheda per raggruppare le due schede assieme. 
+				
+			<em>Nota che il cursore deve essere sopra il lato destro della scheda per attivare il raggruppamento. Questa area di raggruppamento è evidenziata in rosso qui sotto.</em>
+		</p>
+		<figure>
+			<img src="/help/grouping.png">
+			<figcaption>Raggruppare due schede (area di raggruppamento in rosso)</figcaption>
+		</figure>
+		<p>
+			Clicca sul titolo di un gruppo di schede per espanderlo o ridurlo. Per modificare il nome di un gruppo, clicca sull'icona della penna a destra del titolo.
+			I gruppi possono essere trascinati e spostati come le schede, ed è possibile trascinare le schede dentro o fuori gruppi espansi.
+				
+			Un gruppo scompare quando l'ultima scheda rimasta viene eliminata o spostata all'infuori del gruppo. E' possibile eliminare un intero gruppo trascinandolo nel <code>Cestino</code> in alto.
+		</p>
+		<figure>
+			<img src="/help/groups.png">
+			<figcaption>A sinistra: un gruppo di schede espanso. A destra: modifica del nome di un gruppo</figcaption>
+		</figure>
+		<p>
+			L'implementazione dei gruppi di schede in Tab Vault è stata pensata per essere molto simile a quella di Opera. Rilasciare un gruppo su di una scheda unirà il gruppo in un nuovo gruppo sotto la scheda. Rilasciare un gruppo su di un altro gruppo ridotto unirà il primo al secondo. Rilasciare una scheda su di un gruppo ridotto aggiungerà la scheda al gruppo.
+		</p>
+
+		
+		<h2>Funzionalità Aggiuntive</h2>
+		<h3>Sessioni</h3>
+		<p>
+			Tab Vault può importare ed esportare file di sessione di Opera dalla sezione Importa/Esporta della 
+			<a href="/options.html" target="_blank">pagina delle opzioni</a>.
+		</p>
+		<p>
+			Per esportare le tue schede depositate come file di sessione, clicca su "Esporta Sessione". 
+			Opera aprirà una nuova scheda. Usa <code>Menu > Pagina > Salva con nome...</code> 
+			(o Ctrl+S) per salvare questa scheda come file .win.
+		</p>
+		<p>
+			Per importare un file di sessione, seleziona il file .win da <code>Sfoglia</code>  
+			e clicca su "Importa Sessione". 
+		</p>
+		<p>
+			Puoi trovare dove Opera conserva i tuoi file di sessione andando su
+			<a href="opera:about">opera:about</a> e leggendo di fianco a "Sessione salvata". Se vuoi che le tue sessioni esportate compaiano nella lista delle sessioni di Opera, salvale qui.
+		</p>
+		<p>
+			Nonostante abbia programmato Tab Vault in modo che fosse molto difficile per un bug causare una perdita di dati, mi sono arrivate segnalazioni (molto rare) di persone alle quali sono completamente scomparse le schede da Tab Vault. 
+			Cioò potrebbe essere dovuto al fatto che Opera abbia perso i dati di Tab Vault dopo un crash, un bug di Tab Vault non ancora scoperto o qualunque altra cosa.
+			In ogni caso raccomando di esportare periodicamente le schede in un luogo sicuro, giusto in caso qualcosa vada storto.
+			
+		<h3>Pulsanti e Scorciatoie</h3>
+		<p>
+			Tab Vault contiene funzioni JavaScript in modo che possa essere controllato da pagine web o altre parti di Opera. Questo significa che è possibile creare scorciatoie da tastiera o un pulsante per salvare rapidamente la scheda corrente.
+		</p>
+		<p>
+			Per attivare questa funzione, vai nella sezione Pulsanti e Scorciatoie della
+			<a href="/options.html" target="_blank">pagina delle opzioni</a> e crea una password. La password evita che siti malevoli interagiscano con Tab Vault. Non devi ricordarla, clicca semplicemente il pulsante "Genera" per creare una password casuale.
+		</p>
+		<p>
+			Per creare un pulsante per salvare la scheda corrente, clicca sul pulsante con l'icona che preferisci. Sarà aggiunto alla sezione "I miei Pulsanti" della finestra Aspetto, dalla quale puoi trascinarlo in qualunque toolbar.
+			(Attualmente un bug di Opera rende il pulsante più grande del normale, perciò cerca di usare quelli più piccoli)
+		</p>
+		<p>
+			Per creare una scorciatoia da tastiera o un gesto del mouse, copia il testo mostrato in "Salva azione scheda", quindi vai in <code>Menu > Impostazioni > Preferenze
+			> Avanzate > Scorciatoie</code>, modifica la configurazione del tuo mouse o tastiera e
+			crea una nuova scorciatoia usando il testo copiato come azione.
+		</p>
+		<p>
+			Per salvare una scheda con JavaScript, usa la funzione
+			<code class="nowrap">window.opera.tabvault.save(pass, url, title, icon)</code>
+			dove "pass" è la tua password, "url" è l'URL della scheda, "title" è il titolo della scheda, e "icon" è l'URL della favicon della scheda. Tralascia tutto ciò dopo "pass" per salvare la scheda corrente.
+				
+		</p>
+		<p>
+			Nota: Attualmente un bug di Opera non permette a Tab Vault di rilevare la favicon di una scheda quando viene salvata con un pulsante o una scorciatoia.
+		</p>
 		
 		<h3>Ancora confuso?</h3>
 		<p><a href="http://my.opera.com/spadija/blog/tab-vault">Clicca qui per andare alla pagina di supporto di Tab Vault, sarò lieto di rispondere ad ogni tua domanda.</a></p>
 		
-	</section>
 	
-	<!-- Stop Translating Here -->
+		<!-- Stop Translating Here -->
 	
-	<footer>
-		<p data-loc="footer">
-			<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
-			di <a href="http://chaosinacan.com">Joel Spadin </a&copy; 2010&ndash;2011 >, 
-			immagini di <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
-			e <a href="http://www.opera.com">Opera Software</a>
-		</p>
-	</footer>
-	
+		<footer>
+			<p data-loc="Footer">
+				<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
+				di <a href="http://chaosinacan.com">Joel Spadin </a&copy; 2010&ndash;2011 >, 
+				immagini di <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
+				e <a href="http://www.opera.com">Opera Software</a>
+			</p>
+		</footer>
+	</div>
+</div>
 </body>
 </html>

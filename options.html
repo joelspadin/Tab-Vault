@@ -38,6 +38,10 @@
 			<fieldset>
 				<h3 data-loc="VaultSettings"></h3>
 				<p>
+					<input name="open_next_to_active" id="open_next_to_active" type="checkbox">
+					<label for="open_next_to_active" data-loc="OpenNextToActive"></label>
+				</p>
+				<p>
 					<input name="trash_on_open" id="trash_on_open" type="checkbox">
 					<label for="trash_on_open" data-loc="TrashOnOpen"></label>
 				</p>
@@ -81,7 +85,7 @@
 					<input name="close_on_pageopen" id="close_on_pageopen" type="checkbox">
 					<label for="close_on_pageopen" data-loc="CloseOnPageOpen"></label>
 				</p>
-				<p class="opera12">
+				<p style="display:none">
 					<input name="close_on_open" id="close_on_open" type="checkbox">
 					<label for="close_on_open" data-loc="CloseOnOpen"></label>
 				</p>
@@ -127,6 +131,10 @@
 					<label for="open_one_group" data-loc="OpenOneGroup"></label>
 				</p>
 				<p>
+					<input name="featherweight_icon" id="featherweight_icon" type="checkbox">
+					<label for="featherweight_icon" data-loc="FeatherweightIcon"></label>
+				</p>
+				<p>
 					<input name="show_badge" id="show_badge" type="checkbox">
 					<label for="show_badge" data-loc="ShowBadge"></label>
 				</p>
@@ -152,10 +160,6 @@
 						<label for="text_alpha" data-loc="TextAlpha"></label>
 					</p>
 				</div>
-				<p>
-					<input name="featherweight_icon" id="featherweight_icon" type="checkbox">
-					<label for="featherweight_icon" data-loc="FeatherweightIcon"></label>
-				</p>
 				<p>
 					<input name="limit_height" id="limit_height" type="checkbox">
 					<label for="limit_height" data-loc="LimitHeight"></label>
@@ -270,12 +274,13 @@
 		</section>
 
 		<section id="debug" style="display: none">
-			<h3>Debug (press Shift+~ to hide)</h3>
-			<p><a href="upgrade.html">Run upgrader</a></p>
-			<p><a href="help.html#first" id="first_help">First time help</a></p>
-			<p><a href="window/index.html">Panel interface</a></p>
-
 			<fieldset>
+				<h3>Debug (press Shift+~ to hide)</h3>
+				<p><a href="upgrade.html">Run upgrader</a></p>
+				<p><a href="locales/localetest.html">Locale tester</a></p>
+				<p><a href="window/index.html">Panel interface</a></p>
+
+			
 				<p>
 					<input name="opt_topbar" id="opt_topbar" type="checkbox">
 					<label for="opt_topbar">Hide options page top bar</label>
@@ -284,16 +289,18 @@
 
 			<h3>widget.preferences</h3>
 			<div id="storage_list"></div>
+			
 		</section>
 
 
 		<section class="localizations">
 			<ul>
 				<li>Dutch localization by <a href="http://my.opera.com/NinovdB/">Nino van den Bosch</a></li>
+				<li>French localization by David</li>
 				<li>
 					German localizations by <a href="http://my.opera.com/FreebirthOne/">FreebirthOne</a>,
 					<a href="http://my.opera.com/philflip/">Philflip</a> 
-					and <a href="http://my.opera.com/myOnno/">myOnno</a>.
+					and <a href="http://my.opera.com/myOnno/">Otto Wasserfeldt</a>.
 				</li>
 				<li>Greek localization by <a href="http://my.opera.com/andreaspatman/">Andreas Patman</a></li>
 				<li>Georgian localization by <a href="http://my.opera.com/arabuli/">Beqa Arabuli</a></li>

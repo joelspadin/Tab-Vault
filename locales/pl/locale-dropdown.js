@@ -45,6 +45,7 @@ il8n.strings = {
 	CxCopyUrl: 'Kopiuj adres',
 	
 	CxSaveCurrent: 'Zapisz bieżącą kartę',
+	CxSaveGroup: 'Zapisz grupę kart',
 	CxSaveAsGroup: 'Zapisz kartę w nowej grupie',
 	CxSaveAll: 'Zapisz wszystkie karty',
 	CxSaveWindow: 'Zapisz karty z tego okna',

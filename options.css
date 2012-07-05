@@ -58,7 +58,7 @@ html {
 
 header {
 	display: block;
-	padding: 30px 50px 15px;
+	padding: 30px 40px 15px;
 	margin: 0 0 2em;
 	border-bottom: 1px solid rgba(0,0,0,0.15);
 	box-shadow: 0 1px #fff;
@@ -67,11 +67,12 @@ header {
 
 header img {
 	float: left;
+	padding: 5px 0;
 }
 
 header .right {
 	float: left;
-	padding: 10px 15px;
+	padding: 10px 20px;
 }
 
 section {
@@ -105,17 +106,24 @@ header .version {
 }
 
 h3 {
-	margin: 0.867em 0;
+	margin: 0.433em -20px;
+	padding: 0.433em 20px;
+	background: #daddeb;
+	border-radius: 2px;
+}
+
+fieldset h3:first-child {
+	margin-top: 0;
 }
 
 fieldset p + h3 {
-	margin-top: 3.467em;
+	margin-top: 1.5em;
 }
 
 
 fieldset {
 	border: none;
-	background: rgba(150,160,200,0.25);
+	background: #edeff5;
 	border-radius: 2px;
 	margin: 0 0 40px;
 	padding: 0 20px 4px;
@@ -123,6 +131,10 @@ fieldset {
 
 fieldset.noadjust {
 	padding-bottom: 0;
+}
+
+fieldset.noadjust h3 {
+	margin-bottom: 0;
 }
 
 fieldset label,
@@ -209,15 +221,16 @@ fieldset .suboption:last-child {
 	margin-bottom: 1em;
 }
 
-fieldset p.expander:after {
-	content: ' ';
-	
+fieldset p.expander > label {
 	display: inline-block;
-	width: 11px;
-	height: 11px;
-	
-	background: url('../img/down.png') no-repeat center;
+	padding-right: 20px;
+	background: url('../img/right.png') no-repeat center right;
 }
+
+fieldset p.expander.expanded > label {
+	background-image: url('../img/down.png');
+}
+
 
 fieldset.reset button,
 fieldset.import button {
@@ -313,9 +326,9 @@ textarea {
 .o-button .icon {
 	display: block;
 	padding: 0;
-	margin: 0 5px;
+	margin: 2px 5px;
 	min-width: 22px;
-	height: 22px;
+	height: 18px;
 	color: #000;
 }
 
@@ -329,7 +342,9 @@ textarea {
 }
 
 .o-button .icon.text {
+	margin: 0 5px;
 	padding: 0 4px;
+	height: 22px;
 }
 
 
@@ -343,7 +358,7 @@ section.localizations ul {
 	list-style-type: none;
 	column-count: 2;
 	column-gap: 25px;
-	padding: 0;
+	padding: 0 20px;
 }
 
 section.localizations li {
@@ -403,4 +418,11 @@ dd {
 dl > dt:nth-of-type(even),
 dl > dt:nth-of-type(even) + dd {
 	background: rgba(150,160,200,0.25);
+}
+
+
+@media (max-width: 700px) {
+	section.localizations ul {
+		columns: 1;
+	}
 }

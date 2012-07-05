@@ -5,9 +5,9 @@
 	<link rel="stylesheet" href="/options.css">
 	<link rel="stylesheet" href="/help/help.css">
 	<link rel="stylesheet" href="/locale-help.css">
-	<script src="/js/debug.js"></script>
+	<script src="/js/jquery.js"></script>
+	<script src="/js/SettingStorage.js"></script>
 	<script src="/js/storage.js"></script>
-	<script src="/js/options.js"></script>
 	<script src="/js/help.js"></script>
 	<script src="/js/il8n.js"></script>
 	<script src="/js/classList.js"></script>
@@ -16,239 +16,216 @@
 		il8n.loadLocaleScript('locale-options.js');
 		il8n.loadLocaleStyle('locale-help.css');
 	</script>
+	<link rel="icon" type="image/png" href="img/icon_16.png">
 	<title id="title">Tab Vault Help</title>
 </head>
 <body>
-	<header>
-		<img src="/img/icon.png">
-		<div class="right">
-			<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="help">Help</span></h1>
-			<h2><span data-loc="by">By</span> <span id="widget-author">Joel Spadin</span></h2>
-		</div>
-		<div class="clear"></div>
-	</header>
+<div id="viewport">
+	<div id="topbar"></div>
+	<div id="wrap">
+		<header>
+			<img src="/img/icon.png">
+			<div class="right">
+				<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="TitleHelp2">Help</span></h1>
+			</div>
+		</header>
 
-	<!-- Start Translating Here -->
-	
-	<section>
-		<div id="first-time">
-			<h1>Neu bei Tab Vault?</h1>
-			<p>
-				Wenn Sie nicht sicher sind, was Tab Vault ist oder wie man es verwendet,
-                so lesen sie einfach weiter. Wenn sie ein Handbuch nur als letzten 
-                Ausweg zu Rate ziehen, so könnten Sie folgende Links interessieren:
-			</p>
-			<ul>
-				<li><a href="/options.html">Einstellungen ändern</a></li>
-				<li><a href="#" id="close">Weitersurfen!</a></li>
-			</ul>
-		</div>
+		<!-- Start Translating Here -->
 		
-		<h2 class="expander">Was ist Tab Vault?</h2>
-		<div>
-			<p>
-                Tab Vault kann verwendet werden um die Tabs innerhalb von Opera zwischenzuspeichern. Der Vorteil 
-                daran: die Tabs verbrauchen keinen Arbeitsspeicher und keinen Platz in der Tableiste, 
-                sind aber trotzdem einfach und schnell zu erreichen.
+		<h2>Was ist Tab Vault?</h2>
+		<p>
+            Tab Vault kann verwendet werden um die Tabs innerhalb von Opera zwischenzuspeichern. Der Vorteil 
+            daran: die Tabs verbrauchen keinen Arbeitsspeicher und keinen Platz in der Tableiste, 
+            sind aber trotzdem einfach und schnell zu erreichen.
 				
-                Genau wie in der Leiste können Sie Tabs neu anordnen und gruppieren (Stacking) sowie 
-                gelöschte Tabs aus dem Papierkorb wiederherstellen.
-				Außerdem können diese als eine Operasitzung gespeichert werden.
+            Genau wie in der Leiste können Sie Tabs neu anordnen und gruppieren (Stacking) sowie 
+            gelöschte Tabs aus dem Papierkorb wiederherstellen; außerdem können diese als eine Operasitzung gespeichert werden.
 
-                Die Anzahl der von Ihnen gespeicherten Tabs als Erinnerung im Toolbar-Symbol angezeigt.
-			</p>
-		</div>
+            Weiterhin wird die Anzahl der von Ihnen gespeicherten Tabs als Erinnerung im Toolbar-Symbol angezeigt.
+		</p>
 		
-		<h2 class="expander collapsed">Wie benutze ich Tab Vault?</h2>
-		<div>
-			<p>
-				Klicken Sie auf das Toolbar-Symbol der Erweiterung um Tab Vault zu öffnen. 
-                Dieses zeigt hier die Anzahl der gespeicherten Tabs an. Das und 
-                viele andere Dinge können sie in den <a href="/options.html" target="_blank">Einstellungen</a>
-                ändern.
-			</p>
-			<figure>
-				<img src="/help/open.png">
-				<figcaption>Das Toolbar-Symbol der Tab Vault - Erweiterung</figcaption>
-			</figure>
+		<h2>Wie benutze ich Tab Vault?</h2>
+		<p>
+			Klicken Sie auf das Toolbar-Symbol der Erweiterung um Tab Vault zu öffnen. 
+					Dieses zeigt hier die Anzahl der gespeicherten Tabs an. Das und 
+					viele andere Dinge können sie unter den <a href="/options.html" target="_blank">Einstellungen</a>
+					ändern.
+		</p>
+		<figure>
+			<img src="/help/open.png">
+			<figcaption>Das Toolbar-Symbol der Tab Vault - Erweiterung</figcaption>
+		</figure>
 			
-			<h3>Die Tab Vault GUI<span class="sub">Die Schnittstelle zum Benutzer</span></h3>
-			<p>
-                Tab Vault hat zwei Listen: Tabs und Papierkorb. In "Tabs" befinden sich die gespeicherten Tabs;
-				in "Papierkorb" werden die gelöschten Tabs zwischengespeichert, damit diese bei Bedarf wierhergestellt 
-                werden können. Klicken sie oben am Popup auf <code>Tabs</code> bzw. <code>Papierkorb</code> (Trash),
-                um zwischen den beiden Listen zu navigieren.
-				(<em>Anmerkung</em>: Ein leerer Papierkorb ist nicht aktivierbar)
-			</p>
-			<figure>
-				<img src="/help/popup.png">
-				<figcaption>Das Tab Vault - Popup</figcaption>
-			</figure>
+		<h3>Die Tab Vault GUI<span class="sub">Die Schnittstelle zum Benutzer</span></h3>
+		<p>
+					Tab Vault hat zwei Listen: Tabs und Papierkorb. In "Tabs" befinden sich die gespeicherten Tabs;
+			in "Papierkorb" werden die gelöschten Tabs zwischengespeichert, damit diese bei Bedarf wierhergestellt 
+					werden können. Klicken sie oben am Popup auf <code>Tabs</code> bzw. <code>Papierkorb</code> (Trash),
+					um zwischen den beiden Listen zu navigieren.
+			(<em>Anmerkung</em>: Ein leerer Papierkorb ist nicht aktivierbar)
+		</p>
+		<figure>
+			<img src="/help/popup.png">
+			<figcaption>Das Tab Vault - Popup</figcaption>
+		</figure>
 			
-			<h3>Die Tabliste <span class="sub">Tabs öffnen und verwalten</span></h3>
-			<p>
-				Klicken Sie <code>Tab speichern</code> (Save Tab) um den aktuell geöffneten Tab zur Tabliste hinzuzufügen. 
-                Klicken und ziehen sie die Tabs, um deren Anordnung zu ändern. Klicken sie auf das <code>X</code> eines 
-                Tabs um diesen in den Papierkorb zu verschieben. Dies geht auch, indem sie den Tab auf dem Papierkorblink ablegen.
-				In der Tabliste sieht man nur die Seitentitel; beim Überfahren mit der Maus werden aber zusätzlich
-                die URLs angezeigt. Dies kann man in den <a href="options.html" target="_blank">Einstellungen</a> auch anpassen.
-                .
-			</p>
-			<p>
-                Es gibt drei Wege einen Tab zu öffnen. 
-                <ol>
-                    <li> Einfach darauf klicken, um ihn in einem neuen Tab zu öffnen. </li>
-                    <li><code>Strg</code> halten und auf den Tab klicken um diesen im Hintergrund zu öffnen. </li>
-                    <li>Einen Tab aus der Liste ziehen und in der aktuellen Webseite ablegen, um diesen hier zu öffnen.</li>
-                </ol>
-            </p>
-			
-			<h3>Der Papierkorb <span class="sub">Gelöschte Tabs wiederherstellen</span></h3>
-			<p>
-                Wird ein Tab gelöscht landet er hier. Klicken Sie auf einen gelöschten Tab um ihn wiederherzustellen. 
-                Klicken sie <code>Papierkorb leeren</code> (Clear list of closed tabs) um alle gelöschten Tabs endgültig 
-                zu entfernen. <em>Anmerkung:</em>Im Papierkorb können die Tabs nicht neu angeordnet werden (wofür auch? :)).
-			</p>
-			<figure>
-				<img src="/help/trash.png">
-				<figcaption>Der Papierkorb</figcaption>
-			</figure>
-			
-			<h3>Tabgruppen<span class="sub">Schaffen wir Platz</span></h3>
-			<p>
-                Tab Vault unterstützt seit Version 2.0 auch Tabgruppen. Diese haben einen Erweiterungspfeil 
-                anstatt eines Favicons, außerdem gibt es kein <code>X</code>-Symbol. Statt dessen erscheint an dieser Stelle
-                ein Stiftsymbol, wenn man mit der Maus darüber fährt (dazu später). 
-                Um mit zwei Tabs eine Gruppe zu erstellen gehen Sie wie folgt vor:
-                <ul>
-                    <li>Klicken und halten sie den Tab, mit welchem Sie eine Gruppe eröffnen wollen</li>
-                    <li>bewegen Sie den Mauszeiger solange nach rechts auf diesem Tab, bis der Pfeil ganz rechts 
-                        nach unten zeigt (siehe Abbild unten; der entsprechende Bereich ist mit einem roten Kasten gekennzeichnet)</li>
-                    <li>nun ziehen Sie diesen Tab solange über den anderen Tab, bis letzterer sich dunkel verfärbt.</li> 
-                    <li>Als letztes lassen Sie den Tab hier fallen um diese beiden zu einer Gruppe zu vereinigen.</li>
-                </ul>
-			</p>
-			<figure>
-				<img src="/help/grouping.png">
-				<figcaption>Gruppierung zweier Tabs. Die Aktivierungsfläche ist rot umrandet</figcaption>
-			</figure>
-			<p>
-                Klicken sie auf den Namen einer Tabgruppe, um diese zu erweitern bzw. wieder einzuklappen. 
-                Um einen Gruppennamen zu ändern klicken sie auf das Stiftsymbol, welches beim Überfahren 
-                des Gruppentabs erscheint. Tabgruppen kann man ziehen und ablegen wie normale Tabs auch.
-                Weiterhin können in diese wenn sie erweitert wurden neue Tabs hineingezogen werden, um sie zur Gruppe hinzuzufügen,
-                sowie bestehende Tabs herausgezogen werden, um diese aus der Gruppe zu entfernen.
-                Eine Tabgruppe verschwindet bzw. verwandelt sich in einen einzelnen Tab, wenn sie nur noch 
-                einen Eintrag enthält. Eine komplette Gruppe kann man löschen indem man diese in den
-                <code>Papierkorb</code> verschiebt.
-			</p>
-			<figure>
-				<img src="/help/groups.png">
-				<figcaption>Links: eine erweiterte Tabgruppe mit aktiviertem Stiftsymbol. Rechts: Änderung eines Gruppennamens</figcaption>
-			</figure>
-			<p>
-				Die Implementation der Tabgruppen ist hier so gut wie identisch mit denen von Operas Tab Stacking.
-                Wenn man eine Tabgruppe auf einen Tab fallen lässt  - so wie man eine Tabgruppe erstellen würde - 
-                so wird daraus eine neue Gruppe erstellt mit dem neuen Tab als ersten Eintrag. Wird eine Gruppe auf eine andere
-                fallen gelassen, so wird erstere in letztere aufgenommen. Lässt man einen Tab auf eine eingeklappte
-                Tabgruppe fallen so wird er dieser hinzugefügt.
+		<h3>Die Tabliste <span class="sub">Tabs öffnen und verwalten</span></h3>
+		<p>
+			Klicken Sie <code>Tab speichern</code> (Save Tab) um den aktuell geöffneten Tab zur Tabliste hinzuzufügen. 
+					Klicken und ziehen sie die Tabs, um deren Anordnung zu ändern. Klicken sie auf das <code>X</code> eines 
+					Tabs um diesen in den Papierkorb zu verschieben. Dies geht auch, indem sie den Tab auf dem Papierkorblink ablegen.
+			In der Tabliste sieht man nur die Seitentitel; beim Überfahren mit der Maus werden aber zusätzlich
+					die URLs angezeigt. Dies kann man in den <a href="options.html" target="_blank">Einstellungen</a> auch anpassen.
+					.
+		</p>
+		<p>
+					Es gibt drei Wege einen Tab zu öffnen. 
+					<ol>
+						<li> Einfach darauf klicken, um ihn in einem neuen Tab zu öffnen. </li>
+						<li><code>Strg</code> halten und auf den Tab klicken um diesen im Hintergrund zu öffnen. </li>
+						<li>Einen Tab aus der Liste ziehen und in der aktuellen Webseite ablegen, um diesen hier zu öffnen.</li>
+					</ol>
 			</p>
 			
-		</div>
+		<h3>Der Papierkorb <span class="sub">Gelöschte Tabs wiederherstellen</span></h3>
+		<p>
+					Wird ein Tab gelöscht landet er hier. Klicken Sie auf einen gelöschten Tab um ihn wiederherzustellen. 
+					Klicken sie <code>Papierkorb leeren</code> (Clear list of closed tabs) um alle gelöschten Tabs endgültig 
+					zu entfernen. <em>Anmerkung:</em>Im Papierkorb können die Tabs nicht neu angeordnet werden (wofür auch? :)).
+		</p>
+		<figure>
+			<img src="/help/trash.png">
+			<figcaption>Der Papierkorb</figcaption>
+		</figure>
+			
+		<h3>Tabgruppen<span class="sub">Schaffen wir Platz</span></h3>
+		<p>
+					Tab Vault unterstützt seit Version 2.0 auch Tabgruppen. Diese haben einen Erweiterungspfeil 
+					anstatt eines Favicons, außerdem gibt es kein <code>X</code>-Symbol. Statt dessen erscheint an dieser Stelle
+					ein Stiftsymbol, wenn man mit der Maus darüber fährt (dazu später). 
+					Um mit zwei Tabs eine Gruppe zu erstellen gehen Sie wie folgt vor:
+					<ul>
+						<li>Klicken und halten sie den Tab, mit welchem Sie eine Gruppe eröffnen wollen</li>
+						<li>bewegen Sie den Mauszeiger solange nach rechts auf diesem Tab, bis der Pfeil ganz rechts 
+							nach unten zeigt (siehe Abbild unten; der entsprechende Bereich ist mit einem roten Kasten gekennzeichnet)</li>
+						<li>nun ziehen Sie diesen Tab solange über den anderen Tab, bis letzterer sich dunkel verfärbt.</li> 
+						<li>Als letztes lassen Sie den Tab hier fallen um diese beiden zu einer Gruppe zu vereinigen.</li>
+					</ul>
+		</p>
+		<figure>
+			<img src="/help/grouping.png">
+			<figcaption>Gruppierung zweier Tabs. Die Aktivierungsfläche ist rot umrandet</figcaption>
+		</figure>
+		<p>
+					Klicken sie auf den Namen einer Tabgruppe, um diese zu erweitern bzw. wieder einzuklappen. 
+					Um einen Gruppennamen zu ändern klicken sie auf das Stiftsymbol, welches beim Überfahren 
+					des Gruppentabs erscheint. Tabgruppen kann man ziehen und ablegen wie normale Tabs auch.
+					Weiterhin können in diese wenn sie erweitert wurden neue Tabs hineingezogen werden, um sie zur Gruppe hinzuzufügen,
+					sowie bestehende Tabs herausgezogen werden, um diese aus der Gruppe zu entfernen.
+					Eine Tabgruppe verschwindet bzw. verwandelt sich in einen einzelnen Tab, wenn sie nur noch 
+					einen Eintrag enthält. Eine komplette Gruppe kann man löschen indem man diese in den
+					<code>Papierkorb</code> verschiebt.
+		</p>
+		<figure>
+			<img src="/help/groups.png">
+			<figcaption>Links: eine erweiterte Tabgruppe mit aktiviertem Stiftsymbol. Rechts: Änderung eines Gruppennamens</figcaption>
+		</figure>
+		<p>
+			Die Implementation der Tabgruppen ist hier so gut wie identisch mit denen von Operas Tab Stacking.
+					Wenn man eine Tabgruppe auf einen Tab fallen lässt  - so wie man eine Tabgruppe erstellen würde - 
+					so wird daraus eine neue Gruppe erstellt mit dem neuen Tab als ersten Eintrag. Wird eine Gruppe auf eine andere
+					fallen gelassen, so wird erstere in letztere aufgenommen. Lässt man einen Tab auf eine eingeklappte
+					Tabgruppe fallen so wird er dieser hinzugefügt.
+		</p>
 		
-		<h2 class="expander collapsed">Zusätzliche Features</h2>
-		<div>
-			<h3>Sitzungen<span class="sub">Tablisten speichern und wieder herstellen</span></h3>
-			<p>
-                Tab Vault kann Opera-Sitzungsdateien exportieren und importieren; dies geschieht über den
-                Import/Export-Abschnitt der <a href="/options.html" target="_blank">Einstellungsseite</a>.
-			</p>
-			<p>
-                Zum Exportieren Ihrer Tabs aus Tab Vault klicken sie "Sitzung exportieren"; Opera wird dann einen neuen Tab öffnen. 
-                Über <code>Menü > Seite > Speichern...</code>, erreichbar über den Hotkey <em>Strg + S</em>, kann man diese Seiten dann als .win-Datei speichern.
-			</p>
-			<p>
-                Um eine Sitzung zu importieren öffnen Sie als erstes die .win-Datei in einem Texteditor,
-                kopieren den kompletten Inhalt in die Textbox auf der Einstellungsseite und klicken 
-                dann auf "Sitzung importieren".
-			</p>
-			<p>
-                <em>Tipp</em>: Wenn man eine exportierte Sitzung im selben Verzeichnis ablegt in dem Opera seine eigenen Sitzungen
-                speichert, so wird sie danach im Sitzungsmenü von Opera angezeigt. Um zu zu ermitteln, wo man die Datei speichern muss,
-                öffnet man <a href="opera:about">opera:about</a> und schaut sich den Eintrag hinter "Gespeicherte Sitzungen" an; 
-                dieser zeigt auf die automatisch gespeicherte Sitzungsdatei. In das gleiche Verzeichnis kommt dann die exportierte Sitzung.
-			</p>
+		<h2>Zusätzliche Features</h2>
+		<h3>Sitzungen<span class="sub">Tablisten speichern und wieder herstellen</span></h3>
+		<p>
+					Tab Vault kann Opera-Sitzungsdateien exportieren und importieren; dies geschieht über den
+					Import/Export-Abschnitt der <a href="/options.html" target="_blank">Einstellungsseite</a>.
+		</p>
+		<p>
+					Zum Exportieren Ihrer Tabs aus Tab Vault klicken sie "Sitzung exportieren"; Opera wird dann einen neuen Tab öffnen. 
+					Über <code>Menü > Seite > Speichern...</code>, erreichbar über den Hotkey <em>Strg + S</em>, kann man diese Seiten dann als .win-Datei speichern.
+		</p>
+		<p>
+					Um eine Sitzung zu importieren öffnen Sie als erstes die .win-Datei in einem Texteditor,
+					kopieren den kompletten Inhalt in die Textbox auf der Einstellungsseite und klicken 
+					dann auf "Sitzung importieren".
+		</p>
+		<p>
+					<em>Tipp</em>: Wenn man eine exportierte Sitzung im selben Verzeichnis ablegt in dem Opera seine eigenen Sitzungen
+					speichert, so wird sie danach im Sitzungsmenü von Opera angezeigt. Um zu zu ermitteln, wo man die Datei speichern muss,
+					öffnet man <a href="opera:about">opera:about</a> und schaut sich den Eintrag hinter "Gespeicherte Sitzungen" an; 
+					dieser zeigt auf die automatisch gespeicherte Sitzungsdatei. In das gleiche Verzeichnis kommt dann die exportierte Sitzung.
+		</p>
         
 
-            <h3>Buttons und Hotkeys</h3>
-            <p>
-                Tab Vault bietet JavaScript-Funktionen, über welche das Programm von 
-                Webseiten oder von anderen Operaprogrammen gesteuert werden kann. Das bedeutet, dass
-                Sie einen Hotkey, eine Mausgeste und/oder einen Button erstellen können, 
-                um einen Tab schnell zu speichern.
-           </p>
-            <p>
-                Um das zu aktivieren gehen Sie zur "Buttons und Shortcuts" - Sektion der 
-                <a href="/options.html" target="_blank">Einstellungen</a> und setzen sie ein Passwort.
-                Dieses verhindert, dass bösartige Websites etwas in Ihrem TabVault speichern.
-                Sie brauchen sich das Passwort nicht zu merken, daher können Sie hier einfach "Passwort erstellen"
-                klicken um ein zufälliges Passwort zu erstellen.
-            </p>
-            <p>
-                Um einen Button für das Speichern des aktuellen Tabs zu erstellen wäheln Sie unter <code>Buttons zum Speichern eines Tabs</code>
-                einen aus und klicken darauf. Unter <code>Menü > Erscheinungsbild > Schaltflächen > Eigene</code>  
-                erscheint dieser dann und kann von hieraus wie jeder anderen Button auch in irgendeine Werkzeugleiste geogen werden.
-                (Durch einen Fehler in Opera erscheint der Button zur Zeit größer als normal, verwenden Sie daher einen der kleineren)
-            </p>
-            <p>
-                Um einen Hotkey oder eine Mausgeste zu erstellen kopieren Sie zuerst den Text, welcher unter 
-                "Das wird zum Speichern eines Tabs ausgeführt" steht. Danach öffnen Sie 
-                <code>Menü > Einstellungen > Einstellungen > Erweitert > Schnellzugriff</code>, bearbeiten das entsprechende Setup
-                für Mausgesten bzw. Tastenkombinationen, und erstellen einen neuen Hotkey mit dem kopierten Text als Aktion.
-            </p>
-            <p>
-                Um einen Tab aus JavaScript heraus zu speichern benutzen Sie die Funktion 
-                <code class="nowrap">window.opera.tabvault.save(pass, url, title, icon)</code>,
-                wobei "pass" Ihr (wahrscheinlich gerade erst generiertes) Passwort ist, "url" die URL des Tab,
-                "title" der Name des Tabs, und "icon" die URL zum Favicon des Tabs. Lassen Sie alles nach dem Passwort weg,
-                sow ird der aktuelle Ta gespeichert.
-            </p>
-            <p>
-                Anmerkung: aufgrund eines Bugs in Opera ist es TabVault nicht möglich das Favion eines Tabs zu ermitteln, wenn dieses 
-                mittels eines Buttons oder Hokeys gespeichert wurde.
-            </p>
-        </div>
+		<h3>Buttons und Hotkeys</h3>
+		<p>
+				Tab Vault bietet JavaScript-Funktionen, über welche das Programm von 
+				Webseiten oder von anderen Operaprogrammen gesteuert werden kann. Das bedeutet, dass
+				Sie einen Hotkey, eine Mausgeste und/oder einen Button erstellen können, 
+				um einen Tab schnell zu speichern.
+		</p>
+		<p>
+				Um das zu aktivieren gehen Sie zur "Buttons und Shortcuts" - Sektion der 
+				<a href="/options.html" target="_blank">Einstellungen</a> und setzen sie ein Passwort.
+				Dieses verhindert, dass bösartige Websites etwas in Ihrem TabVault speichern.
+				Sie brauchen sich das Passwort nicht zu merken, daher können Sie hier einfach "Passwort erstellen"
+				klicken um ein zufälliges Passwort zu erstellen.
+		</p>
+		<p>
+				Um einen Button für das Speichern des aktuellen Tabs zu erstellen wäheln Sie unter <code>Buttons zum Speichern eines Tabs</code>
+				einen aus und klicken darauf. Unter <code>Menü > Erscheinungsbild > Schaltflächen > Eigene</code>  
+				erscheint dieser dann und kann von hieraus wie jeder anderen Button auch in irgendeine Werkzeugleiste geogen werden.
+				(Durch einen Fehler in Opera erscheint der Button zur Zeit größer als normal, verwenden Sie daher einen der kleineren)
+		</p>
+		<p>
+				Um einen Hotkey oder eine Mausgeste zu erstellen kopieren Sie zuerst den Text, welcher unter 
+				"Das wird zum Speichern eines Tabs ausgeführt" steht. Danach öffnen Sie 
+				<code>Menü > Einstellungen > Einstellungen > Erweitert > Schnellzugriff</code>, bearbeiten das entsprechende Setup
+				für Mausgesten bzw. Tastenkombinationen, und erstellen einen neuen Hotkey mit dem kopierten Text als Aktion.
+		</p>
+		<p>
+				Um einen Tab aus JavaScript heraus zu speichern benutzen Sie die Funktion 
+				<code class="nowrap">window.opera.tabvault.save(pass, url, title, icon)</code>,
+				wobei "pass" Ihr (wahrscheinlich gerade erst generiertes) Passwort ist, "url" die URL des Tab,
+				"title" der Name des Tabs, und "icon" die URL zum Favicon des Tabs. Lassen Sie alles nach dem Passwort weg,
+				sow ird der aktuelle Ta gespeichert.
+		</p>
+		<p>
+				Anmerkung: aufgrund eines Bugs in Opera ist es TabVault nicht möglich das Favion eines Tabs zu ermitteln, wenn dieses 
+				mittels eines Buttons oder Hokeys gespeichert wurde.
+		</p>
 
-        <h2 class="expander collapsed"> Falls Fehler auftreten sollten</h2>
-        <div>
-			<p>
-                Das Design der Erweiterung erschwert es zwar, das Bugs einen schwerwiegenden Datenverlust
-                verursachen, trotzdem habe ich (sehr selten) Rückmeldungen bekommen von Leuten,
-                deren Tabs komplett aus der Tab Vault verschwunden sind.
-                Das kann passieren wenn Opera die Daten der Erweiterung verliert, sei es durch einen Absturz 
-                des Browsers, einen noch nicht entdeckten Bug in Tab Vault, oder etwas komplett anderes.
-                So oder so, ich empfehle dringend, sicherheitshalber regelmäßig Ihre Tabs zu exportieren,
-                nur für den Fall das etwas passiert.
-			</p>
-				
-		</div>
-		
+		<h2> Falls Fehler auftreten sollten</h2>
+		<p>
+					Das Design der Erweiterung erschwert es zwar, das Bugs einen schwerwiegenden Datenverlust
+					verursachen, trotzdem habe ich (sehr selten) Rückmeldungen bekommen von Leuten,
+					deren Tabs komplett aus der Tab Vault verschwunden sind.
+					Das kann passieren wenn Opera die Daten der Erweiterung verliert, sei es durch einen Absturz 
+					des Browsers, einen noch nicht entdeckten Bug in Tab Vault, oder etwas komplett anderes.
+					So oder so, ich empfehle dringend, sicherheitshalber regelmäßig Ihre Tabs zu exportieren,
+					nur für den Fall das etwas passiert.
+		</p>
+
 		<h2>Immer noch verwirrt?</h2>
 		<p>Auf der <a href="http://my.opera.com/spadija/blog/tab-vault">Support-Seite 
-        von Tab Vault</a> gibt es weitere Hilfe; unter Anderem ist es hier auch möglich, mir Fragen zu stellen.</p>
+			von Tab Vault</a> gibt es weitere Hilfe; unter Anderem ist es hier auch möglich, mir Fragen zu stellen.</p>
 		
-	</section>
 	
-	<!-- Stop Translating Here -->
+		<!-- Stop Translating Here -->
 	
-	<footer>
-		<p data-loc="footer">
-			<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
-			is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, 
-			images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
-			and <a href="http://www.opera.com">Opera Software</a>
-		</p>
-	</footer>
-	
+		<footer>
+			<p data-loc="Footer">
+				<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a>
+				is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, 
+				images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a>
+				and <a href="http://www.opera.com">Opera Software</a>
+			</p>
+		</footer>
+	</div>
+</div>
 </body>
 </html>

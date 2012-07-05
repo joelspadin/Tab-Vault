@@ -1051,10 +1051,17 @@ function TabGroup(info) {
 	}
 	
 	
-	this.open = function(background, trash) {
+	this.open = function (background, trash) {
+
+		opera.extension.postMessage({
+			action: 'open_group',
+			tabs: this.tabs.map(function (tab) { return tab.url }),
+			focused: !background
+		});
+
 		// Open all tabs in this group and focus the first if !background
-		for (var i = this.tabs.length - 1; i >= 0; i--) 
-			this.tabs[i].open(background || i != 0, false);
+		//for (var i = this.tabs.length - 1; i >= 0; i--) 
+		//	this.tabs[i].open(background || i != 0, false);
 		
 		if (tabs.closeOnOpen && !background)
 			window.close();

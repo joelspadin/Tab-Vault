@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+	<meta charset="utf-8" />
 	<title>Tab Vault</title>
 	<link rel="stylesheet" href="dropdown.css">
 	<script src="../js/SettingStorage.js"></script>
@@ -49,6 +50,7 @@
 	</div>
 	
 	<script>
+		var bg = opera.extension.bgProcess;
 		window.saveToGroup = 0;
 		
 		contextmenus.init();
@@ -57,8 +59,7 @@
 		il8n.translatePage(!tabs.tooltips);
 		
 		// Get popup width and load variable stylesheet
-		localesettings.PopupWidth = Math.max(
-			localesettings.PopupWidth, settings.get('popup_width'));
+		localesettings.PopupWidth = Math.max(localesettings.PopupWidth, settings.get('popup_width'));
 		varstyle.addStyle('variable.css', localesettings);
 		
 		// Maybe disable animation by disabling css transitions
@@ -76,10 +77,19 @@
 				'body.tabs #button-tabs:after,body.trash #button-trash:after { border-bottom-color: #fff; }';
 			document.head.appendChild(style);
 		}
+
+		if (bg.tabs.isGrouped(bg.tabs.focused())) {
+			document.body.addClass('isgrouped');
+		}
 		
 		// Changes between 'tabs' and 'trash' lists
 		function changePage(page) {
-			document.body.className = page;
+			if (page === 'tabs')
+				document.body.removeClass('trash');
+			else
+				document.body.removeClass('tabs');
+
+			document.body.addClass(page);
 			enableTrash();
 			requestResize(page);
 		}
@@ -88,9 +98,10 @@
 		function enableTrash() {
 			if (storage.trash.count == 0) {
 				$('#button-trash').addClass('disabled');
-				if (document.body.className == 'trash') {
+				if (document.body.hasClass('trash')) {
 					//debug('trash disabled');
-					document.body.className = 'tabs';
+					document.body.removeClass('trash');
+					document.body.addClass('tabs');
 					requestResize('tabs');
 				}
 			}

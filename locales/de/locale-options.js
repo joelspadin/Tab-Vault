@@ -21,6 +21,7 @@ il8n.strings = {
 	CompactTabs: '<Unbenutzt>',
 	Tooltips: 'Hilfe-Tooltips im Popup anzeigen',
 	VerboseTabTips: 'Sowohl Titel als auch URL im Tab-Tooltip anzeigen',
+	/* Translation Needed */ OpenNextToActive: 'Open new tabs next to the active tab',
 	TrashOnOpen: 'Nach öffnen eines Tabs diesen aus der Tabliste entfernen',
 	AllowListDuplicates: 'Erlaube doppelte Einträge in der Hauptliste',
 	AllowGroupDuplicates: 'Erlaube doppelte Einträge in den Gruppen',
@@ -40,6 +41,7 @@ il8n.strings = {
 	BackgroundAlpha: 'Deckkraft des Hintergrundes',
 	TextColor: 'Farbe des Toolbar-Symboltextes',
 	TextAlpha: 'Deckkraft des Symboltextes',
+	FeatherweightIcon: 'Nutze Iconstyle "Leichtgewicht"',
 	LimitHeight: 'Die Höhe des Popups begrenzen',
 	MaxHeight: 'Maximale Höhe (px)',
 	PopupWidth: 'Breite des Popups (px)',
@@ -48,6 +50,7 @@ il8n.strings = {
 	MiddleClick: 'Bei mittlerem Mausklick ...',
 	MiddleClickOpen: 'Tab im Hintergrund öffnen',
 	MiddleClickClose: 'Tab löschen',
+	MiddleClickOpenCurrent: 'In aktuellem Tab öffnen',
 	MiddleClickNone: 'Nichts tun',
 	CxMenuStyle: 'Kontextmenü-Darstellung',	
 	Language: 'Sprache (braucht einen Neustart)',
@@ -75,6 +78,9 @@ il8n.strings = {
 	ResetTabs: 'Alle gespeicherten Tabs aus dem Tab Vault entfernen',
 	ResetAllButton: 'Alles zurücksetzen',
 	ResetAll: 'Die Erweiterung auf den Werkszustand zurücksetzen',
+	ConfirmResetSettings: 'Alle Einstellungen zurücksetzen?',
+	ConfirmResetTabs: 'Alle gespeicherten Tabs löschen?',
+	ConfirmResetAll: 'Tab Vault komplett zurücksetzen? Alle gespeicherten Tabs und Einstellungen werden verloren gehen.',
 	
 	ExternalAccess: 'Buttons und Hotkeys',
 	EnableAccess: 'Passwort setzen, über welches der Zugriff auf Tab Vault mittles Hotkeys ermöglicht wird',
@@ -87,7 +93,7 @@ il8n.strings = {
 	
 	
 	Help: 'Brauchen Sie Hilfe?',						// Help category header
-	HelpLink: 'Hier klicken, um zu lernen, wozu Tab Vault da ist, wie es funktioniert und wie man es anwendet',
+	HelpLink: 'Hier klicken, um die Hilfeseite zu öffnen.',
 
 	
 	Upgrading: 'Einstellungen-Aktualisierung',	// Upgrade explanation header

@@ -528,6 +528,11 @@ section.page > ul.scroll {
 	display: none;
 }
 
+body:not(.isgrouped) .cxmenu .save_group {
+	display: none;
+}
+
+
 .cxmenu {
 	background: #fff;
 	border: 1px solid #979797;

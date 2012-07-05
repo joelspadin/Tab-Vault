@@ -45,6 +45,7 @@ il8n.strings = {
 	/* Translation needed */ CxCopyUrl: 'Copy Tab URL',
 	
 	CxSaveCurrent: 'Guardar separador currente',
+	/* Translation needed */ CxSaveGroup: 'Save Tab Group',
 	CxSaveAsGroup: 'Guardar separador num novo grupo',
 	CxSaveAll: 'Guardar todos os separadores',
 	CxSaveWindow: 'Guardar separadores nesta janela',

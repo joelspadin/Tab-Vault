@@ -45,6 +45,7 @@ il8n.strings = {
 	CxCopyUrl: 'ჩანართის ბმულის დაკოპირება',
 	
 	CxSaveCurrent: 'მიმდინარე ჩანართის შენახვა',
+	/* Translation needed */ CxSaveGroup: 'Save Tab Group',
 	CxSaveAsGroup: 'ჩანართის შენახვა ახალ ჯგუფში',
 	CxSaveAll: 'ყველა ჩანართის შენახვა',
 	CxSaveWindow: 'ამ ფანჯრის ყველა ჩანართის შენახვა',

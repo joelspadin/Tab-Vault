@@ -45,6 +45,7 @@ il8n.strings = {
 	CxCopyUrl: 'Копирај URL адресу стране',
 	
 	CxSaveCurrent: 'Сачувај активну страну',
+	/* Translation needed */ CxSaveGroup: 'Save Tab Group',
 	CxSaveAsGroup: 'Сачувај страну у нову групу',
 	CxSaveAll: 'Сачувај све стране',
 	CxSaveWindow: 'Сачувај стране из овог прозора',

@@ -21,6 +21,7 @@ il8n.strings = {
 	CompactTabs: '<Unused>',
 	Tooltips: 'Show help tooltips in the popup',
 	VerboseTabTips: 'Show both title and URL in tab tooltips',
+	OpenNextToActive: 'Open new tabs next to the active tab',
 	TrashOnOpen: 'Send tabs to the trash after opening them',
 	AllowListDuplicates: 'Allow duplicate tabs in the main list',
 	AllowGroupDuplicates: 'Allow duplicate tabs in groups',
@@ -79,7 +80,7 @@ il8n.strings = {
 	ResetAll: 'Reset Tab Vault to its original state',
 	ConfirmResetSettings: 'Reset all settings?',
 	ConfirmResetTabs: 'Delete all saved tabs?',
-	ConfirmResetAll: 'Reset Tab Vault completely? you will lose your settings and all saved tabs.',
+	ConfirmResetAll: 'Reset Tab Vault completely? You will lose your settings and all saved tabs.',
 	
 	ExternalAccess: 'Buttons and Shortcuts',
 	EnableAccess: 'Set a password to allow shortcuts to access Tab Vault',
@@ -121,7 +122,7 @@ il8n.strings = {
 			'extension page</a>. Thanks!',
 
 	Footer: '<a href="https://addons.opera.com/addons/extensions/details/tab-vault/">Tab Vault</a> ' +
-			'is &copy; 2010&ndash;2011 <a href="http://chaosinacan.com">Joel Spadin</a>, ' +
+			'is &copy; 2010&ndash;2012 <a href="http://chaosinacan.com">Joel Spadin</a>, ' +
 			'images by <a href="http://dellustrations.deviantart.com/">Wendell Fernandes</a> ' +
 			'and <a href="http://www.opera.com">Opera Software</a>',
 	

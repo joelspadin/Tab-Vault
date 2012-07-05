@@ -1,6 +1,8 @@
 
+var ext = opera.extension;
+
 var features = {
-	groups: !!opera.extension.tabGroups,
+	groups: !!ext.tabGroups,
 }
 
 var ui = new function UI() {
@@ -265,11 +267,11 @@ var tabs = new function Tabs() {
 	}
 	
 	this.sendGetError = function(source) {
-		source.postMessage({action: 'get_error'});
+		source.postMessage({ action: 'get_error' });
 	}
 
 	this.sendOpenError = function(source) {
-		source.postMessage({action: 'open_error'});
+		source.postMessage({ action: 'open_error' });
 	}
 	
 	this.isAccessible = function(tab) {
@@ -277,9 +279,14 @@ var tabs = new function Tabs() {
 	}
 
 	this.isSavable = function(tab) {
-		return !!tab && tab.closed !== true && !!tab.url;
+		return !!tab && tab.closed !== true && !!tab.url && tab.url.substr(0, 9) !== 'widget://';
 	}
 
+	this.isGrouped = function (tab) {
+		return !!tab && !!tab.tabGroup;
+	}
+
+	
 	this.removeUnsavable = function(list) {
 		var newList = [];
 		for (var i = 0; i < list.length; i++)
@@ -290,24 +297,32 @@ var tabs = new function Tabs() {
 	}
 	
 	this.open = function(url, focused) {
-		return opera.extension.tabs.create({
+		next = settings.open_next_to_active ? tabutils.getNextTab(tabs.focused()) : null;
+
+		return ext.tabs.create({
 			url: url,
 			focused: focused || false
-		});
+		}, next);
 	}
 	
 	this.openGroup = function(urls, focused) {
-		var list = [];
-		for (var i = 0; i < urls.length; i++)
-			list.push(tabs.open(urls[i], false));
+		next = settings.open_next_to_active ? tabutils.getNextTab(tabs.focused()) : null;
+
+		var list = urls.map(function (url) {
+			return tabs.open(url, false);
+		});
 		
 		if (!features.groups)
 			return null;
 		
-		return opera.extension.tabGroups.create(list, {
-			focused: focused || false,
+		var retval = ext.tabGroups.create(list, {
 			collapsed: true,
-		});
+		}, next);
+
+		if (focused)
+			retval.focus();
+
+		return retval;
 	}
 	
 	this.close = function(tab) {
@@ -323,20 +338,20 @@ var tabs = new function Tabs() {
 	
 	
 	this.focused = function() {
-		return opera.extension.tabs.getFocused();
+		return ext.tabs.getFocused();
 	}
 	
 	this.inGroup = function(group) {
-		return [];
+		return group.tabs.getAll();
 	}
 	
 	this.all = function() {
 		// Gets all tabs
-		if (opera.extension.tabs.getAll)
-			return opera.extension.tabs.getAll();
+		if (ext.tabs.getAll)
+			return ext.tabs.getAll();
 		
 		var list = [];
-		var windows = opera.extension.windows.getAll();
+		var windows = ext.windows.getAll();
 		
 		for (var i = 0; i < windows.length; i++)
 			list = list.concat(tabs.inWindow(windows[i]));
@@ -355,6 +370,7 @@ var tabs = new function Tabs() {
 		});
 	}
 	
+
 	
 	this.onGetTab = function(e) {
 		tabs.sendTab(e.source, tabs.focused());
@@ -362,10 +378,10 @@ var tabs = new function Tabs() {
 	
 	this.onGetGroup = function(e) {
 		var focused = tabs.focused();
-		if (!focused || !focused.tabGroup)
+		if (!focused || !tabs.isGrouped(focused))
 			tabs.sendGetError(e.source);
 		
-		tabs.sendGroup(e.source, tabs.inGroup(focused.tabGroup));
+		tabs.sendGroup(e.source, tabs.inGroup(focused.tabGroup), focused.title);
 	}
 	
 	this.onGetAll = function(e) {
@@ -373,7 +389,7 @@ var tabs = new function Tabs() {
 	}
 	
 	this.onGetWindow = function(e) {
-		var focused = opera.extension.windows.getFocused();
+		var focused = ext.windows.getFocused();
 		if (!focused)
 			tabs.sendGetError(e.source);
 		
@@ -415,7 +431,7 @@ var tabs = new function Tabs() {
 }
 
 
-var utils = function Utils() {
+var utils = new function Utils() {
 	
 	this.getDomain = function(url) {
 		return url.match(/:\/\/(www\.)?(.[^/:]+)/)[2];
@@ -438,8 +454,6 @@ var utils = function Utils() {
 		return parts[i].replace('%s', value);
 	}
 
-
-	
 }
 
 var tabutils = new function TabUtils() {
@@ -459,6 +473,40 @@ var tabutils = new function TabUtils() {
 		});
 	}
 	
+	this.getNextTab = function(tab) {
+		if (!features.groups)
+			return null;
+		if (tab.tabGroup)
+			position = tab.tabGroup.position;
+		else
+			position = tab.position;
+
+		return tabutils.tabAt(tab.browserWindow, position + 1)
+	}
+
+	/**
+	 * Gets the tab at a position within a group
+	 */
+	this.tabAt = function(group, pos) {
+		if (!features.groups)
+			return null;
+
+		var list = group.tabs.getAll();
+		for (var i = 0; i < list.length; i++) {
+			if ((list[i].tabGroup === group || list[i].tabGroup === null) && list[i].position == pos)
+				return list[i];
+		}
+
+		if (group instanceof BrowserWindow) {
+			list = group.tabGroups.getAll();
+			for (var i = 0; i < list.length; i++) {
+				if (list[i].position == pos)
+					return list[i];
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * Reloads the favicon url of an already saved tab
 	 */
@@ -674,44 +722,63 @@ var colorutils = new function ColorUtils() {
 
 function init() {
 	storage.settings.init();
-	
 	loadLocale();
-	
 	ui.init();
+
+	// Does this do anything? Nope.
+	// Is it necessary for the extension to work? Yep.
+	// BrowserWindow doesn't exist until you get a reference to one such object.
+	// Why not? No idea.
+	ext.windows.getAll();
+
+	// Fix for focus issue when creating tabs in the background
+	// Create the tab focused, then immediately refocus the current tab
+	BrowserTabManager.prototype._create = BrowserTabManager.prototype.create;
+	BrowserTabManager.prototype.create = function(properties, before) {
+		if (properties.focused)
+			return this._create(properties, before);
+
+		var currentTab = ext.tabs.getSelected();
+		properties.focused = true;
+		var retval = this.create(properties, before);
+		if (currentTab)
+			currentTab.focus();
+		return retval;
+	}
 }
 
 
 
 var messageHandlers = {
-	get_tab: tabs.onGetTab,
-	get_group: tabs.onGetGroup,
-	get_all: tabs.onGetAll,
-	get_window: tabs.onGetWindow,
-	get_domain: tabs.onGetDomain,
+	'get_tab': tabs.onGetTab,
+	'get_group': tabs.onGetGroup,
+	'get_all': tabs.onGetAll,
+	'get_window': tabs.onGetWindow,
+	'get_domain': tabs.onGetDomain,
 	
-	open_tab: tabs.onOpenTab,
-	open_group: tabs.onOpenGroup,
-	close_tab: tabs.onCloseTab,
-	change_tab: tabs.onChangeTab,
+	'open_tab': tabs.onOpenTab,
+	'open_group': tabs.onOpenGroup,
+	'close_tab': tabs.onCloseTab,
+	'change_tab': tabs.onChangeTab,
 	
-	recount: ui.onRecount,
-	resize: ui.onResize,
-	reload_icon: tabutils.onReloadIcon,
+	'recount': ui.onRecount,
+	'resize': ui.onResize,
+	'reload_icon': tabutils.onReloadIcon,
 	
-	enter_page: ui.onEnterPage,
-	leave_page: ui.hideDropMessage,
+	'enter_page': ui.onEnterPage,
+	'leave_page': ui.hideDropMessage,
 	
 	'export': tabutils.onExport,
 	'import': tabutils.onImport,
-	external_save: tabutils.onExternalSave,
+	'external_save': tabutils.onExternalSave,
 }
 
 
 window.addEventListener('load', checkVersion, false);
 window.addEventListener('load', init, false);
 
-opera.extension.tabs.onfocus = ui.hideDropMessage;
-opera.extension.onmessage = function(e) {
+ext.tabs.onfocus = ui.hideDropMessage;
+ext.onmessage = function(e) {
 	var handler = messageHandlers[e.data.action];
 	if (handler)
 		messageHandlers[e.data.action](e);
@@ -739,13 +806,13 @@ function checkVersion() {
 	else {
 		settings.set('version', 2);
 		tabs.open('help.html#first', true);
-	}	
+	}
 }
 
 
 function resetAll() {
 	widget.preferences.clear();
-	opera.contexts.toolbar.removeItem(button);
+	opera.contexts.toolbar.removeItem(ui.button);
 	checkVersion();
 	init();
 }

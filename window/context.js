@@ -240,6 +240,7 @@ var contextmenus = new function ContextMenuList() {
 		reloadIcon: empty,
 		
 		save: empty,
+		saveGroup: empty,
 		saveAsGroup: empty,
 		saveWindow: empty,
 		saveAll: empty,
@@ -370,6 +371,11 @@ contextmenus.init = function() {
 				callback: function(e) {contextmenus.callbacks.save(e)}
 			},
 			{
+				name: _('CxSaveGroup'),
+				className: 'save_group',
+				callback: function (e) { contextmenus.callbacks.saveGroup(e) }
+			},
+			{
 				name: _('CxSaveAsGroup'),
 				callback: function(e) {contextmenus.callbacks.saveAsGroup(e)}
 			},
@@ -411,6 +417,10 @@ contextmenus.init = function() {
 
 	contextmenus.callbacks.save = function() {
 		opera.extension.postMessage({action: 'get_tab'});
+	}
+
+	contextmenus.callbacks.saveGroup = function () {
+		opera.extension.postMessage({ action: 'get_group' });
 	}
 	
 	contextmenus.callbacks.saveAsGroup = function() {

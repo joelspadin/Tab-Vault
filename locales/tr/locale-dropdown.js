@@ -44,6 +44,7 @@ il8n.strings = {
 	/* Translation needed */ CxCopyUrl: 'Copy Tab URL',
 	
 	CxSaveCurrent: 'Şuanki Sekmeyi Kaydet',
+	/* Translation needed */ CxSaveGroup: 'Save Tab Group',
 	CxSaveAsGroup: 'Sekmeyi Yeni Gruba Kaydet',
 	CxSaveAll: 'Tüm Sekmeleri Kaydet',
 	CxSaveWindow: 'Bu Penceredeki Tüm Sekmeleri Kaydet',

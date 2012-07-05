@@ -20,7 +20,10 @@ $(document).ready(function() {
 	//updateFavicon();
 	
 	il8n.translatePage();
-	il8n.localizeLinks('[data-loc=HelpLink], #first_help');
+	localeDef = getLocaleDef(settings.locale)
+	if (localeDef && localeDef.hasHelp)
+		il8n.localizeLinks('[data-loc=HelpLink]');
+	
 	
 	disableAnimation();
 	setDefaults();
@@ -125,7 +128,7 @@ function buildExpanders() {
 		var setting = elem.attr('data-expandsetting');
 		var input = $('[name=' + setting + ']');
 		
-		input.closest('p').addClass('expander');
+		var expander = input.closest('p').addClass('expander');
 		
 		function update(first) {
 			var value = settings.get(setting);
@@ -143,10 +146,14 @@ function buildExpanders() {
 				expand = !!value;
 			}
 			
-			if (expand)
+			if (expand) {
 				elem.slideDown(first === true ? 0 : 200);
-			else
+				expander.addClass('expanded');
+			}
+			else {
 				elem.slideUp(first === true ? 0 : 200);
+				expander.removeClass('expanded');
+			}
 		}
 		
 		input.change(update);
@@ -303,7 +310,7 @@ var access = new function ExternalAccess() {
 			icon = icon.substr(3);
 			link.addClass('small');
 		}
-		
+
 		link.attr('href', 'opera:/button/' + access.makeButton(label, icon, closeOnSave));
 		
 		if (icon)
@@ -333,7 +340,6 @@ var access = new function ExternalAccess() {
 		var label = _('SaveButtonTitle');
 		var icons = [
 			'Add to bookmarks',
-			'New page',
 			'Bookmarks',
 			'Save',
 			'Goto Public Page',
@@ -341,7 +347,6 @@ var access = new function ExternalAccess() {
 			'Reply',
 			'Get Mail',
 			'Send Mail',
-			'Panel Notes',
 			'',
 			'16:Bookmark Visited',
 			'16:Bookmark Unvisited',

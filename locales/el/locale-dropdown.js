@@ -45,6 +45,7 @@ il8n.strings = {
 	/* Translation needed */ CxCopyUrl: 'Copy Tab URL',
 	
 	CxSaveCurrent: 'Αποθήκευση Τρέχουσας Καρτέλας',
+	/* Translation needed */ CxSaveGroup: 'Save Tab Group',
 	CxSaveAsGroup: 'Αποθήκευση Καρτέλας σε Νέα Ομάδα',
 	CxSaveAll: 'Αποθήκευση Όλων των Καρτελών',
 	CxSaveWindow: 'Αποθήκευση Καρτέλας σε αυτό το Παράθυρο',

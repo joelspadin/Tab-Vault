@@ -38,6 +38,7 @@ il8n.strings = {
 	CxOpenAllBackground: 'Alle Tabs im Hintergrund öffnen',
 	
 	CxCreateGroup: 'Gruppe erstellen',
+	CxSaveGroup: 'Tab-Gruppe speichern',
 	CxSaveToGroup: 'Aktuellen Tab hier speichern',
 	CxUngroup: 'Tabs aus Gruppe lösen',
 	CxReloadIcon: 'Icon neuladen',

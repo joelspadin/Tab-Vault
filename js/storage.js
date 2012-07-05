@@ -308,6 +308,7 @@ var storage = new function Storage() {
 		['tooltips', true],
 		['verbose_tab_tips', false],
 		['disable_animation', false],
+		['open_next_to_active', true],
 		['trash_on_open', false],
 		['allow_list_dupes', true],
 		['allow_group_dupes', true],
@@ -326,7 +327,7 @@ var storage = new function Storage() {
 		['max_height', screen.height],
 		['limit_trash', false],
 		['max_trash', 32],
-		['popup_width', 250],
+		['popup_width', 270],
 
 		['locale', ''],
 		['cxmstyle', platform.mac ? 'mac' : 'dfl'],
@@ -336,7 +337,7 @@ var storage = new function Storage() {
 		['bkg_alpha', 255],
 		['text_color', '#ffffff'],
 		['text_alpha', 255],
-		['featherweight_icon', false],
+		['featherweight_icon', true],
 		
 		['opt_topbar', true],
 	], {

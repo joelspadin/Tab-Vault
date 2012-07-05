@@ -40,6 +40,7 @@ il8n.strings = {
 	CompactTabs: '<Unused>',
 	Tooltips: 'Показывать подсказки',
 	VerboseTabTips: 'Показывать заголовок страницы и адрес при наведении на сохраненную вкладку',
+	OpenNextToActive: 'Открывать новую вкладку вслед за текущей', // Translation taken from Anton Diaz's AutoStack translation
 	TrashOnOpen: 'Переносить вкладки в корзину после открытия',
 	DisableAnimation: 'Выключить анимацию интерфейса',
 	SaveToTop: 'Новые вкладки добавлять в начало списка',
@@ -53,11 +54,13 @@ il8n.strings = {
 	BackgroundAlpha: 'Прозрачность фона кнопки',
 	TextColor: 'Цвет текста на кнопке',
 	TextAlpha: 'Прозрачность текста на кнопке',
+	/* Translation needed */ FeatherweightIcon: 'Use featherweight style icon',
 	LimitHeight: 'Ограничивать высоту виджета',
 	MaxHeight: 'Максимальная высота виджета (пикс)',
 	PopupWidth: 'Ширина виджета (пикс)',
 	MiddleClick: 'Действие средней кнопки мыши в виджете',
 	MiddleClickOpen: 'Открывает вкладку в фоне',
+	/* Translation needed */ MiddleClickOpenCurrent: 'Open in current tab',
 	MiddleClickClose: 'Удаляет вкладку',
 	MiddleClickNone: 'Ничего не делает',
 	// 2.3 
@@ -83,6 +86,9 @@ il8n.strings = {
 	ResetTabs: 'Удаление всех сохранных вкладок',
 	ResetAllButton: 'Полный сброс',
 	ResetAll: 'Возвращение к первоначальному сосотоянию',
+	/* Translation needed */ ConfirmResetSettings: 'Reset all settings?',
+	/* Translation needed */ ConfirmResetTabs: 'Delete all saved tabs?',
+	/* Translation needed */ ConfirmResetAll: 'Reset Tab Vault completely? You will lose your settings and all saved tabs.',
 	
 	ExternalAccess: 'Кнопки и ярлыки',
 	EnableAccess: 'Установите пароль, чтобы разрешить ярлыкам и кнопкам доступ к хранилищу Tab Vault',

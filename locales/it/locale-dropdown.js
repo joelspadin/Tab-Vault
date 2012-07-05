@@ -45,6 +45,7 @@ il8n.strings = {
 	/* Translation needed */ CxCopyUrl: 'Copy Tab URL',
 	
 	CxSaveCurrent: 'Salva Scheda Corrente',
+	/* Translation needed */ CxSaveGroup: 'Save Tab Group',
 	CxSaveAsGroup: 'Salva Scheda in Nuovo Gruppo',
 	CxSaveAll: 'Salva Tutte le Schede',
 	CxSaveWindow: 'Salva Schede in Questa Finestra',
