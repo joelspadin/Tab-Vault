@@ -48,6 +48,7 @@ $(document).ready(function() {
 	
 	$('#export').click(file.exportSession);
 	$('#export_adr').click(file.exportAdr);
+	$('#export_html').click(file.exportHTML);
 	$('#import').click(file.importTabs);
 	
 	$('#password, #custombutton, #ext_close_on_save').change(access.update);
@@ -241,6 +242,10 @@ var file = new function ImportExport() {
 	
 	this.exportAdr = function() {
 		bg.tabutils.exportTabs('adr', true);
+	}
+
+	this.exportHTML = function() {
+		bg.tabutils.exportTabs('html', true);
 	}
 	
 	this.importTabs = function() {

@@ -355,6 +355,45 @@ var session = new function SessionExporter() {
 		adr.write('URL', info.url);
 		adr.writeLine();
 	}
+
+	this.writeHTML = function(tabs) {
+		var html = new TextWriter();
+		html.write('<!DOCTYPE NETSCAPE-Bookmark-file-1>');
+		html.write('<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">');
+		html.write('<!--Warning. Tab Vault cannot import this format.');
+		html.write('Export as a bookmarks or session file if you plan to import into Tab Vault. -->');
+		html.write('<TITLE>Bookmarks</TITLE>');
+		html.write('<H1>Bookmarks</H1>');
+		html.write('<DL><P>');
+
+		var indent = 1;
+		for (var i = 0; i < tabs.length; i++) {
+			if (tabs[i].group) {
+
+				html.write('<DT><H3>' + tabs[i].title + '</H3>', indent);
+				html.write('<DL><P>', indent);
+				indent++;
+
+				for (var j = 0; j < tabs[i].tabs.length; j++) {
+					writeHTMLTab(html, tabs[i].tabs[j], indent);
+				}
+
+				indent--;
+				html.write('</DL><P>', indent);
+			} else {
+				writeHTMLTab(html, tabs[i], indent);
+			}
+		}
+
+		html.write('</DL><P>');
+		return html.toDataURI();
+	}
+
+	function writeHTMLTab(html, info, indent) {
+		var url = info.url.replace('&', '&amp;');
+		var data = '<DT><A HREF="' + url + '">' + info.title + '</A>';
+		html.write(data, indent);
+	}
 }
 
 var IniUtils = {
@@ -471,8 +510,6 @@ function IniReader(utils) {
 	}
 }
 
-
-
 function IniWriter(adr) {
 	this.text = null;
 	adr = adr || false;
@@ -527,6 +564,23 @@ function IniWriter(adr) {
     this.toDataURI = function() {
         return 'data:text/plain;base64;charset=utf-8,' + encodeBase64(this.text);
     }
+}
+
+function TextWriter() {
+	this.text = '';
+	this.indents = '\t\t\t\t';
+
+	this.open = function() {
+		this.text = '';
+	}
+
+	this.write = function(text, indent) {
+		this.text += this.indents.substr(0, indent || 0) + text + '\n';
+	}
+
+	this.toDataURI = function() {
+		return 'data:text/html;base64;charset=utf-8,' + encodeBase64(this.text);
+	}
 }
 
 // Base64 conversion code found at

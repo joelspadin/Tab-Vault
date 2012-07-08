@@ -65,7 +65,7 @@ il8n.strings = {
 	Export: 'Export your saved tabs as a session file',
 	ExportAdrButton: 'Export .adr',
 	ExportAdr: 'Export your saved tabs as a bookmarks file',
-	ImportButton: 'Import Session',
+	ImportButton: 'Import',
 	Import: 'Import a session or bookmarks (.win or .adr) file to your saved tabs',
 	ImportWorking: 'Importing...',
 	ImportPlaceholder: 'Open a session file (.win or .adr) in a text editor, then copy and paste the contents here before clicking Import.',

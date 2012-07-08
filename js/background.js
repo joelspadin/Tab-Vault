@@ -462,6 +462,11 @@ var tabutils = new function TabUtils() {
 		list = list || storage.tabs.getAll();
 		return session.writeAdr(list);
 	}
+
+	this.toHTML = function(list) {
+		list = list || storage.tabs.getAll();
+		return session.writeHTML(list);
+	}
 	
 	this.toSession = function(list) {
 		list = list || storage.tabs.getAll();
@@ -533,12 +538,11 @@ var tabutils = new function TabUtils() {
 		
 		var check = function() {
 			//debug('checking: try ' + tries);
-			if (tab.faviconUrl) {
+			if (tab.faviconUrl || tab.readystate == 'complete') {
+				tabObj.icon = tab.faviconUrl || null;
 				tab.close();
-				tabObj.icon = tab.faviconUrl;
 				callback(tabObj);
-			}
-			else {
+			} else {
 				tries++;
 				if (tries < polling.maxTries)
 					setTimeout(check, polling.interval);
@@ -594,10 +598,17 @@ var tabutils = new function TabUtils() {
 			return;
 		
 		var uri;
-		if (format == 'adr')
-			uri = tabutils.toAdr(list);
-		else
-			uri = tabutils.toSession(list);
+		switch (format) {
+			case 'adr':
+				uri = tabutils.toAdr(list);
+				break;
+			case 'html':
+				uri = tabutils.toHTML(list);
+				break;
+			default:
+				uri = tabutils.toSession(list);
+			
+		}
 		
 		tabs.open(uri, focused || false);
 	}
