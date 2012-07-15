@@ -63,7 +63,6 @@ var session = new function SessionExporter() {
 						addTab(tab, group);
 					
 					tab = { url: '', title: '', icon: '' };
-					//debug('New Tab ' + index);
 				}
 				// [#history url] sections hold urls
 				else if (ini.section == index + 'history url')
@@ -91,13 +90,10 @@ var session = new function SessionExporter() {
 				else if (ini.key == history || (history == -1 && ini.key.match(/^\d+$/))) {
 					// If key is a number, this may be a url/title
 					if (mode == modes.url) {
-						//debug('url = ' + ini.value);
 						tab.url = ini.value;
 					}
 					else if (mode == modes.title) {
-						//debug('title = ' + ini.value);
 						tab.title = ini.value;
-						debug('>' + tab.title + '<');
 						if (tab.title.match(/^".*"$/))
 							tab.title = tab.title.substring(1, tab.title.length - 1);
 					}
@@ -107,8 +103,6 @@ var session = new function SessionExporter() {
 		// Append the last tab to the list
 		if (tab != null && tab.url)
 			addTab(tab, group);
-		
-		debug(tabs, 5);
 		
 		return tabs;
 	}
@@ -562,7 +556,7 @@ function IniWriter(adr) {
 	}
     
     this.toDataURI = function() {
-        return 'data:text/plain;base64;charset=utf-8,' + encodeBase64(this.text);
+        return 'data:text/plain;base64;charset=utf-8,' + window.btoa(this.text);
     }
 }
 
@@ -579,46 +573,106 @@ function TextWriter() {
 	}
 
 	this.toDataURI = function() {
-		return 'data:text/html;base64;charset=utf-8,' + encodeBase64(this.text);
+		return 'data:text/html;base64;charset=utf-8,' + window.btoa(this.text);
 	}
 }
 
-// Base64 conversion code found at
-// http://my.opera.com/Lex1/blog/fast-base64-encoding-and-test-results
-function encodeBase64(str){
-	var chr1, chr2, chr3, rez = '', arr = [], i = 0, j = 0, code = 0;
-	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='.split('');
+/** Opens a file as a download in a new tab.
+ *  @param {String} data A data URI or base64 encoded file data
+ *  @param {String} filename The name of the file
+ *  @param {String} [mimetype] The MIME type to open the file as (defaults to application/octet-stream) 
+ */
+function download(data, filename, mimetype) {
+	sep = '--------' + window.btoa('This is a unique boundary');
+	text = '';
+	// If no MIME type provided, use application/octet-stream to force a download
+	mimetype = mimetype || 'application/octet-stream';
+	// If data is a data URI, grab the data and base64 encode it if it isn't already
+	if (data.length > 5 && data.substr(0, 5) === 'data:') {
+		index = data.indexOf(',');
+		base64 = data.substr(0, index).indexOf('base64') !== -1;
+		data = data.substr(index + 1);
+		if (!base64)
+			data = window.btoa(data);
+	}
 
-	while(code = str.charCodeAt(j++)){
-		if(code < 128){
-			arr[arr.length] = code;
-		}
-		else if(code < 2048){
-			arr[arr.length] = 192 | (code >> 6);
-			arr[arr.length] = 128 | (code & 63);
-		}
-		else if(code < 65536){
-			arr[arr.length] = 224 | (code >> 12);
-			arr[arr.length] = 128 | ((code >> 6) & 63);
-			arr[arr.length] = 128 | (code & 63);
-		}
-		else{
-			arr[arr.length] = 240 | (code >> 18);
-			arr[arr.length] = 128 | ((code >> 12) & 63);
-			arr[arr.length] = 128 | ((code >> 6) & 63);
-			arr[arr.length] = 128 | (code & 63);
-		}
-	};
+	// Build an MHTML file
+	function w(line) { text += (line || '') + '\n'; }
+	function boundary() { w('--' + sep); }
 
-	while(i < arr.length){
-		chr1 = arr[i++];
-		chr2 = arr[i++];
-		chr3 = arr[i++];
+	w('Content-Type: multipart/related; boundary=' + sep);
+	w('Content-Location: index.html');
+	w('MIME-Version: 1.0');
+	w();
+	boundary();
+	w('Content-Disposition: inline; filename=index.html');
+	w('Content-Type: text/html; charset=utf-8; name=index.html');
+	w('Content-Location: index.html');
+	w('Content-Transfer-Encoding: 8bit');
+	w();
+	w('<!doctype html>');
+	w('<html><head><meta charset="utf-8"><title>Download File</title></head>');
+	// No way to know when the file is downloaded and close the tab,
+	// so hide a message behind the download dialog
+	w('<body style="text-align: center; margin-top: 60px;">')
+	w('<p>You can close this tab now.</p>');
+	// Link to the embedded file and automatically click it.
+	w('<a href="' + filename + '">Redownload ' + filename + '</a>');
+	w('<script>document.querySelector(\'a\').click();</script>');
+	w('</body>');
+	w('</html>');
+	w();
+	// Embed the file
+	boundary();
+	w('Content-Disposition: attachment; filename=' + filename);
+	w('Content-Type: ' + mimetype + '; name=' + filename);
+	w('Content-Location: ' + filename);
+	w('Content-Transfer-Encoding: base64');
+	w();
+	w(data);
+	w();
+	w('--' + sep + '--')
 
-		rez += chars[chr1 >> 2];
-		rez += chars[((chr1 & 3) << 4) | (chr2 >> 4)];
-		rez += chars[chr2 === undefined ? 64 : ((chr2 & 15) << 2) | (chr3 >> 6)];
-		rez += chars[chr3 === undefined ? 64 : chr3 & 63];
-	};
-	return rez;
-};
+	// Wrap it all up in a data URI and open it in a new tab
+	opera.extension.tabs.create({ url: 'data:application/mime;base64;charset=utf-8,' + window.btoa(text), focused: true });
+}
+
+
+//// http://my.opera.com/Lex1/blog/fast-base64-encoding-and-test-results
+//function encodeBase64(str) {
+//	var chr1, chr2, chr3, rez = '', arr = [], i = 0, j = 0, code = 0;
+//	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='.split('');
+
+//	while(code = str.charCodeAt(j++)){
+//		if(code < 128){
+//			arr[arr.length] = code;
+//		}
+//		else if(code < 2048){
+//			arr[arr.length] = 192 | (code >> 6);
+//			arr[arr.length] = 128 | (code & 63);
+//		}
+//		else if(code < 65536){
+//			arr[arr.length] = 224 | (code >> 12);
+//			arr[arr.length] = 128 | ((code >> 6) & 63);
+//			arr[arr.length] = 128 | (code & 63);
+//		}
+//		else{
+//			arr[arr.length] = 240 | (code >> 18);
+//			arr[arr.length] = 128 | ((code >> 12) & 63);
+//			arr[arr.length] = 128 | ((code >> 6) & 63);
+//			arr[arr.length] = 128 | (code & 63);
+//		}
+//	};
+
+//	while(i < arr.length){
+//		chr1 = arr[i++];
+//		chr2 = arr[i++];
+//		chr3 = arr[i++];
+
+//		rez += chars[chr1 >> 2];
+//		rez += chars[((chr1 & 3) << 4) | (chr2 >> 4)];
+//		rez += chars[chr2 === undefined ? 64 : ((chr2 & 15) << 2) | (chr3 >> 6)];
+//		rez += chars[chr3 === undefined ? 64 : chr3 & 63];
+//	};
+//	return rez;
+//};

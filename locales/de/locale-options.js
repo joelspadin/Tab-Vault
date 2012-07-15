@@ -2,27 +2,27 @@
 
 il8n.strings = {
 
-	Title: 'Tab Vault - Optionen',				// Options page tab title
+	Title: 'Tab Vault Einstellungen',				// Options page tab title
 	By: 'von',
 	
-	TitleHelp: 'Tab Vault - Hilfe',			// Help page tab title
+	TitleHelp: 'Tab Vault Hilfe',			// Help page tab title
 	TitleHelp2: 'Hilfe',
-	TitleUpgrade: 'Tab Vault - Upgrader',		// Upgrade page tab title
+	TitleUpgrade: 'Tab Vault Upgrader',		// Upgrade page tab title
 	TitleUpgrade2: 'Upgrader',
 	
-	Default: 'Default',						// Default button text
+	Default: 'Standard',						// Default button text
 	ActionFailed: 'Fehlgeschlagen!',				// Status message for errors
 	ActionDone: 'Fertig!',					// Status message for success
 	
 	Preferences: 'Einstellungen',				// Preferences category header
 	VaultSettings: 'Tresor-Einstellungen',
 	DisplaySettings: 'Anzeige-Einstellungen',	
-	OtherSettings: 'Andere Einstellungen',
+	OtherSettings: 'Sonstige Einstellungen',
 	CompactTabs: '<Unbenutzt>',
 	Tooltips: 'Hilfe-Tooltips im Popup anzeigen',
 	VerboseTabTips: 'Sowohl Titel als auch URL im Tab-Tooltip anzeigen',
-	/* Translation Needed */ OpenNextToActive: 'Open new tabs next to the active tab',
-	TrashOnOpen: 'Nach öffnen eines Tabs diesen aus der Tabliste entfernen',
+	OpenNextToActive: 'Neue Tabs neben dem aktiven Tab öffnen',
+	TrashOnOpen: 'Nach Öffnen eines Tabs diesen aus der Tabliste entfernen',
 	AllowListDuplicates: 'Erlaube doppelte Einträge in der Hauptliste',
 	AllowGroupDuplicates: 'Erlaube doppelte Einträge in den Gruppen',
 	RemoveListDuplicates: 'Wenn ein Tab zu einer Gruppe hinzugefügt wird, diesen Eintrag aus der Hauptliste entfernen',
@@ -37,9 +37,9 @@ il8n.strings = {
 	KeepGroupsOpen: 'Lasse Gruppen aufgeklappt',
 	OpenOneGroup: 'Nur eine aufgeklappte Gruppe erlauben',
 	ShowBadge: 'Anzahl der gespeicherten Tabs auf dem Toolbar-Symbol anzeigen',
-	BackgroundColor: 'Hintergrundfarbe des Toolbar-Symbols',
-	BackgroundAlpha: 'Deckkraft des Hintergrundes',
-	TextColor: 'Farbe des Toolbar-Symboltextes',
+	BackgroundColor: 'Hintergrundfarbe der Anzahl-Anzeige',
+	BackgroundAlpha: 'Deckkraft der Hintergrundfarbe',
+	TextColor: 'Farbe des Symboltextes',
 	TextAlpha: 'Deckkraft des Symboltextes',
 	FeatherweightIcon: 'Nutze Iconstyle "Leichtgewicht"',
 	LimitHeight: 'Die Höhe des Popups begrenzen',
@@ -47,13 +47,13 @@ il8n.strings = {
 	PopupWidth: 'Breite des Popups (px)',
 	LimitTrash: 'Begrenze die Einträge im Papierkorb',
 	MaxTrash: 'Maximale Größe des Papierkorbes (Tabs)',
-	MiddleClick: 'Bei mittlerem Mausklick ...',
-	MiddleClickOpen: 'Tab im Hintergrund öffnen',
-	MiddleClickClose: 'Tab löschen',
-	MiddleClickOpenCurrent: 'In aktuellem Tab öffnen',
-	MiddleClickNone: 'Nichts tun',
+	MiddleClick: '...bei mittlerem Mausklick',
+	MiddleClickOpen: 'Tab im Hintergrund öffnen...',
+	MiddleClickClose: 'Tab löschen...',
+	MiddleClickOpenCurrent: 'In aktuellem Tab öffnen...',
+	MiddleClickNone: 'Nichts tun...',
 	CxMenuStyle: 'Kontextmenü-Darstellung',	
-	Language: 'Sprache (braucht einen Neustart)',
+	Language: 'Sprache (danach F5 drücken, um die Sprache zu wechseln)',
 	
 	EnableClipboard: 'Um die URL eines Eintrages kopieren zu können, gehen Sie auf ' +
 				'<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04a.html">Flash player settings manager</a> ' +
@@ -66,16 +66,16 @@ il8n.strings = {
 	ExportAdrButton: 'Als .adr-Datei exportieren',
 	ExportAdr: 'Ihre gespeicherten Tabs als .adr-Datei exportieren',
 	ImportButton: 'Sitzung importieren',
-	Import: 'Den Inhalt einer Sitzungsdatei ihrer Tablist hinzufügen',
+	Import: 'Den Inhalt einer Sitzungsdatei ihrer Tabliste hinzufügen',
 	ImportWorking: 'Importiere...',
-	ImportPlaceholder: 'Bevor Sie "Importieren" klicken, öffnen Sie die Sitzungsdatei (.win oder .adr) in einem Texteditor und übertragen Sie deren Inhalt hierhin .',
+	ImportPlaceholder: 'Bevor Sie "Importieren" klicken, öffnen Sie die Sitzungsdatei (.win oder .adr) in einem Texteditor und übertragen Sie deren Inhalt hierhin.',
 	
 	
 	Reset: 'Zurücksetzen',							// Reset category header
 	ResetSettingsButton: 'Einstellungen zurücksetzen',
 	ResetSettings: 'Alle Einstellungen auf ihren ursprünglichen Wert setzen',
-	ResetTabsButton: 'Tab Vault leeren',
-	ResetTabs: 'Alle gespeicherten Tabs aus dem Tab Vault entfernen',
+	ResetTabsButton: 'Tresor leeren',
+	ResetTabs: 'Alle gespeicherten Tabs aus der Liste entfernen',
 	ResetAllButton: 'Alles zurücksetzen',
 	ResetAll: 'Die Erweiterung auf den Werkszustand zurücksetzen',
 	ConfirmResetSettings: 'Alle Einstellungen zurücksetzen?',
@@ -85,23 +85,23 @@ il8n.strings = {
 	ExternalAccess: 'Buttons und Hotkeys',
 	EnableAccess: 'Passwort setzen, über welches der Zugriff auf Tab Vault mittles Hotkeys ermöglicht wird',
 	Password: 'Passwort',
-	NewPassword: 'neues Passwort erzeugen',
+	NewPassword: 'Neues Passwort erzeugen',
 	SaveTabAction: 'Folgendes wird zum Speichern eines Tabs ausgeführt (kann auch für Hotkeys und Mausgesten benutzt werden):',
-	SaveTabButton: 'Buttons zum Speichern eines Tabs. Icon anklicken, um zu speichern und  dann den neuen Button auf eine Leiste ziehen.',
-	SaveButtonTitle: 'In TabVault speichern',
-	CustomButton: 'Benutzerdefiniertes Icon (Gib einen Icon-Namen aus deinem Opera-Skin an)',
+	SaveTabButton: 'Buttons zum Speichern eines Tabs. Icon anklicken, um ihn zu speichern und dann diesen neuen Button auf eine Symbolleiste in Opera ziehen.',
+	SaveButtonTitle: 'In Tab Vault speichern',
+	CustomButton: 'Benutzerdefiniertes Icon (Geben Sie einen Icon-Namen aus Ihrem Opera-Skin an)',
 	
 	
 	Help: 'Brauchen Sie Hilfe?',						// Help category header
-	HelpLink: 'Hier klicken, um die Hilfeseite zu öffnen.',
+	HelpLink: 'Klicken Sie hier, um die Hilfeseite zu öffnen.',
 
 	
 	Upgrading: 'Einstellungen-Aktualisierung',	// Upgrade explanation header
-	UpgradeMessage: 'Tab Vault 2 speichert seine Einstellung ein wenig anders als Version 1, weswegen ' +
+	UpgradeMessage: 'Tab Vault 2 speichert seine Einstellungen ein wenig anders als Version 1, weswegen ' +
 			'Tab Vault zur Vermeidung von eventuellen Inkompatibilitäten Ihre Einstellungen jetzt' +
 			'auf das neue Format aktualisieren wird. Ihre gespeicherten Tabs wurden als eine Sitzungsdatei exportiert. ' +
-            '(Schauen Sie in Ihre Tabliste. Hier sollte ein neuer Tab geöffnet worden sein). Wenn das' + 
-			'schiefgeht, können Sie diese Sitzung importieren, um ihre Tabs wiederherzustellen.',
+            '(Schauen Sie in Ihre Tabliste. Hier sollte ein neuer Tab geöffnet worden sein). Wenn dies' + 
+			'schiefgeht, können Sie diese Sitzung importieren, um Ihre Tabs wiederherzustellen.',
 
 	UpgradeButton: 'Jetzt aktualiseren!',
 	UpgradeDone: 'Tab Vault kann jetzt verwendet werden!',		// Upgrade success header

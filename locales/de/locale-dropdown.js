@@ -7,21 +7,21 @@ il8n.strings = {
 	Options: 'Einstellungen',
 	OptionsTip: 'Einstellungen von Tab Vault ändern',
 	Tabs: 'Tabs',
-	TabsTip: 'gespeicherte Tabs anzeigen',
+	TabsTip: 'Gespeicherte Tabs anzeigen',
 	Trash: 'Papierkorb',
-	TrashTip: 'gelöschte Tabs anzeigen',
-	DropToTrash: 'Hier ablegen um Tab oder Tabgruppe zu löshen',
+	TrashTip: 'Gelöschte Tabs anzeigen',
+	DropToTrash: 'Hier ablegen, um Tab oder Tabgruppe zu löschen',
 	Search: 'Suche Tabs',
 	
-	CannotSave: 'Der Tab kann nicht gespeichert werden werden. ' +
-		'Laden Sie die Seite erneut und versuchen Sie es nochmal',
+	CannotSave: 'Der Tab kann nicht gespeichert werden. ' +
+		'Laden Sie die Seite neu und versuchen Sie es noch mal.',
 	CannotOpen: 'Tab Vault kann den Tab auf der aktuellen Seite nicht öffnen. ' + 
-		'Vielleicht müssen Sie diese neu laden',
+		'Vielleicht müssen Sie die Seite neu laden.',
 	
 	GroupExpandTip: 'Gruppe aufklappen',
 	GroupCollapseTip: 'Gruppe zuklappen',
 	GroupNameTip: 'Gruppenname ändern',
-	GroupNameTip2: 'Fertigstellen (Gruppenname ändern)',
+	GroupNameTip2: 'OK',
 	
 	TabDeleteTip: 'Tab löschen',
 	
@@ -41,17 +41,17 @@ il8n.strings = {
 	CxSaveGroup: 'Tab-Gruppe speichern',
 	CxSaveToGroup: 'Aktuellen Tab hier speichern',
 	CxUngroup: 'Tabs aus Gruppe lösen',
-	CxReloadIcon: 'Icon neuladen',
+	CxReloadIcon: 'Icon neu laden',
 	CxRename: 'Umbenennen',
 	CxDelete: 'Löschen',
 	CxCopyUrl: 'Kopiere URL',
 	
 	CxSaveCurrent: 'Aktuellen Tab speichern',
 	CxSaveAsGroup: 'Tab in einer neuen Gruppe speichern',
-	CxSaveAll: 'Alle Tab speichern',
+	CxSaveAll: 'Alle Tabs speichern',
 	CxSaveWindow: 'Tabs dieses Fensters speichern',
 	CxSaveDomain: 'Tabs dieser Domäne speichern',
 	
 	CxRestore: 'Wiederherstellen',
-	CxDeletePerm: 'Dauerhaft löschen',
+	CxDeletePerm: 'Endgültig löschen',
 }

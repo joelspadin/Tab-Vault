@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" version="2.5.1" defaultlocale="en" id="extensions:tabvault">
+<widget xmlns="http://www.w3.org/ns/widgets" version="2.5.2" defaultlocale="en" id="extensions:tabvault">
   <name>Tab Vault</name>
   <description xml:lang="en">
 	  Store tabs for later without wasting space or memory. 
