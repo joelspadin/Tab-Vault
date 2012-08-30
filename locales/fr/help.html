@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -8,6 +8,7 @@
 	<script src="/js/jquery.js"></script>
 	<script src="/js/SettingStorage.js"></script>
 	<script src="/js/storage.js"></script>
+	<script src="/js/options.js"></script>
 	<script src="/js/help.js"></script>
 	<script src="/js/il8n.js"></script>
 	<script src="/js/classList.js"></script>
@@ -23,35 +24,36 @@
 <div id="viewport">
 	<div id="topbar"></div>
 	<div id="wrap">
-		<header>
-			<img src="/img/icon.png" alt="Vault Icon">
-			<div class="right">
-				<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="TitleHelp2">Help</span></h1>
-			</div>
-		</header>
+	<header>
+		<img src="/img/icon.png" alt="Vault Icon">
+		<div class="right">
+			<h1><span id="widget-name">Tab Vault</span> <span class="version" id="widget-version"></span> <span data-loc="TitleHelp2">Help</span></h1>
+		</div>
+	</header>
 
-		<!-- Start Translating Here -->
+	<!-- Start Translating Here -->
 	
 		
 		<h2>Qu'est-ce que Tab Vault?</h2>
+		
 		<p>
-			Tab Vault est un endroit o&ugrave; vous pouvez laisser les onglets que
-			vous souhaiter retenir sans les laisser charg&eacute;s en m&eacute;moire ainsi
+			Tab Vault est un endroit où vous pouvez laisser les onglets que
+			vous souhaiter retenir sans les laisser chargés en mémoire ainsi
 			que sur votre barre d'onglets.
 				
-			Tout comme la barre d'onglets d'Op&eacute;ra, vous pouvez r&eacute;organiser et
-			grouper les onglets, de m&ecirc;me que restaurer des onglets supprim&eacute;s
-			gr&acirc;ce &agrave; la corbeille de Tab Vault.
+			Tout comme la barre d'onglets d'Opéra, vous pouvez réorganiser et
+			grouper les onglets, de même que restaurer des onglets supprimés
+			grâce à la corbeille de Tab Vault.
 				
 			Tab Vault affiche aussi le nombre d'onglets que vous avez 
-			enregistr&eacute;s pour vous rappeler d'y retourner.
+			enregistrés pour vous rappeler d'y retourner.
 		</p>
 		
 		<h2>Comment utiliser Tab Vault?</h2>
 		<p>
 			Cliquez sur le bonton de l'extension pour ouvrir Tab Vault. Tab
 			Vault affiche le nombre d'onglets qu'il stocke sur ce bouton. Cette
-			option (et beaucoup d'autres) peut &ecirc;tre modifi&eacute;e &agrave; partir de la
+			option (et beaucoup d'autres) peut être modifiée à partir de la
 			<a href="/options.html" target="_blank">page de configuration</a>.
 		</p>
 		<figure>
@@ -59,105 +61,105 @@
 			<figcaption>Bouton de l'extension Tab Vault</figcaption>
 		</figure>
 			
-		<h3>Interface de Tab Vault</h3>
+		<h3>L'interface</h3>
+		
 		<p>
-			Tab Vault poss&egrave;de deux listes diff&eacute;rentes: Onglets et Corbeille. La
-			liste Onglets contient vos onglets m&eacute;moris&eacute;s. La Corbeille, quant &agrave;
-			elle, retient les onglets supprim&eacute;s au cas o&ugrave; vous voudriez les
-			restaurer. Cliquez sur les liens <code>Onglets</code> et 
-			<code>Corbeille</code> situ&eacute;s dans le haut du menu pour s&eacute;lectionner
-			une liste ou l'autre. (La corbeille est d&eacute;sactiv&eacute;e si elle est vide)
+			Tous vos onglets enregistrés se retrouvent ici. Les onglets supprimés sont quant
+			à eux accessibles en cliquant sur le bouton <em>Corbeille</em>.
 		</p>
 		<figure>
 			<img src="/help/popup.png">
 			<figcaption>Le menu Tab Vault</figcaption>
 		</figure>
+
+		<h3>Enregistrer des onglets</h3>
+		<p>
+			Cliquez sur <em>Enregistrer l'Onglet</em> pour enregistrer l'onglet courant.
 			
-		<h3>La liste d'onglets <span class="sub">G&eacute;rer et Ovrir les Onglets</span></h3>
-		<p>
-			Cliquez sur <code>Enregistrer l'Onglet</code> pour enregistrer l'onglet
-			courant. Pour r&eacute;organiser les onglets, cliquez sur l'onglet et maintenez le
-			bouton de la souris appuy&eacute; en d&eacute;pla�ant le curseur. Cliquez sur le bouton
-			<code>X</code> d'un onglet pour le supprimer. Vous pouvez aussi supprimer
-			un onglet en le glissant jusque dans la <code>Corbeille</code> situ&eacute;e dans
-			le haut du menu. La liste d'onglets n'affiche que les titres des onglets,
-			mais il est possible d'afficher l'addresse (URL) en survolant l'onglet avec
-			le curseur de la souris.
+			Cliquez avec le bouton droit de la souris sur le bouton <em>Enregistrer l'Onglet</em>
+			pour ouvrir un menu contextuel avec davantage d'options. Il est aussi possible de
+			cliquer avec le bouton droit sur un groupe d'onglets et de choisir <em>Enregistrer
+			l'Onglet Courant Ici</em> pour enregistrer un onglet directement dans un groupe.
 		</p>
+
+		<h3>La Liste d'Onglets</h3>
 		<p>
-			Il existe quatre m&eacute;thodes pour ouvir un onglet. Cliquez sur l'onglet pour
-			l'ouvrir dans une nouvelle page. Maintenez la touche <code>Ctrl</code>
-			enfonc&eacute;e en cliquant sur un onglet pour l'ouvir dans une page en 
-			arri&egrave;re-plan.
-			Faites glisser un onglet du menu jusqu'&agrave; la page en cours pour l'ouvir dans
-			celle-ci. Cette m&eacute;thode fonctionne aussi avec des groupes d'onglets. Cliquez
-			avec le bouton droit de la souris pour afficher davantage d'options.
+			Faites glissez les onglets pour les réorganiser.
+
+			Pour supprimer un onglet, cliquez sur le bouton <em>X</em> situé à côté de chaque
+			onglet ou déposez-le sur le bouton <em>Corbeille</em> en haut du menu.
 		</p>
+
+		<p>
+			Pour ouvrir un onglet, cliquez dessus. Pour ouvrir un onglet en arriere-plan,
+			cliquez dessus avecc le bouton du milieu ou laissez la touche <em>Ctrl</em>
+			appuyée en cliquant. Pour ouvrir un onglet dans la page courant, faites-le
+			glisser du menu jusqu'à la page web ouverte.
 			
-		<h3>La Corbeille <span class="sub">Restaurer des onglets supprim&eacute;s</span></h3>
-		<p>
-			Lorsque vous supprimez un onglet, c'est ici qu'il se retrouve. Cliquez sur 
-			un onglet de cette liste pour le restituer &agrave; la liste d'onglets. Cliquez
-			sur <code>Vider la liste d'onglets ferm&eacute;s</code> pour supprimer, de mani&egrave;re
-			permanente, tous les onglets de la corbeille.
-			Il est impossible de r&eacute;organiser les onglets de cette liste.
+			Vous pouvez aussi cliquez avec le bouton droit sur un onglet pour afficher
+			d'autres options.
 		</p>
-		<figure>
-			<img src="/help/trash.png">
-			<figcaption>La corbeille</figcaption>
-		</figure>
 			
 		<h3>Groupes d'onglets</h3>
+
+		<p>	
+			L'implementation des groupes d'onglets de Tab Vault est conçu pour être
+			très similaire à la fonction d'empilement d'onglets d'Opera. Ils peuvent
+			contenir un nombre illimité d'onglets et disparaissent lorsqu'ils sont
+			vides.
+		</p>
+		
 		<p>
-			Tab Vault supporte le groupement d'onglets. Les groupes poss&egrave;dent une
-			fl&egrave;che d'expansion au lieu de l'�cone habituelle. De plus, ils n'ont
-			pas de bouton <code>X</code>.
-				
-			Pour cr&eacute;er un groupe, faites glisser un onglet jusqu'&agrave; ce que votre
-			curseur soit au-dessus de la fl&egrave;che apparaissant &agrave; droite de de l'onglet.
-			Ensuite, lorsque l'onglet foncit, rel&acirc;chez le tout pour grouper les
+			Pour créer un groupe, faites glisser un onglet jusqu'à ce que votre
+			curseur soit au-dessus de la flèche apparaissant à droite de de l'onglet.
+			Ensuite, lorsque l'onglet foncit, relâchez le tout pour grouper les
 			onglets.
-				
-			<em>Note: le curseur doit &ecirc;tre positionn&eacute; au dessus du c�t&eacute; droit de 
-			l'onglet pour activer le groupement. La zone en question est encadr&eacute;e en
-			rouge dans l'image ci-dessous.</em>
 		</p>
 		<figure>
 			<img src="/help/grouping.png">
-			<figcaption>Groupement de deux onglets (Zone de regroupement encadr&eacute;e en rouge)</figcaption>
+			<figcaption>Groupement de deux onglets (Zone de groupement encadrée en rouge)</figcaption>
 		</figure>
 		<p>
 			Cliquez sur le titre d'un groupe d'onglet pour afficher ou masquer
 			les onglets qu'il contient. Pour modifier le titre d'un groupe, il
-			suffit de cliquer sur l'ic�ne du stylo situ&eacute;e &agrave; droite du titre.
-			Les groupes d'onglets peuvent &ecirc;tre d&eacute;plac&eacute;s par glisser-d&eacute;poser, de
-			la m&ecirc;me fa�on qu'un onglet unique. Il est aussi possible d'inclure
-			ou d'exclure des onglets d'un groupe par cette m&eacute;thode.
+			suffit de cliquer sur l'icône du stylo située à droite du titre.
+		</p>
+		
+		<p>
+			Les groupes d'onglets peuvent être déplacés par glisser-déposer, de
+			la même façon qu'un onglet unique. Il est aussi possible d'inclure
+			ou d'exclure des onglets d'un groupe par cette méthode.
 				
-			Lorsque tous les onglets d'un groupes sont supprim&eacute;s ou d&eacute;plac&eacute;s
-			vers l'ext&eacute;rieur, le groupe dispara�t. De plus, faire glisser un
+			Lorsque tous les onglets d'un groupes sont supprimés ou déplacés
+			vers l'extérieur, le groupe disparaît. De plus, faire glisser un
 			groupe vers la <code>Corbeille</code> le supprimera avec tout son
 			contenu.
 		</p>
 		<figure>
 			<img src="/help/groups.png">
 			<figcaption>
-				� gauche: un groupe d'onglets d&eacute;pli&eacute;. � droite: modification du nom d'un groupe
+				À gauche: un groupe d'onglets déplié. À droite: modification du nom d'un groupe
 			</figcaption>
 		</figure>
-		<p>
-			L'implementation des groupes d'onglets de Tab Vault est con�u pour &ecirc;tre
-			tr&egrave;s similaire &agrave; la fonction d'empilement d'onglets d'Opera. D&eacute;poser un
-			groupe sur un onglet fusionnera les deux &eacute;l&eacute;ments, en conservant le
-			titre de l'onglet. De m&ecirc;me, d&eacute;poser un onglet sur ou dans un groupe 
-			ajoutera cet onglet au groupe.
-		</p>
-
 		
-		<h2>Fonction suppl&eacute;mentaires</h2>
+		<h3>La Corbeille <span class="sub">Restaurer des onglets supprimés</span></h3>
+		<p>
+			Lorsque vous supprimez un onglet, c'est ici qu'il se retrouve. 
+			
+			Cliquez sur un onglet de cette liste pour le restituer à la liste d'onglets. 
+			Cliquez sur <code>Vider la liste d'onglets fermés</code> pour supprimer, de manière
+			permanente, tous les onglets de la corbeille.
+		</p>
+		<figure>
+			<img src="/help/trash.png">
+			<figcaption>La corbeille</figcaption>
+		</figure>
+		
+		<h2>Fonction supplémentaires</h2> 
+		
 		<h3>Sessions</h3>
 		<p>
-			Tab Vault peut importer et exporter des fichiers de session et de signets &agrave;
+			Tab Vault peut importer et exporter des fichiers de session et de signets à
 			partir de la section Importer/Exporter de la 
 			<a href="/options.html" target="_blank">page de configuration</a>.
 		</p>
@@ -166,79 +168,79 @@
 			<code>Exporter en tant que session</code>. Opera ouvrira un nouvel onglet.
 			Choisissez <code>Menu > Page > Enregistrer sous...</code> (ou Ctrl+S) pour
 			enregistrer cet onglet comme fichier .win. Il est aussi possible d'exporter
-			comme fichier de signets d'Opera, gr&acirc;ce au bouton <code> Exporter .adr</code>.
+			comme fichier de signets d'Opera, grâce au bouton <code> Exporter .adr</code>.
 		</p>
 		<p>
-			Pour importer un fichier de session ou de signets, utilisez le sel&eacute;cteur
-			de fichier pour naviguer jusqu'au fichier souhait&eacute; (.win ou .adr), puis 
+			Pour importer un fichier de session ou de signets, utilisez le selécteur
+			de fichier pour naviguer jusqu'au fichier souhaité (.win ou .adr), puis 
 			cliquez sur "Importer Session".
 		</p>
 		<p>
-			Pour localiser l'endroit o&ugrave; Opera conserve les fichiers de session,
-			aller &agrave; <a href="opera:about">opera:about</a>. Le chemin est indiqu&eacute;
-			&agrave; cot&eacute; de "Session enregistr&eacute;e". Si vous d&eacute;sirez que vos sessions
-			export&eacute;es apparaissent dans la liste de sessions d'Op&eacute;ra, enregistrez-les
-			&agrave; cet endroit.
+			Pour localiser l'endroit où Opera conserve les fichiers de session,
+			aller à <a href="opera:about">opera:about</a>. Le chemin est indiqué
+			à coté de "Session enregistrée". Si vous désirez que vos sessions
+			exportées apparaissent dans la liste de sessions d'Opéra, enregistrez-les
+			à cet endroit.
 		</p>
 		<p>
-			Selon certains rapports que j'ai re�us, un probl&egrave;me existe avec Opera,
-			ce qui pourrait faire en sorte que toutes les donn&eacute;es enregistr&eacute;es par
-			TabVault soient perdues. Bien que ce ph&eacute;nom&egrave;ne se produise tr&egrave;s rarement,
-			il est recommend&eacute; d'exporter r&eacute;guli&egrave;rement vos onglets comme sauvegarde,
-			juste au cas o&ugrave; un probl&egrave;me surviendrait.
+			Selon certains rapports que j'ai reçus, un problème existe avec Opera,
+			ce qui pourrait faire en sorte que toutes les données enregistrées par
+			TabVault soient perdues. Bien que ce phénomène se produise très rarement,
+			il est recommendé d'exporter régulièrement vos onglets comme sauvegarde,
+			juste au cas où un problème surviendrait.
 		</p>
 			
-		<h3>Boutons et Raccourcis</h3>
+		<h3>Boutons et Raccourcis</h3> 
 		<p>
 			Tab Vault expose des fonctions JavaScript afin de lui permettre
-			d'&ecirc;tre control&eacute; &agrave; partir de pages web ou de sections du programme
+			d'être controlé à partir de pages web ou de sections du programme
 			Opera. Cela signifie qu'il est possible d'associer un raccourci de
 			clavier (ou bouton) pour rapidement enregistrer l'onglet en cours.
 		</p>
 		<p>
-			Pour activer cette fonctionnalit&eacute;, allez dans la section Boutons et
+			Pour activer cette fonctionnalité, allez dans la section Boutons et
 			Raccourcis de la 
 			<a href="/options.html" target="_blank">page de configuration</a>
-			et cr&eacute;ez un mot de passe. Ce mot de passe emp&ecirc;chera des sites
+			et créez un mot de passe. Ce mot de passe empêchera des sites
 			malfaisants d'enregistrer du contenu dans Tab Vault. Il n'est pas
-			n&eacute;cessaire que vous l'appreniez par coeur, vous pouvez donc cliquer
-			sur le bouton "G&eacute;n&eacute;rer" pour cr&eacute;er un mot de passe al&eacute;atoire.
-			<em>Ce mot de passe ne s&eacute;curise pas le contenu de Tab Vault. Il sert
-			seulement &agrave; emp&ecirc;cher les sites web d'int&eacute;ragir avec le contenu de Tab
+			nécessaire que vous l'appreniez par coeur, vous pouvez donc cliquer
+			sur le bouton "Générer" pour créer un mot de passe aléatoire.
+			<em>Ce mot de passe ne sécurise pas le contenu de Tab Vault. Il sert
+			seulement à empêcher les sites web d'intéragir avec le contenu de Tab
 			Vault.</em>
 		</p>
 		<p>
-			Pour cr&eacute;er un bouton permettant d'enregistrer l'onglet en cours, il
-			suffit de cliquer le bouton avec l'ic�ne d&eacute;sir&eacute;e. Il sera alors ajout&eacute;
-			dans la section "Mes boutons" de la fen&ecirc;tre d'apparence, &agrave; partir de
-			laquelle il est possible de le glisser-d&eacute;poser sur n'importe quelle
-			barre d'outils. (Un bug d'Opera fait pr&eacute;sentement en sorte que ce 
-			bouton apparaisse plus gros que normal, il est donc recommand&eacute; 
+			Pour créer un bouton permettant d'enregistrer l'onglet en cours, il
+			suffit de cliquer le bouton avec l'icône désirée. Il sera alors ajouté
+			dans la section "Mes boutons" de la fenêtre d'apparence, à partir de
+			laquelle il est possible de le glisser-déposer sur n'importe quelle
+			barre d'outils. (Un bug d'Opera fait présentement en sorte que ce 
+			bouton apparaisse plus gros que normal, il est donc recommandé 
 			d'utiliser un des petits boutons.)
 		</p>
 		<p>
-			Pour cr&eacute;er un raccourci de clavier ou de souris, copiez le texte
-			affich&eacute; sous "Enregistrer action d'onglet", puis allez &agrave; <code> Menu >
-			Param&egrave;tres > Pr&eacute;f&eacute;rences > Avanc&eacute; > Raccourcis</code>, modifier votre
-			configuration de clavier ou souris, et cr&eacute;ez un nouveau raccourcis en
-			utilisant le texte pr&eacute;c&eacute;demment copi&eacute; en tant qu'action.
+			Pour créer un raccourci de clavier ou de souris, copiez le texte
+			affiché sous "Enregistrer action d'onglet", puis allez à <code> Menu >
+			Paramètres > Préférences > Avancé > Raccourcis</code>, modifier votre
+			configuration de clavier ou souris, et créez un nouveau raccourcis en
+			utilisant le texte précédemment copié en tant qu'action.
 		</p>
 		<p>
-			Pour enregistrer un onglet &agrave; partir de JavaScript, utilisez la fonction
+			Pour enregistrer un onglet à partir de JavaScript, utilisez la fonction
 			<code class="nowrap">window.opera.tabvault.save(pass, url, title, icon)</code>
-			o&ugrave; "pass" est votre mot de passe, "url" est l'URL de l'onglet, "title" est
-			le titre de l'onglet et "icon" est l'URL de l'ic�ne de l'onglet. Ne mettez
-			aucun param&egrave;tre, outre le mot de passe, pour enregistrer l'onglet en cours.
+			où "pass" est votre mot de passe, "url" est l'URL de l'onglet, "title" est
+			le titre de l'onglet et "icon" est l'URL de l'icône de l'onglet. Ne mettez
+			aucun paramètre, outre le mot de passe, pour enregistrer l'onglet en cours.
 		</p>
 		<p>
-			Note: Un bug d'Opera emp&ecirc;che pr&eacute;sentement Tab Vault de d&eacute;tercter
-			l'onglet d'un onglet s'il a &eacute;t&eacute; enregistr&eacute; &agrave; l'aide d'un bouton ou
+			Note: Un bug d'Opera empêche présentement Tab Vault de détercter
+			l'onglet d'un onglet s'il a été enregistré à l'aide d'un bouton ou
 			raccourci.
 		</p>
 		
-		<h3>Encore embrouill&eacute;?</h3>
+		<h3>Encore embrouillé?</h3>
 		<p><a href="http://my.opera.com/spadija/blog/tab-vault">Cliquez ici pour aller
-		&agrave; la page de support de Tab Vault, o&ugrave; vous pouvez me poser des questions.</a></p>
+		à la page de support de Tab Vault, où vous pouvez me poser vos questions.</a></p>
 		
 	
 		<!-- Stop Translating Here -->

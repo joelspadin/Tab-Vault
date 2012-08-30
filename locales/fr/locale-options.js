@@ -21,7 +21,7 @@ il8n.strings = {
 	CompactTabs: '<Unused>',
 	Tooltips: 'Afficher les message d\'aide dans le menu contextuel',
 	VerboseTabTips: 'Afficher le titre et l\'adresse dans l\'infobulle',
-	/* Translation Needed */ OpenNextToActive: 'Open new tabs next to the active tab',
+	OpenNextToActive: 'Ouvrir les nouveaux onglets à côté de l\'onglet actif'
 	TrashOnOpen: 'Mettre les onglets à la corbeille une fois ouverts',
 	AllowListDuplicates: 'Autoriser les doublons dans la liste d\'onglets principale',
 	AllowGroupDuplicates: 'Autoriser les doublons à l\'intérieur d\'un groupe',

@@ -597,20 +597,23 @@ var tabutils = new function TabUtils() {
 		if (!sessionInit(recall(this, arguments)))
 			return;
 		
-		var uri;
+		var uri, filename;
 		switch (format) {
 			case 'adr':
 				uri = tabutils.toAdr(list);
+				filename = 'tabvault.adr';
 				break;
 			case 'html':
 				uri = tabutils.toHTML(list);
+				filename = 'tabvault.html';
 				break;
+			case 'win':
 			default:
 				uri = tabutils.toSession(list);
-			
+				filename = 'tabvault.win';
 		}
 		
-		tabs.open(uri, focused || false);
+		download(uri, filename);
 	}
 	
 	

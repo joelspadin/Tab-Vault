@@ -45,7 +45,7 @@ il8n.strings = {
 	CxCopyUrl: 'Copier l\'URL de l\'Onglet',
 	
 	CxSaveCurrent: 'Enregistrer l\'Onglet Courant',
-	/* Translation Needed */ CxSaveGroup: 'Save Tab Group',
+	CxSaveGroup: 'Enregistrer le Groupe d\'Onglets',
 	CxSaveAsGroup: 'Enregistrer l\'Onglet dans un Nouveau Groupe',
 	CxSaveAll: 'Enregistrer Tous les Onglets',
 	CxSaveWindow: 'Enregistrer les Onglets dans Cette Fenêtre',
